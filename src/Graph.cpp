@@ -157,6 +157,14 @@ void Vertex::removeOutgoingEdges() {
     }
 }
 
+void Vertex::setLabel(string label) {
+    this->label = label;
+}
+
+string Vertex::getLabel() {
+    return label;
+}
+
 bool Graph::removeVertex(const std::string& in) {
     for (auto it = vertexSet.begin(); it != vertexSet.end(); it++){
         if ((*it)->info == in) {
@@ -195,3 +203,25 @@ int Graph::getNumVertex() const {
     return vertexSet.size();
 }
 
+int Graph::getNumEdges() const {
+    int numEdges = 0;
+    for (const auto& vertex : vertexSet) {
+        numEdges += vertex->getAdj().size();
+    }
+    // Since each edge is counted twice (once for each vertex), divide by 2
+    return numEdges / 2;
+}
+
+Edge* Graph::findEdge(const std::string& source, const std::string& dest) const {
+    Vertex* srcVertex = findVertex(source);
+    Vertex* destVertex = findVertex(dest);
+    if (srcVertex == nullptr || destVertex == nullptr)
+        return nullptr;
+
+    for (Edge* edge : srcVertex->getAdj()) {
+        if (edge->getDest() == destVertex)
+            return edge;
+    }
+
+    return nullptr;
+}

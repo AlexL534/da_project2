@@ -1,3 +1,6 @@
+#ifndef GRAPH_H
+#define GRAPH_H
+
 #include <cstddef>
 #include <iostream>
 #include <fstream>
@@ -30,6 +33,7 @@ class Vertex {
     double dist = 0;
     vector<Edge *> incoming;
     void deleteEdge(Edge* edge);
+    string label;
 
 public:
     Vertex(const string& in);
@@ -47,6 +51,8 @@ public:
     void setIndegree(unsigned int indegree);
     void setDist(double dist);
     void setPath(Edge* path);
+    void setLabel(string label);
+    string getLabel();
     Edge* addEdge(Vertex *dest, double weight);
     bool removeEdge(string info);
     void removeOutgoingEdges();
@@ -83,4 +89,8 @@ public:
     int getNumVertex() const;
     vector<Vertex*> getVertexSet() const;
     void dfsVisit(Vertex *v, vector<string>& res) const;
+    int getNumEdges() const;
+    Edge* findEdge(const std::string& source, const std::string& dest) const;
 };
+
+#endif // GRAPH_H
