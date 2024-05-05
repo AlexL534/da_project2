@@ -1,0 +1,4 @@
+Datasets/Real-world[[:space:]]Graphs/Real-world[[:space:]]Graphs/graph2 filter=lfs diff=lfs merge=lfs -text
+Datasets/Real-world[[:space:]]Graphs/Real-world[[:space:]]Graphs/graph3 filter=lfs diff=lfs merge=lfs -text
+Datasets/Real-world[[:space:]]Graphs/Real-world[[:space:]]Graphs/graph2/*.csv filter=lfs diff=lfs merge=lfs -text
+Datasets/Real-world[[:space:]]Graphs/Real-world[[:space:]]Graphs/graph3/*.csv filter=lfs diff=lfs merge=lfs -text
