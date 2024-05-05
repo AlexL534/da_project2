@@ -1,0 +1,3 @@
+C:/Users/alexa/OneDrive/Ambiente de Trabalho/2A-2S/Desenho de Algoritmos/Projeto_2/cmake-build-debug/CMakeFiles/Projeto_2.dir
+C:/Users/alexa/OneDrive/Ambiente de Trabalho/2A-2S/Desenho de Algoritmos/Projeto_2/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/alexa/OneDrive/Ambiente de Trabalho/2A-2S/Desenho de Algoritmos/Projeto_2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
