@@ -106,14 +106,14 @@ Graph* parseRealWorldGraph(const std::string& edges_filepath, const std::string&
     getline(nodes_file, nodes_line); // Ignore first line (header)
     while(getline(nodes_file, nodes_line)) {
         std::istringstream nodes_iss(nodes_line);
-        std::string id_str, longitude_str, latitude_str;
-        getline(nodes_iss, id_str, ',');
+        std::string id, longitude_str, latitude_str;
+        getline(nodes_iss, id, ',');
         getline(nodes_iss, longitude_str, ',');
         getline(nodes_iss, latitude_str, ',');
         double longitude = std::stod(longitude_str);
         double latitude = std::stod(latitude_str);
-        graph->addVertex(id_str);
-        auto v = graph->findVertex(id_str);
+        graph->addVertex(id);
+        auto v = graph->findVertex(id);
         v->setLongitude(longitude);
         v->setLatitude(latitude);
     }
@@ -128,13 +128,13 @@ Graph* parseRealWorldGraph(const std::string& edges_filepath, const std::string&
     getline(edges_file, edges_line); // Ignore first line (header)
     while(getline(edges_file, edges_line)) {
         std::istringstream edges_iss(edges_line);
-        std::string source_id_str, dest_id_str, distance_str;
-        getline(edges_iss, source_id_str, ',');
-        getline(edges_iss, dest_id_str, ',');
+        std::string origin, destination, distance_str;
+        getline(edges_iss, origin, ',');
+        getline(edges_iss, destination, ',');
         getline(edges_iss, distance_str, ',');
         double distance = std::stod(distance_str);
-        graph->addEdge(source_id_str, dest_id_str, distance);
-        graph->addEdge(dest_id_str, source_id_str, distance);
+        graph->addEdge(origin, destination, distance);
+        graph->addEdge(destination, origin, distance);
     }
 
     return graph;
