@@ -3,7 +3,7 @@
 
 Vertex::Vertex(const std::string& in): info(in) {}
 
-Edge::Edge(Vertex *s, Vertex *d, int ca): src(s), dest(d), weight(ca) {}
+Edge::Edge(Vertex *s, Vertex *d, double w): src(s), dest(d), weight(w) {}
 
 std::string Vertex::getInfo() const {
     return info;
@@ -163,6 +163,22 @@ void Vertex::setLabel(string label) {
 
 string Vertex::getLabel() {
     return label;
+}
+
+void Vertex::setLongitude(double longitude) {
+    this->longitude = longitude;
+}
+
+double Vertex::getLongitude() {
+    return this->longitude;
+}
+
+double Vertex::getLatitude() {
+    return this->latitude;
+}
+
+void Vertex::setLatitude(double latitude) {
+    this->latitude = latitude;
 }
 
 bool Graph::removeVertex(const std::string& in) {

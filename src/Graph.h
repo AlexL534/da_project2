@@ -34,6 +34,8 @@ class Vertex {
     vector<Edge *> incoming;
     void deleteEdge(Edge* edge);
     string label;
+    double longitude;
+    double latitude;
 
 public:
     Vertex(const string& in);
@@ -56,6 +58,10 @@ public:
     Edge* addEdge(Vertex *dest, double weight);
     bool removeEdge(string info);
     void removeOutgoingEdges();
+    void setLongitude(double longitude);
+    double getLongitude();
+    void setLatitude(double latitude);
+    double getLatitude();
 
     friend class Graph;
 };
@@ -66,7 +72,7 @@ class Edge {
     double flow;
     double weight;
 public:
-    Edge(Vertex *src, Vertex *dest, int weight);
+    Edge(Vertex *src, Vertex *dest, double weight);
     Vertex *getDest() const;
     Vertex *getSource() const;
     double getFlow() const;
