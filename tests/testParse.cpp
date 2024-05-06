@@ -78,20 +78,6 @@ void testTourismGraphConstruction() {
     std::cout << "All tests passed successfully!\n";
 }
 
-void runAllToyParseTests() {
-    // Test for shipping.csv
-    std::cout << "\nRunning test for shipping.csv...\n";
-    testShippingGraphConstruction();
-
-    // Test for stadiums.csv
-    std::cout << "\nRunning test for stadiums.csv...\n";
-    testStadiumsGraphConstruction();
-
-    // Test for tourism.csv
-    std::cout << "\nRunning test for tourism.csv...\n";
-    testTourismGraphConstruction();
-}
-
 void testExtra25GraphConstruction() {
     std::string nodes_filepath = "../Datasets/Extra_Fully_Connected_Graphs/Extra_Fully_Connected_Graphs/nodes.csv";
     std::string edges_filepath = "../Datasets/Extra_Fully_Connected_Graphs/Extra_Fully_Connected_Graphs/edges_25.csv";
@@ -109,13 +95,41 @@ void testExtra25GraphConstruction() {
     assert(vertex0 != nullptr && vertex0->getLongitude() == -43.19448871895534 && vertex0->getLatitude() == -22.983571669284053 && "Failed: Incorrect coordinates for vertex 0");
 
     auto vertex6474 = graph->findVertex("6474");
-    assert(vertex6474 != nullptr && vertex6474->getLongitude() == -43.41330766502478 && vertex6474->getLatitude() == -22.86965572303136 && "Failed: Incorrect coordinates for vertex 0");
+    assert(vertex6474 != nullptr && vertex6474->getLongitude() == -43.41330766502478 && vertex6474->getLatitude() == -22.86965572303136 && "Failed: Incorrect coordinates for vertex 6474");
 
     auto edge13 = graph->findEdge("1", "3");
     assert(edge13 != nullptr && edge13->getWeight() == 39557.0 && "Failed: Incorrect weight for edge between vertices 1 and 3");
 
     auto edge35 = graph->findEdge("3", "5");
     assert(edge35 != nullptr && edge35->getWeight() == 48857.7 && "Failed: Incorrect weight for edge between vertices 3 and 5");
+
+    std::cout << "All tests passed successfully!\n";
+}
+
+void testRealWorldGraph1Construction() {
+    std::string nodes_filepath = "../Datasets/Real-world Graphs/Real-world Graphs/graph1/nodes.csv";
+    std::string edges_filepath = "../Datasets/Real-world Graphs/Real-world Graphs/graph1/edges.csv";
+
+    Graph* graph = parseRealWorldGraph(edges_filepath, nodes_filepath);
+
+    if (graph == nullptr) {
+        std::cerr << "Error: Failed to parse graph from files"<< std::endl;
+        return;
+    }
+
+    assert(graph->getNumEdges() == 499500 && "Failed: Incorrect number of edges");
+
+    auto vertex0 = graph->findVertex("0");
+    assert(vertex0 != nullptr && vertex0->getLongitude() == -47.84922953140144 && vertex0->getLatitude() == -15.674299650218574 && "Failed: Incorrect coordinates for vertex 0");
+
+    auto vertex832 = graph->findVertex("832");
+    assert(vertex832 != nullptr && vertex832->getLongitude() == -47.688462367481755 && vertex832->getLatitude() == -15.719599551311502 && "Failed: Incorrect coordinates for vertex 832");
+
+    auto edge321_760 = graph->findEdge("321", "760");
+    assert(edge321_760 != nullptr && edge321_760->getWeight() == 30739 && "Failed: Incorrect weight for edge between vertices 361 and 760");
+
+    auto edge998_999 = graph->findEdge("998", "999");
+    assert(edge998_999 != nullptr && edge998_999->getWeight() == 45133.9 && "Failed: Incorrect weight for edge between vertices 998 and 999");
 
     std::cout << "All tests passed successfully!\n";
 }

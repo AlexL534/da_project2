@@ -11,4 +11,5 @@ add_executable(Projeto_2
         src/parse.h
         src/parse.cpp
         src/main.cpp
+        src/menu.cpp
 )

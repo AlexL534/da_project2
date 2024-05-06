@@ -3,5 +3,5 @@
 #include "tests/testParse.cpp"
 
 int main() {
-    testExtra25GraphConstruction();
+    testRealWorldGraph1Construction();
 }
