@@ -1,7 +1,9 @@
 #include <iostream>
-#include "parse.h"
 #include "tests/testParse.cpp"
+#include "parse.h"
+#include "menu.h"
 
 int main() {
-    testRealWorldGraph1Construction();
+    menu();
+    return 0;
 }
