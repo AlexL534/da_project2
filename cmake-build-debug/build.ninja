@@ -70,6 +70,20 @@ build CMakeFiles/Projeto_2.dir/src/main.cpp.obj: CXX_COMPILER__Projeto_2_unscann
   OBJECT_DIR = CMakeFiles\Projeto_2.dir
   OBJECT_FILE_DIR = CMakeFiles\Projeto_2.dir\src
 
+build CMakeFiles/Projeto_2.dir/src/Actions.cpp.obj: CXX_COMPILER__Projeto_2_unscanned_Debug C$:/Users/alexa/OneDrive/Ambiente$ de$ Trabalho/2A-2S/Desenho$ de$ Algoritmos/Projeto_2/src/Actions.cpp || cmake_object_order_depends_target_Projeto_2
+  DEP_FILE = CMakeFiles\Projeto_2.dir\src\Actions.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I"C:/Users/alexa/OneDrive/Ambiente de Trabalho/2A-2S/Desenho de Algoritmos/Projeto_2/."
+  OBJECT_DIR = CMakeFiles\Projeto_2.dir
+  OBJECT_FILE_DIR = CMakeFiles\Projeto_2.dir\src
+
+build CMakeFiles/Projeto_2.dir/tests/testTSPBacktracking.cpp.obj: CXX_COMPILER__Projeto_2_unscanned_Debug C$:/Users/alexa/OneDrive/Ambiente$ de$ Trabalho/2A-2S/Desenho$ de$ Algoritmos/Projeto_2/tests/testTSPBacktracking.cpp || cmake_object_order_depends_target_Projeto_2
+  DEP_FILE = CMakeFiles\Projeto_2.dir\tests\testTSPBacktracking.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I"C:/Users/alexa/OneDrive/Ambiente de Trabalho/2A-2S/Desenho de Algoritmos/Projeto_2/."
+  OBJECT_DIR = CMakeFiles\Projeto_2.dir
+  OBJECT_FILE_DIR = CMakeFiles\Projeto_2.dir\tests
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Projeto_2
@@ -78,7 +92,7 @@ build CMakeFiles/Projeto_2.dir/src/main.cpp.obj: CXX_COMPILER__Projeto_2_unscann
 #############################################
 # Link the executable Projeto_2.exe
 
-build Projeto_2.exe: CXX_EXECUTABLE_LINKER__Projeto_2_Debug CMakeFiles/Projeto_2.dir/src/Graph.cpp.obj CMakeFiles/Projeto_2.dir/src/parse.cpp.obj CMakeFiles/Projeto_2.dir/src/main.cpp.obj
+build Projeto_2.exe: CXX_EXECUTABLE_LINKER__Projeto_2_Debug CMakeFiles/Projeto_2.dir/src/Graph.cpp.obj CMakeFiles/Projeto_2.dir/src/parse.cpp.obj CMakeFiles/Projeto_2.dir/src/main.cpp.obj CMakeFiles/Projeto_2.dir/src/Actions.cpp.obj CMakeFiles/Projeto_2.dir/tests/testTSPBacktracking.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Projeto_2.dir
