@@ -3,7 +3,7 @@
 
 #include "iostream"
 #include "parse.h"
-#include "actions.h"
+#include "Actions.h"
 
 void menu() {
     int graphType;
