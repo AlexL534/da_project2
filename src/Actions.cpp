@@ -1,43 +1,41 @@
 #include "Actions.h"
 
-/* ===========================================4.1===============================================*/
 double TSPBacktracking(Graph* graph) {
-    double min_path_cost = INT_MAX;
+    MemoizationTable memoization;
+    Vertex* start = *graph->getVertexSet().begin();
+    int bitmask = 1 << stoi(start->getInfo());
 
-    for (Vertex* vertex : graph->getVertexSet()) {
-        vertex->setVisited(false);
-    }
-
-    for (Vertex* start : graph->getVertexSet()) {
-        start->setVisited(true);
-        std::vector<Vertex*> path;
-        path.push_back(start);
-        TSPUtil(graph, start, path, 0, min_path_cost);
-        start->setVisited(false);
-    }
+    double min_path_cost = TSPHeldKarp(graph, start, bitmask, memoization);
     return min_path_cost;
 }
 
-void TSPUtil(Graph* graph, Vertex* curr, std::vector<Vertex*>& path, double curr_cost, double& min_path_cost) {
-    // Base case: If all nodes have been visited and there is an edge back to the starting node
-    if (path.size() == graph->getVertexSet().size() && graph->findEdge(curr->getInfo(), path[0]->getInfo())) {
-        double total_cost = curr_cost + graph->findEdge(curr->getInfo(), path[0]->getInfo())->getWeight();
-        min_path_cost = std::min(min_path_cost, total_cost);
-        return;
+double TSPHeldKarp(Graph* graph, Vertex* curr, int bitmask, MemoizationTable& memoization) {
+    // Base case: all vertices visited
+    if (bitmask == (1 << graph->getNumVertex()) - 1) {
+        Edge* returnEdge = graph->findEdge(curr->getInfo(), "0");
+        if (returnEdge) {
+            return returnEdge->getWeight();
+        }
+        return INT_MAX; // Return a large value if no edge back to starting vertex
     }
 
-    if (curr_cost >= min_path_cost) {
-        return;
+    // If the solution for this subproblem has already been computed, return it from the memoization table
+    auto key = std::make_pair(curr, bitmask);
+    if (memoization.find(key) != memoization.end()) {
+        return memoization[key];
     }
+
+    double min_path_cost = INT_MAX;
 
     for (Edge* edge : curr->getAdj()) {
         Vertex* next = edge->getDest();
-        if (!next->isVisited()) {
-            next->setVisited(true);
-            path.push_back(next);
-            TSPUtil(graph, next, path, curr_cost + edge->getWeight(), min_path_cost);
-            path.pop_back();  // Backtrack
-            next->setVisited(false);
+        int nextIndex = stoi(next->getInfo());
+        if (!(bitmask & (1 << nextIndex))) {
+            double subproblemCost = edge->getWeight() + TSPHeldKarp(graph, next, bitmask | (1 << nextIndex), memoization);
+            min_path_cost = std::min(min_path_cost, subproblemCost);
         }
     }
+
+    memoization[key] = min_path_cost;
+    return min_path_cost;
 }

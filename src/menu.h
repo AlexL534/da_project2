@@ -17,8 +17,8 @@ void menu() {
 
         switch(graphType) {
             case 1: {
-                std::vector<std::string> toyGraphs = {"shipping", "stadium", "tourism"};
-                std::cout << "Choose the graph:\n1. shipping\n2. stadium\n3. tourism\n";
+                std::vector<std::string> toyGraphs = {"shipping", "stadiums", "tourism"};
+                std::cout << "Choose the graph:\n1. shipping\n2. stadiums\n3. tourism\n";
                 std::cin >> graphChoice;
                 graph = parseToyGraph("../Datasets/Toy-Graphs/Toy-Graphs/" + toyGraphs[graphChoice - 1] + ".csv");
                 break;
