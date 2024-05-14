@@ -17,10 +17,28 @@ void menu() {
 
         switch(graphType) {
             case 1: {
-                std::vector<std::string> toyGraphs = {"shipping", "stadiums", "tourism"};
-                std::cout << "Choose the graph:\n1. shipping\n2. stadiums\n3. tourism\n";
-                std::cin >> graphChoice;
-                graph = parseToyGraph("../Datasets/Toy-Graphs/Toy-Graphs/" + toyGraphs[graphChoice - 1] + ".csv");
+                int connectionType;
+                std::cout << "Choose the connection type:\n1. Not Fully Connected\n2. Fully Connected\n";
+                std::cin >> connectionType;
+                switch(connectionType) {
+                    case 1: {
+                        std::vector<std::string> notFullyConnectedGraphs = {"shipping"};
+                        std::cout << "Choose the graph:\n1. shipping\n";
+                        std::cin >> graphChoice;
+                        graph = parseToyGraph("../Datasets/Toy-Graphs/Toy-Graphs/" + notFullyConnectedGraphs[graphChoice - 1] + ".csv");
+                        break;
+                    }
+                    case 2: {
+                        std::vector<std::string> fullyConnectedGraphs = {"stadiums", "tourism"};
+                        std::cout << "Choose the graph:\n1. stadiums\n2. tourism\n";
+                        std::cin >> graphChoice;
+                        graph = parseToyGraph("../Datasets/Toy-Graphs/Toy-Graphs/" + fullyConnectedGraphs[graphChoice - 1] + ".csv");
+                        break;
+                    }
+                    default:
+                        std::cout << "Invalid option. Please try again.\n";
+                        continue;
+                }
                 break;
             }
             case 2: {
