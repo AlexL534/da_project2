@@ -49,6 +49,8 @@ void menu() {
         }
     }
 
+    l:
+
     while (true) {
         std::cout << "Choose the approach:\n1. Backtracking Algorithm\n";
         std::cin >> approachChoice;
@@ -57,7 +59,12 @@ void menu() {
             {
                 double minCost = TSPBacktracking(graph);
                 std::cout << "Minimum cost: " << minCost << std::endl;
-                return;
+                goto l;
+            }
+            case 2:
+            {
+                TSPTriangularApproximation(graph);
+                goto l;
             }
             default:
                 std::cout << "Invalid option. Please try again.\n";
