@@ -82,8 +82,6 @@ Graph primMST(Graph* graph, const string& startVertexLabel) {
 
     Graph MST;
 
-    double minPath = 0;
-
     while (!pq.empty()) {
         Edge* minEdge = pq.top();
         pq.pop();
@@ -91,7 +89,7 @@ Graph primMST(Graph* graph, const string& startVertexLabel) {
         Vertex* src = minEdge->getSource();
         Vertex* dest = minEdge->getDest();
 
-        if (visited[src->getInfo()] && visited[dest->getInfo()]) {
+        if (visited[dest->getInfo()]) {
             continue;
         }
 
@@ -108,12 +106,10 @@ Graph primMST(Graph* graph, const string& startVertexLabel) {
         }
     }
 
-    cout << "Minimum Spanning Tree: " << minPath << endl;
-
     return MST;
 }
 
-void preOrderWalk(Vertex* vertex, std::unordered_set<Vertex*>& visited, std::vector<Vertex*>& preOrderList, vector<Edge*>& edges) {
+void preOrderWalk(Vertex* vertex, std::unordered_set<Vertex*>& visited, std::vector<Vertex*>& preOrderList) {
     if (vertex == nullptr) return;
 
     preOrderList.push_back(vertex);
@@ -122,16 +118,14 @@ void preOrderWalk(Vertex* vertex, std::unordered_set<Vertex*>& visited, std::vec
     for (Edge* edge : vertex->getAdj()) {
         Vertex* nextVertex = edge->getDest();
         if (visited.find(nextVertex) == visited.end()) {
-            edges.push_back(edge);
-            preOrderWalk(nextVertex, visited, preOrderList, edges);
+            preOrderWalk(nextVertex, visited, preOrderList);
         }
     }
 }
 void connectAllEdges(Graph *graph){
     for(auto vertex : graph->getVertexSet()){
         for(auto vertex2 : graph->getVertexSet()){
-            Edge* e = graph->findEdge(vertex->getInfo(), vertex2->getInfo());
-            if(!e){
+            if (vertex != vertex2 && !graph->findEdge(vertex->getInfo(), vertex2->getInfo())) {
                 double dist = haversineDistance(vertex->getLatitude(), vertex->getLongitude(), vertex2->getLatitude(), vertex2->getLongitude());
                 graph->addEdge(vertex->getInfo(), vertex2->getInfo(), dist);
             }
@@ -148,8 +142,7 @@ map<vector<Vertex*>, double> TSPTriangularApproximation(Graph* graph) {
     Graph MST = primMST(graph, graph->getVertexSet()[0]->getInfo());
     std::unordered_set<Vertex*> visited;
     std::vector<Vertex*> preOrderList;
-    vector<Edge*> edges;
-    preOrderWalk(MST.getVertexSet()[0], visited, preOrderList, edges);
+    preOrderWalk(MST.getVertexSet()[0], visited, preOrderList);
 
     std::unordered_set<Vertex*> visitedInTour;
     for (Vertex* vertex : preOrderList) {
@@ -159,27 +152,26 @@ map<vector<Vertex*>, double> TSPTriangularApproximation(Graph* graph) {
         }
     }
 
-    Edge* edg = graph->findEdge(graph->getVertexSet().back()->getInfo(), preOrderList[0]->getInfo());
-    minPath += edg->getWeight();
-    tour.push_back(preOrderList[0]);
+    minPath += haversineDistance(tour.back()->getLatitude(), tour.back()->getLongitude(),
+                                 tour.front()->getLatitude(), tour.front()->getLongitude());
+    tour.push_back(tour.front());
 
-
-
-    for(auto e: edges){
-        minPath += e->getWeight();
+    for (size_t i = 0; i < tour.size() - 1; ++i) {
+        Edge* edge = graph->findEdge(tour[i]->getInfo(), tour[i + 1]->getInfo());
+        if (edge) {
+            minPath += edge->getWeight();
+        }
     }
 
     res[tour] = minPath;
 
-
-    cout << minPath << endl;
-    for (auto t : tour){
+    /*
+    cout << "Minimum Path: " << minPath << endl;
+    for (auto t : tour) {
         cout << t->getInfo() << " ";
     }
-
     cout << endl;
-
-
+*/
     return res;
 }
 

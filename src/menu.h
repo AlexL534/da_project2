@@ -4,6 +4,7 @@
 #include "iostream"
 #include "parse.h"
 #include "Actions.h"
+#include <chrono>
 
 void menu() {
     int graphType;
@@ -63,7 +64,15 @@ void menu() {
             }
             case 2:
             {
+                auto start = std::chrono::high_resolution_clock::now();
                 TSPTriangularApproximation(graph);
+                auto end = std::chrono::high_resolution_clock::now();
+
+                // Calculate the duration in microseconds
+                auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+
+                // Output the duration
+                std::cout << "Time taken: " << duration.count() << " microseconds" << std::endl;
                 goto l;
             }
             default:
