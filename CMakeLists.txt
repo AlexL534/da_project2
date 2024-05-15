@@ -15,4 +15,6 @@ add_executable(Projeto_2
         src/Actions.cpp
         src/Actions.h
         tests/testTSPBacktracking.cpp
+        src/Utils.h
+        src/Utils.cpp
 )

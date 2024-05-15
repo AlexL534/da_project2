@@ -4,11 +4,14 @@
 #include "iostream"
 #include "parse.h"
 #include "Actions.h"
+#include <ctime>
+#include <chrono>
 
 void menu() {
     int graphType;
     int graphChoice;
     int approachChoice;
+    int connectionType;
     Graph* graph = nullptr;
 
     while (true) {
@@ -17,7 +20,6 @@ void menu() {
 
         switch(graphType) {
             case 1: {
-                int connectionType;
                 std::cout << "Choose the connection type:\n1. Not Fully Connected\n2. Fully Connected\n";
                 std::cin >> connectionType;
                 switch(connectionType) {
@@ -68,12 +70,26 @@ void menu() {
     }
 
     while (true) {
-        std::cout << "Choose the approach:\n1. Backtracking Algorithm\n";
+        std::cout << "Choose the approach:\n1. Backtracking Algorithm\n2. Triangular Approximation Algorithm\n";
         std::cin >> approachChoice;
         switch(approachChoice) {
             case 1:
             {
                 double minCost = TSPBacktracking(graph);
+                std::cout << "Minimum cost: " << minCost << std::endl;
+                return;
+            }
+            case 2:
+            {
+                if (graphType == 1 && connectionType == 1) {
+                    std::cout << "This algorithm does not work with this graph (not fully connected and no coordinates given)\n";
+                    continue;
+                }
+                auto start = std::chrono::high_resolution_clock::now();
+                double minCost = TSPTriangularApproximation(graph);
+                auto end = std::chrono::high_resolution_clock::now();
+                auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+                std::cout << "Duration: " << duration.count() << " microseconds" << std::endl;
                 std::cout << "Minimum cost: " << minCost << std::endl;
                 return;
             }
