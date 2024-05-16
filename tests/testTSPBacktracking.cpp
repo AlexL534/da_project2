@@ -2,6 +2,7 @@
 #include <vector>
 #include <climits>
 #include "src/Actions.h"
+#include "src/parse.h"
 
 namespace {
 
@@ -36,6 +37,39 @@ namespace {
                       << ", Actual minimum cost = " << min_path_cost << std::endl;
         } else {
             std::cout << "Test passed: Minimum cost matches the expected value." << std::endl;
+        }
+
+        // Test with shipping graph
+        graph = parseToyGraph("../Datasets/Toy-Graphs/Toy-Graphs/shipping.csv");
+        min_path_cost = TSPBacktracking(graph);
+        expected_min_cost = 86.7; // Expected minimum cost for shipping graph
+        if (std::abs(min_path_cost - expected_min_cost) > 1e-6) { // Allow for a tolerance of 1e-6
+            std::cout << "Test failed: Expected minimum cost for shipping graph = " << expected_min_cost
+                      << ", Actual minimum cost = " << min_path_cost << std::endl;
+        } else {
+            std::cout << "Test passed: Minimum cost for shipping graph matches the expected value." << std::endl;
+        }
+
+        // Test with stadiums graph
+        graph = parseToyGraph("../Datasets/Toy-Graphs/Toy-Graphs/stadiums.csv");
+        min_path_cost = TSPBacktracking(graph);
+        expected_min_cost = 341.0; // Expected minimum cost for stadiums graph
+        if (std::abs(min_path_cost - expected_min_cost) > 1e-6) { // Allow for a tolerance of 1e-6
+            std::cout << "Test failed: Expected minimum cost for stadiums graph = " << expected_min_cost
+                      << ", Actual minimum cost = " << min_path_cost << std::endl;
+        } else {
+            std::cout << "Test passed: Minimum cost for stadiums graph matches the expected value." << std::endl;
+        }
+
+        // Test with tourism graph
+        graph = parseToyGraph("../Datasets/Toy-Graphs/Toy-Graphs/tourism.csv");
+        min_path_cost = TSPBacktracking(graph);
+        expected_min_cost = 2600; // Expected minimum cost for tourism graph
+        if (std::abs(min_path_cost - expected_min_cost) > 1e-6) { // Allow for a tolerance of 1e-6
+            std::cout << "Test failed: Expected minimum cost for tourism graph = " << expected_min_cost
+                      << ", Actual minimum cost = " << min_path_cost << std::endl;
+        } else {
+            std::cout << "Test passed: Minimum cost for tourism graph matches the expected value." << std::endl;
         }
 
         delete graph;
