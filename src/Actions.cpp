@@ -1,5 +1,5 @@
 #include "Actions.h"
-#include "utils.h"
+#include "Utils.h"
 
 /* ===========================================4.1===============================================*/
 double TSPBacktracking(Graph* graph) {
@@ -41,12 +41,6 @@ double TSPHeldKarp(Graph* graph, Vertex* curr, int bitmask, MemoizationTable& me
     return min_path_cost;
 }
 /* ===========================================4.2===============================================*/
-struct CompareWeight {
-    bool operator()(const Edge* a, const Edge* b) const {
-        return a->getWeight() > b->getWeight();
-    }
-};
-
 Graph primMST(Graph* graph, const string& startVertexLabel) {
 
     priority_queue<Edge*, vector<Edge*>, CompareWeight> pq;
@@ -108,19 +102,23 @@ void preOrderWalk(Vertex* vertex, std::unordered_set<Vertex*>& visited, std::vec
     }
 }
 
-void connectAllEdges(Graph *graph){
-    for (auto& pair1 : graph->getVertexMap()) {
-        auto vertex = pair1.second;
-        for (auto &pair2: graph->getVertexMap()) {
-            auto vertex2 = pair2.second;
-            if (vertex != vertex2 && !graph->findEdge(vertex->getInfo(), vertex2->getInfo())) {
-                double dist = haversineDistance(vertex->getLatitude(), vertex->getLongitude(), vertex2->getLatitude(),
-                                                vertex2->getLongitude());
-                graph->addEdge(vertex->getInfo(), vertex2->getInfo(), dist);
+void connectAllEdges(Graph* graph) {
+    auto vertexMap = graph->getVertexMap();
+
+    for (auto it1 = vertexMap.begin(); it1 != vertexMap.end(); ++it1) {
+        auto vertex1 = it1->second;
+        for (auto it2 = std::next(it1); it2 != vertexMap.end(); ++it2) {
+            auto vertex2 = it2->second;
+
+            if (!graph->findEdge(vertex1->getInfo(), vertex2->getInfo())) {
+                double dist = haversineDistance(vertex1->getLatitude(), vertex1->getLongitude(),
+                                                vertex2->getLatitude(), vertex2->getLongitude());
+                graph->addEdge(vertex1->getInfo(), vertex2->getInfo(), dist);
             }
         }
     }
 }
+
 
 double TSPTriangularApproximation(Graph* graph) {
     double minPath = 0;

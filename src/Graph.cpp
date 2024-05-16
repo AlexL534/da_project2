@@ -91,7 +91,6 @@ Edge* Vertex::addEdge(Vertex* dest, double weight) {
 
 void Vertex::deleteEdge(Edge *edge) {
     Vertex *dest = edge->getDest();
-    // Remove the corresponding edge from the incoming list
     auto it = dest->incoming.begin();
     while (it != dest->incoming.end()) {
         if ((*it)->getSource()->getInfo() == info) {
@@ -141,7 +140,7 @@ bool Vertex::removeEdge(string info) {
         if (dest->getInfo() == info) {
             it = adj.erase(it);
             deleteEdge(edge);
-            removedEdge = true; // allows for multiple edges to connect the same pair of vertices (multigraph)
+            removedEdge = true;
         }
         else {
             it++;
@@ -195,7 +194,6 @@ bool Graph::removeVertex(const std::string& in) {
     return true;
 }
 
-
 void Graph::dfsVisit(Vertex* v, std::vector<std::string>& res) const {
     v->visited = true;
     res.push_back(v->info);
@@ -231,7 +229,6 @@ int Graph::getNumEdges() const {
     return numEdges;
 }
 
-
 Edge* Graph::findEdge(const std::string& source, const std::string& dest) const {
     Vertex* srcVertex = findVertex(source);
     Vertex* destVertex = findVertex(dest);
@@ -242,6 +239,5 @@ Edge* Graph::findEdge(const std::string& source, const std::string& dest) const 
         if (edge->getDest() == destVertex)
             return edge;
     }
-
     return nullptr;
 }
