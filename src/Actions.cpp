@@ -102,23 +102,21 @@ void preOrderWalk(Vertex* vertex, std::unordered_set<Vertex*>& visited, std::vec
     }
 }
 
-void connectAllEdges(Graph* graph) {
+void connectAllEdges(Graph *graph) {
     auto vertexMap = graph->getVertexMap();
 
-    for (auto it1 = vertexMap.begin(); it1 != vertexMap.end(); ++it1) {
-        auto vertex1 = it1->second;
-        for (auto it2 = std::next(it1); it2 != vertexMap.end(); ++it2) {
-            auto vertex2 = it2->second;
-
-            if (!graph->findEdge(vertex1->getInfo(), vertex2->getInfo())) {
-                double dist = haversineDistance(vertex1->getLatitude(), vertex1->getLongitude(),
-                                                vertex2->getLatitude(), vertex2->getLongitude());
-                graph->addEdge(vertex1->getInfo(), vertex2->getInfo(), dist);
+    for (const auto& pair : vertexMap) {
+        auto vertex = pair.second;
+        const std::vector<Edge*>& adjEdges = vertex->getAdj();
+        for (Edge* edge : adjEdges) {
+            Vertex* adjacentVertex = edge->getDest();
+            if (!graph->findEdge(vertex->getInfo(), adjacentVertex->getInfo())) {
+                double dist = haversineDistance(vertex->getLatitude(), vertex->getLongitude(),adjacentVertex->getLatitude(), adjacentVertex->getLongitude());
+                graph->addEdge(vertex->getInfo(), adjacentVertex->getInfo(), dist);
             }
         }
     }
 }
-
 
 double TSPTriangularApproximation(Graph* graph) {
     double minPath = 0;
