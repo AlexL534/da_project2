@@ -29,6 +29,10 @@ void preOrderWalk(Vertex* vertex, std::unordered_set<Vertex*>& visited, std::vec
 void connectAllEdges(Graph *graph);
 double TSPTriangularApproximation(Graph* graph);
 /* ===========================================4.3===============================================*/
-
+std::vector<Vertex*> initializeTour(Graph* graph);
+double calculateTourLength(Graph* graph, const std::vector<Vertex*>& tour);
+std::vector<Vertex*> optSwap(const std::vector<Vertex*>& tour, size_t i, size_t j);
+double TSP2Opt(Graph* graph);
+double calculateDeltaTourLength(Graph* graph, const std::vector<Vertex*>& tour, size_t i, size_t j);
 
 #endif //PROJETO_2_ACTIONS_H

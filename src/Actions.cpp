@@ -149,3 +149,112 @@ double TSPTriangularApproximation(Graph* graph) {
 
     return minPath;
 }
+/* ===========================================4.3===============================================*/
+std::vector<Vertex*> initializeTour(Graph* graph) {
+    std::vector<Vertex*> tour;
+
+    // Start from vertex "0"
+    Vertex* currentVertex = graph->findVertex("0");
+    currentVertex->setVisited(true);
+    tour.push_back(currentVertex);
+
+    // Greedily select the next vertex based on the closest unvisited neighbor
+    while (tour.size() < graph->getNumVertex()) {
+        Edge* minEdge = nullptr;
+        double minDistance = std::numeric_limits<double>::max();
+
+        for (Edge* edge : currentVertex->getAdj()) {
+            Vertex* neighbor = edge->getDest();
+            if (!neighbor->isVisited()) {
+                if (edge->getWeight() < minDistance) {
+                    minEdge = edge;
+                    minDistance = edge->getWeight();
+                }
+            }
+        }
+
+        if (minEdge) {
+            Vertex* nextVertex = minEdge->getDest();
+            nextVertex->setVisited(true);
+            tour.push_back(nextVertex);
+            currentVertex = nextVertex;
+        } else {
+            // If there are no unvisited neighbors, break out of the loop
+            break;
+        }
+    }
+
+    // Add the starting vertex to the end to complete the tour
+    tour.push_back(tour.front());
+
+    return tour;
+}
+
+double calculateTourLength(Graph* graph, const std::vector<Vertex*>& tour) {
+    double length = 0.0;
+    for (size_t i = 0; i < tour.size() - 1; ++i) {
+        Edge* edge = graph->findEdge(tour[i]->getInfo(), tour[i + 1]->getInfo());
+        if (edge) {
+            length += edge->getWeight();
+        }
+    }
+    // Add distance from the last vertex back to the starting vertex
+    Edge* returnEdge = graph->findEdge(tour.back()->getInfo(), tour.front()->getInfo());
+    if (returnEdge) {
+        length += returnEdge->getWeight();
+    }
+    return length;
+}
+
+std::vector<Vertex*> optSwap(const std::vector<Vertex*>& tour, size_t i, size_t j) {
+    std::vector<Vertex*> newTour = tour;
+    while (i < j) {
+        std::swap(newTour[i], newTour[j]);
+        ++i;
+        --j;
+    }
+    return newTour;
+}
+
+double TSP2Opt(Graph* graph) {
+    // Initialize the initial tour, e.g., using a greedy algorithm
+    std::vector<Vertex*> tour = initializeTour(graph);
+
+    // Calculate the initial tour length
+    double initialTourLength = calculateTourLength(graph, tour);
+
+    // Perform 2-opt optimization until no improvement is possible
+    bool improvement = true;
+    while (improvement) {
+        improvement = false;
+        double bestDiffTourLength = 0.0;
+        size_t bestI, bestJ;
+
+        for (size_t i = 0; i < tour.size() - 1; ++i) {
+            for (size_t j = i + 1; j < tour.size(); ++j) {
+                // Apply 2-opt swap
+                std::vector<Vertex*> newTour = optSwap(tour, i, j);
+
+                // Calculate the difference in tour length
+                double diffTourLength = calculateTourLength(graph, newTour) - initialTourLength;
+
+                // If the new tour is shorter, update the tour
+                if (diffTourLength < bestDiffTourLength) {
+                    bestDiffTourLength = diffTourLength;
+                    bestI = i;
+                    bestJ = j;
+                    improvement = true;
+                }
+            }
+        }
+
+        // If an improvement is found, apply the best 2-opt swap
+        if (improvement) {
+            tour = optSwap(tour, bestI, bestJ);
+            initialTourLength += bestDiffTourLength;
+        }
+    }
+
+    // Return the final tour length
+    return initialTourLength;
+}
