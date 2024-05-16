@@ -42,14 +42,15 @@ void Edge::setFlow(double flow) {
 }
 
 Vertex* Graph::findVertex(const std::string& in) const {
-    for (auto v : vertexSet)
-        if (v->info == in)
-            return v;
+    auto it = vertexMap.find(in);
+    if (it != vertexMap.end()) {
+        return it->second;
+    }
     return nullptr;
 }
 
-vector<Vertex *> Graph::getVertexSet() const {
-    return vertexSet;
+std::unordered_map<std::string, Vertex*> Graph::getVertexMap() {
+    return vertexMap;
 }
 
 bool Vertex::isVisited() const {
@@ -67,7 +68,8 @@ std::vector<Edge*> Vertex::getAdj() const {
 bool Graph::addVertex(const std::string& in) {
     if (findVertex(in) != nullptr)
         return false;
-    vertexSet.push_back(new Vertex(in));
+    auto* v = new Vertex(in);
+    vertexMap[in] = v;
     return true;
 }
 
@@ -182,20 +184,17 @@ void Vertex::setLatitude(double latitude) {
 }
 
 bool Graph::removeVertex(const std::string& in) {
-    for (auto it = vertexSet.begin(); it != vertexSet.end(); it++){
-        if ((*it)->info == in) {
-            Vertex * v = *it;
-            v->removeOutgoingEdges();
-            for (auto u: vertexSet) {
-                u->removeEdge(v->getInfo());
-            }
-            vertexSet.erase(it);
-            delete v;
-            return true;
-        }
-    }
-    return false;
+    auto it = vertexMap.find(in);
+    if (it == vertexMap.end())
+        return false;
+
+    Vertex* v = it->second;
+    v->removeOutgoingEdges();
+    vertexMap.erase(it);
+    delete v;
+    return true;
 }
+
 
 void Graph::dfsVisit(Vertex* v, std::vector<std::string>& res) const {
     v->visited = true;
@@ -216,17 +215,22 @@ bool Graph::removeEdge(const string &source, const string &dest) {
 }
 
 int Graph::getNumVertex() const {
-    return vertexSet.size();
+    return vertexMap.size();
 }
 
 int Graph::getNumEdges() const {
     int numEdges = 0;
-    for (const auto& vertex : vertexSet) {
-        numEdges += vertex->getAdj().size();
+    for (const auto& pair : vertexMap) {
+        Vertex* vertex = pair.second;
+        for (const auto& neighbor : vertex->getAdj()) {
+            if (vertex->getInfo() < neighbor->getDest()->getInfo()) {
+                ++numEdges;
+            }
+        }
     }
-    // Since each edge is counted twice (once for each vertex), divide by 2
-    return numEdges / 2;
+    return numEdges;
 }
+
 
 Edge* Graph::findEdge(const std::string& source, const std::string& dest) const {
     Vertex* srcVertex = findVertex(source);

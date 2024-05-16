@@ -3,7 +3,6 @@
 #include <cmath>
 #include <vector>
 
-double convertToRadians(double coord);
-double haversineDistance(std::vector<double> coord1, std::vector<double> coord2);
+double haversineDistance(double la1, double lo1, double la2, double lo2);
 
 #endif //PROJETO_2_UTILS_H

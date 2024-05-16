@@ -16,7 +16,7 @@
 #include <map>
 #include <set>
 #include <algorithm>
-
+//diferença para o das aulas: vertexSet é armazenado num unordered map e chama-se vertexMap
 using namespace std;
 
 class Edge;
@@ -83,7 +83,7 @@ public:
 };
 
 class Graph {
-    vector<Vertex*> vertexSet;
+    std::unordered_map<std::string, Vertex *> vertexMap;
 public:
     Graph() = default;
 
@@ -93,7 +93,7 @@ public:
     bool addEdge(const string &source, const string &dest, double weight);
     bool removeEdge(const string &source, const string &dest);
     int getNumVertex() const;
-    vector<Vertex*> getVertexSet() const;
+    std::unordered_map<std::string, Vertex*> getVertexMap();
     void dfsVisit(Vertex *v, vector<string>& res) const;
     int getNumEdges() const;
     Edge* findEdge(const std::string& source, const std::string& dest) const;

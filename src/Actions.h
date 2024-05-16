@@ -3,6 +3,10 @@
 
 #include <vector>
 #include <climits>
+#include <algorithm>
+#include <limits>
+#include <xmath.h>
+#include <cmath>
 #include "graph.h"
 #include <unordered_map>
 #include <queue>
@@ -20,9 +24,11 @@ using MemoizationTable = std::unordered_map<std::pair<Vertex*, int>, double, Pai
 double TSPBacktracking(Graph* graph);
 double TSPHeldKarp(Graph* graph, Vertex* curr, int bitmask, MemoizationTable& memoization);
 /* ===========================================4.2===============================================*/
-double TSPApproximation(Graph* graph);
-double findTriangularDistance(Vertex* v1, Vertex* v2, Graph* graph);
+Graph primMST(Graph* graph, const string& startVertexLabel);
+void preOrderWalk(Vertex* vertex, std::unordered_set<Vertex*>& visited, std::vector<Vertex*>& preOrderList);
+void connectAllEdges(Graph *graph);
 double TSPTriangularApproximation(Graph* graph);
 /* ===========================================4.3===============================================*/
+
 
 #endif //PROJETO_2_ACTIONS_H

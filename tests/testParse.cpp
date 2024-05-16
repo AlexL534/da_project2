@@ -133,3 +133,24 @@ void testRealWorldGraph1Construction() {
 
     std::cout << "All tests passed successfully!\n";
 }
+
+void runAllParseTests() {
+    std::cout << "Running all parse tests...\n\n";
+
+    std::cout << "Testing shipping graph construction...\n";
+    testShippingGraphConstruction();
+
+    std::cout << "\nTesting stadiums graph construction...\n";
+    testStadiumsGraphConstruction();
+
+    std::cout << "\nTesting tourism graph construction...\n";
+    testTourismGraphConstruction();
+
+    std::cout << "\nTesting extra 25 graph construction...\n";
+    testExtra25GraphConstruction();
+
+    std::cout << "\nTesting real-world graph 1 construction...\n";
+    testRealWorldGraph1Construction();
+
+    std::cout << "\nAll parse tests completed!\n";
+}
