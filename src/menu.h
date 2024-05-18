@@ -134,18 +134,12 @@ void menu() {
                 }
                 case 3:
                 {
-                    if (graphType == 1 && connectionType == 1) {
-                        std::cout << "This algorithm does not work with this graph (not fully connected and no coordinates given)\n\n";
-                        continue;
-                    }
-
+                    std::cout << "This algorithm had not been implemented when I commited this)\n\n";
                     auto start = std::chrono::high_resolution_clock::now();
-                    double minCost = TSP2Opt(graph);
                     auto end = std::chrono::high_resolution_clock::now();
                     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
 
                     std::cout << "Duration: " << std::scientific << std::setprecision(2) << static_cast<double>(duration.count()) * 1e-6 << " seconds" << std::endl;
-                    std::cout << "Minimum cost: " << std::fixed << std::setprecision(1) << minCost << std::endl;
                     return;
                 }
                 default:
