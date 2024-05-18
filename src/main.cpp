@@ -67,4 +67,14 @@ Triangular Real 3:
     Duration: 3.74e+02 seconds
     Minimum cost: 2903860.8
 
+Lin-Kernighan tourism:
+    Duration: 8.20e-05 seconds
+    Minimum cost: 2600.0
+
+Lin-Kernighan stadiums:
+    Duration: 1.41e-03 seconds
+    Minimum cost: 348.6
 */
+
+
+

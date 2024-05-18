@@ -149,7 +149,7 @@ double TSPTriangularApproximation(Graph* graph) {
 
     return minPath;
 }
-/* ===========================================4.3===============================================*/
+/* ===========================================2-opt===============================================*/
 std::vector<Vertex*> initializeTour(Graph* graph) {
     std::vector<Vertex*> tour;
 
@@ -190,20 +190,20 @@ std::vector<Vertex*> initializeTour(Graph* graph) {
     return tour;
 }
 
-double calculateTourLength(Graph* graph, const std::vector<Vertex*>& tour) {
-    double length = 0.0;
+double calculateTourCost(Graph* graph, const std::vector<Vertex*>& tour) {
+    double cost = 0.0;
     for (size_t i = 0; i < tour.size() - 1; ++i) {
         Edge* edge = graph->findEdge(tour[i]->getInfo(), tour[i + 1]->getInfo());
         if (edge) {
-            length += edge->getWeight();
+            cost += edge->getWeight();
         }
     }
     // Add distance from the last vertex back to the starting vertex
     Edge* returnEdge = graph->findEdge(tour.back()->getInfo(), tour.front()->getInfo());
     if (returnEdge) {
-        length += returnEdge->getWeight();
+        cost += returnEdge->getWeight();
     }
-    return length;
+    return cost;
 }
 
 std::vector<Vertex*> optSwap(const std::vector<Vertex*>& tour, size_t i, size_t j) {
@@ -220,14 +220,14 @@ double TSP2Opt(Graph* graph) {
     // Initialize the initial tour, e.g., using a greedy algorithm
     std::vector<Vertex*> tour = initializeTour(graph);
 
-    // Calculate the initial tour length
-    double initialTourLength = calculateTourLength(graph, tour);
+    // Calculate the initial tour cost
+    double initialTourCost = calculateTourCost(graph, tour);
 
     // Perform 2-opt optimization until no improvement is possible
     bool improvement = true;
     while (improvement) {
         improvement = false;
-        double bestDiffTourLength = 0.0;
+        double bestDiffTourCost = 0.0;
         size_t bestI, bestJ;
 
         for (size_t i = 0; i < tour.size() - 1; ++i) {
@@ -235,12 +235,12 @@ double TSP2Opt(Graph* graph) {
                 // Apply 2-opt swap
                 std::vector<Vertex*> newTour = optSwap(tour, i, j);
 
-                // Calculate the difference in tour length
-                double diffTourLength = calculateTourLength(graph, newTour) - initialTourLength;
+                // Calculate the difference in tour cost
+                double diffTourCost = calculateTourCost(graph, newTour) - initialTourCost;
 
                 // If the new tour is shorter, update the tour
-                if (diffTourLength < bestDiffTourLength) {
-                    bestDiffTourLength = diffTourLength;
+                if (diffTourCost < bestDiffTourCost) {
+                    bestDiffTourCost = diffTourCost;
                     bestI = i;
                     bestJ = j;
                     improvement = true;
@@ -251,10 +251,82 @@ double TSP2Opt(Graph* graph) {
         // If an improvement is found, apply the best 2-opt swap
         if (improvement) {
             tour = optSwap(tour, bestI, bestJ);
-            initialTourLength += bestDiffTourLength;
+            initialTourCost += bestDiffTourCost;
         }
     }
 
-    // Return the final tour length
-    return initialTourLength;
+    // Return the final tour cost
+    return initialTourCost;
+}
+
+/* ===========================================Lin-Kernighan===============================================*/
+std::vector<Vertex*> twoOptSwap(const std::vector<Vertex*>& tour, int i, int k) {
+    std::vector<Vertex*> newTour = tour;
+    std::reverse(newTour.begin() + i, newTour.begin() + k + 1);
+    return newTour;
+}
+
+std::vector<Vertex*> linKernighan(Graph* graph, std::vector<Vertex*> initialTour) {
+    bool improvement = true;
+    std::vector<Vertex*> bestTour = initialTour;
+    double bestCost = calculateTourCost(graph, bestTour);
+
+    while (improvement) {
+        improvement = false;
+        for (size_t i = 1; i < bestTour.size() - 1; ++i) {
+            for (size_t k = i + 1; k < bestTour.size(); ++k) {
+                std::vector<Vertex*> newTour = twoOptSwap(bestTour, i, k);
+                double newCost = calculateTourCost(graph, newTour);
+                if (newCost < bestCost) {
+                    bestTour = newTour;
+                    bestCost = newCost;
+                    improvement = true;
+                }
+            }
+        }
+    }
+
+    return bestTour;
+}
+
+std::vector<Vertex*> initializeGreedyTour(Graph* graph) {
+    std::vector<Vertex*> tour;
+    std::unordered_set<Vertex*> visited;
+
+    Vertex* startVertex = graph->findVertex("0");
+    tour.push_back(startVertex);
+    visited.insert(startVertex);
+
+    Vertex* currentVertex = startVertex;
+    while (tour.size() < graph->getNumVertex()) {
+        Edge* minEdge = nullptr;
+        double minDistance = std::numeric_limits<double>::max();
+
+        for (Edge* edge : currentVertex->getAdj()) {
+            Vertex* neighbor = edge->getDest();
+            if (visited.find(neighbor) == visited.end() && edge->getWeight() < minDistance) {
+                minEdge = edge;
+                minDistance = edge->getWeight();
+            }
+        }
+
+        if (minEdge) {
+            Vertex* nextVertex = minEdge->getDest();
+            tour.push_back(nextVertex);
+            visited.insert(nextVertex);
+            currentVertex = nextVertex;
+        } else {
+            break;
+        }
+    }
+
+    tour.push_back(startVertex); // Complete the tour
+    return tour;
+}
+
+double TSP_LinKernighan(Graph* graph) {
+    std::vector<Vertex*> initialTour = initializeGreedyTour(graph);
+    std::vector<Vertex*> optimizedTour = linKernighan(graph, initialTour);
+    double tourCost = calculateTourCost(graph, optimizedTour);
+    return tourCost;
 }
