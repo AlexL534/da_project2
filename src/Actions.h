@@ -1,5 +1,5 @@
 /**
- * @file Actions.h
+ * @file actions.h
  * @brief Header file for the Actions module.
  *
  * This module contains the functions that implement the algorithms to solve the Traveling Salesman Problem (TSP).
@@ -56,6 +56,7 @@ double TSPBacktracking(Graph* graph);
 
 /**
  * @brief Recursive helper function for TSPBacktracking.
+ * The time complexity of this algorithm is O(n^2 * 2^n).
  *
  * Uses memoization to efficiently calculate the minimum path cost.
  *
@@ -71,7 +72,7 @@ double TSPHeldKarp(Graph* graph, Vertex* curr, int bitmask, MemoizationTable& me
 
 /**
  * @brief Generates a Minimum Spanning Tree (MST) using Prim's algorithm.
- * The time complexity of this algorithm is (O((V + E) log V))
+ * The time complexity of this algorithm is O((V + E) log V).
  *
  * @param graph Pointer to the graph.
  * @param startVertexLabel Label of the starting vertex.
@@ -81,7 +82,7 @@ Graph primMST(Graph* graph, const std::string& startVertexLabel);
 
 /**
  * @brief Performs a pre-order walk on the MST to generate a tour.
- * The time complexity of this algorithm is (O(V + E))
+ * The time complexity of this algorithm is O(V + E).
  *
  * @param vertex Pointer to the current vertex.
  * @param visited Set of visited vertices.
@@ -91,7 +92,7 @@ void preOrderWalk(Vertex* vertex, std::unordered_set<Vertex*>& visited, std::vec
 
 /**
  * @brief Connects all edges in the graph based on the Haversine distance.
- * The time complexity of this algorithm is (O(V^2))
+ * The time complexity of this algorithm is O(V^2).
  *
  * @param graph Pointer to the graph.
  */
@@ -99,7 +100,7 @@ void connectAllEdges(Graph *graph);
 
 /**
  * @brief Solves the TSP using the Triangular Approximation heuristic.
- * The time complexity of this algorithm is (O(V^2 log V))
+ * The time complexity of this algorithm is O(V^2 log V).
  *
  * @param graph Pointer to the graph.
  * @return The approximate minimum path cost.
@@ -110,7 +111,7 @@ double TSPTriangularApproximation(Graph* graph);
 
 /**
  * @brief Finds a perfect matching on the odd degree vertices of the MST.
- * The time complexity of this algorithm is (O(V^3))
+ * The time complexity of this algorithm is O(V^3).
  *
  * @param MST Pointer to the MST graph.
  * @return Graph representing the minimum weight perfect matching.
@@ -119,7 +120,7 @@ Graph findPerfectMatching(Graph *MST);
 
 /**
  * @brief Combines the MST and minimum weight perfect matching to form a multigraph.
- * The time complexity of this algorithm is (O(V + E))
+ * The time complexity of this algorithm is O(V + E).
  *
  * @param MST Pointer to the MST graph.
  * @param MWPM Pointer to the minimum weight perfect matching graph.
@@ -129,7 +130,7 @@ Graph combineMSTAndPM(const Graph* MST, Graph *MWPM);
 
 /**
  * @brief Finds an Eulerian circuit in the given multigraph.
- * The time complexity of this algorithm is (O(V + E))
+ * The time complexity of this algorithm is O(V + E).
  *
  * @param multigraph Pointer to the multigraph.
  * @return Vector of vertices representing the Eulerian circuit.
@@ -138,7 +139,7 @@ std::vector<Vertex*> findEulerianCircuit(Graph* multigraph);
 
 /**
  * @brief Creates a Hamiltonian circuit by shortcutting the Eulerian circuit.
- * The time complexity of this algorithm is (O(V))
+ * The time complexity of this algorithm is O(V).
  *
  * @param eulerianCircuit Vector of vertices representing the Eulerian circuit.
  * @return Vector of vertices representing the Hamiltonian circuit.
@@ -147,7 +148,7 @@ std::vector<Vertex*> shortcutEulerianCircuit(const std::vector<Vertex*>& euleria
 
 /**
  * @brief Calculates the total cost of a given Hamiltonian circuit.
- * The time complexity of this algorithm is (O(V))
+ * The time complexity of this algorithm is O(V).
  *
  * @param hamiltonianCircuit Vector of vertices representing the Hamiltonian circuit.
  * @param graph Pointer to the graph.
@@ -157,7 +158,7 @@ double calculateTotalCost(const std::vector<Vertex*>& hamiltonianCircuit, Graph*
 
 /**
  * @brief Solves the TSP using Christofides' algorithm.
- * The time complexity of this algorithm is (O(V^3))
+ * The time complexity of this algorithm is O(V^3).
  *
  * @param graph Pointer to the graph.
  * @return The approximate minimum path cost.
@@ -166,17 +167,9 @@ double TSPChristofides(Graph* graph);
 
 /* ===========================================4.4===============================================*/
 
-vector<Vertex*> nearestNeighborTSP(Graph* graph, const string& start, double& totalCost);
-double NNTSP(Graph* graph, const string& start, double& totalCost, vector<Vertex*>& solution);
-/* ===========================================S.A===============================================*/
-double SimulatedAnnealing(Graph* graph, vector<Vertex*> solution, double& totalCost, double initialTemp, double finalTemp, double alpha, int maxIter);
-
-
-
-
 /**
  * @brief Solves the TSP using the Nearest Neighbor heuristic.
- * The time complexity of this algorithm is (O(V^2))
+ * The time complexity of this algorithm is O(V^2).
  *
  * @param graph Pointer to the graph.
  * @param start Label of the starting vertex.
@@ -187,7 +180,7 @@ std::vector<Vertex*> nearestNeighborTSP(Graph* graph, const std::string& start, 
 
 /**
  * @brief Solves the TSP using a hybrid of MST and Nearest Neighbor heuristics.
- * The time complexity of this algorithm is (O(V^2 log V))
+ * The time complexity of this algorithm is O(V^2 log V).
  *
  * @param graph Pointer to the graph.
  * @param start Label of the starting vertex.
@@ -195,17 +188,98 @@ std::vector<Vertex*> nearestNeighborTSP(Graph* graph, const std::string& start, 
  * @return The approximate minimum path cost.
  */
 double hybridMSTAndNNTSP(Graph* graph, const std::string& start, double& totalCost);
+
 /* ===========================================Extended-Christofides===============================================*/
-void floydWarshall(Graph* graph, unordered_map<Vertex*, unordered_map<Vertex*, double>>& shortestPaths);
-vector<Vertex*> findOddDegreeVertices(Graph* graph);
-vector<Edge*> minimumCostPerfectMatching(Graph* mst);
-Graph combineMSTAndMWPM(const Graph* MST, const vector<Vertex*>& oddDegreeVertices, unordered_map<Vertex*, unordered_map<Vertex*, double>>& shortestPaths);
+
+/**
+ * @brief Runs the Floyd-Warshall algorithm to find shortest paths between all pairs of vertices.
+ * The time complexity of this algorithm is O(V^3).
+ *
+ * @param graph Pointer to the graph.
+ * @param shortestPaths A map to store the shortest paths.
+ */
+void floydWarshall(Graph* graph, std::unordered_map<Vertex*, std::unordered_map<Vertex*, double>>& shortestPaths);
+
+/**
+ * @brief Finds vertices with odd degree in the graph.
+ * The time complexity of this algorithm is O(V).
+ *
+ * @param graph Pointer to the graph.
+ * @return Vector of vertices with odd degree.
+ */
+std::vector<Vertex*> findOddDegreeVertices(Graph* graph);
+
+/**
+ * @brief Finds the minimum cost perfect matching among vertices with odd degree.
+ * The time complexity of this algorithm is O(V^3).
+ *
+ * @param mst Pointer to the MST graph.
+ * @return Vector of edges representing the minimum cost perfect matching.
+ */
+std::vector<Edge*> minimumCostPerfectMatching(Graph* mst);
+
+/**
+ * @brief Combines the MST and minimum weight perfect matching to form a multigraph.
+ * The time complexity of this algorithm is O(V^2).
+ *
+ * @param MST Pointer to the MST graph.
+ * @param oddDegreeVertices Vector of vertices with odd degree.
+ * @param shortestPaths A map containing the shortest paths between vertices.
+ * @return Combined multigraph.
+ */
+Graph combineMSTAndMWPM(const Graph* MST, const std::vector<Vertex*>& oddDegreeVertices, std::unordered_map<Vertex*, std::unordered_map<Vertex*, double>>& shortestPaths);
+
+/**
+ * @brief Finds an Eulerian walk in the given multigraph.
+ * The time complexity of this algorithm is O(V + E).
+ *
+ * @param multigraph Pointer to the multigraph.
+ * @return Vector of vertices representing the Eulerian walk.
+ */
 std::vector<Vertex*> findEulerianWalk(Graph* multigraph);
-std::vector<Vertex*> substituteShortestPath(const std::vector<Vertex*>& eulerianCircuit, Graph* graph, unordered_map<Vertex*, unordered_map<Vertex*, double>>& shortestPaths);
+
+/**
+ * @brief Substitutes the shortest path for each edge in the Eulerian circuit.
+ * The time complexity of this algorithm is O(V^2).
+ *
+ * @param eulerianCircuit Vector of vertices representing the Eulerian circuit.
+ * @param graph Pointer to the graph.
+ * @param shortestPaths A map containing the shortest paths between vertices.
+ * @return Vector of vertices representing the Hamiltonian circuit.
+ */
+std::vector<Vertex*> substituteShortestPath(const std::vector<Vertex*>& eulerianCircuit, Graph* graph, std::unordered_map<Vertex*, std::unordered_map<Vertex*, double>>& shortestPaths);
+
+/**
+ * @brief Finds the shortest path between two vertices in the graph.
+ * The time complexity of this algorithm is O(V^2).
+ *
+ * @param start Pointer to the starting vertex.
+ * @param end Pointer to the ending vertex.
+ * @param graph Pointer to the graph.
+ * @return Vector of vertices representing the shortest path.
+ */
 std::vector<Vertex*> findShortestPath(Vertex* start, Vertex* end, Graph* graph);
-double TSPExtendedChristofides(Graph* graph, const string& startVertexLabel);
-using MatchedPairs = vector<pair<Vertex*, Vertex*>>;
-MatchedPairs hungarianAlgorithm(const vector<Vertex*>& oddDegreeVertices, unordered_map<Vertex*, unordered_map<Vertex*, double>>& shortestPaths);
 
+/**
+ * @brief Solves the TSP using an extended version of Christofides' algorithm.
+ * The time complexity of this algorithm is O(V^3).
+ *
+ * @param graph Pointer to the graph.
+ * @param startVertexLabel Label of the starting vertex.
+ * @return The approximate minimum path cost.
+ */
+double TSPExtendedChristofides(Graph* graph, const std::string& startVertexLabel);
 
-#endif //PROJETO_2_ACTIONS_H
+using MatchedPairs = std::vector<std::pair<Vertex*, Vertex*>>;
+
+/**
+ * @brief Solves the minimum cost perfect matching problem using the Hungarian algorithm.
+ * The time complexity of this algorithm is O(V^3).
+ *
+ * @param oddDegreeVertices Vector of vertices with odd degree.
+ * @param shortestPaths A map containing the shortest paths between vertices.
+ * @return Vector of pairs representing the minimum cost perfect matching.
+ */
+MatchedPairs hungarianAlgorithm(const std::vector<Vertex*>& oddDegreeVertices, std::unordered_map<Vertex*, std::unordered_map<Vertex*, double>>& shortestPaths);
+
+#endif // PROJETO_2_ACTIONS_H
