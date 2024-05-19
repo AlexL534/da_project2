@@ -1,0 +1,20 @@
+\doxysection{Utils.\+h}
+\hypertarget{_utils_8h_source}{}\label{_utils_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ PROJETO\_2\_UTILS\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ PROJETO\_2\_UTILS\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_graph_8h}{Graph.h}}"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_compare_weight}{CompareWeight}}\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_compare_weight_ab7d0fd97ff37b6fbc9fafc6920f12a2c}{operator()}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_edge}{Edge}}*\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_edge}{Edge}}*\ b)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ a-\/>\mbox{\hyperlink{class_edge_a1caaffca117bab3ff5b7387623a356f8}{getWeight}}()\ >\ b-\/>\mbox{\hyperlink{class_edge_a1caaffca117bab3ff5b7387623a356f8}{getWeight}}();}
+\DoxyCodeLine{00019\ \ \ \ \ \}}
+\DoxyCodeLine{00020\ \};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00030\ \textcolor{keywordtype}{double}\ haversineDistance(\textcolor{keywordtype}{double}\ la1,\ \textcolor{keywordtype}{double}\ lo1,\ \textcolor{keywordtype}{double}\ la2,\ \textcolor{keywordtype}{double}\ lo2);}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//PROJETO\_2\_UTILS\_H}}
+
+\end{DoxyCode}

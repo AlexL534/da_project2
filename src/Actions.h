@@ -1,3 +1,19 @@
+/**
+ * @file Actions.h
+ * @brief Header file for the Actions module.
+ *
+ * This module contains the functions that implement the algorithms to solve the Traveling Salesman Problem (TSP).
+ * The algorithms implemented are:
+ *  - Backtracking
+ *  - Held-Karp
+ *  - Triangular Approximation
+ *  - Christofides
+ *  - Nearest Neighbor
+ *  - Hybrid MST and Nearest Neighbor
+ *
+ * The module also contains helper functions to generate Minimum Spanning Trees (MST), perfect matchings, and Eulerian circuits.
+ */
+
 #ifndef PROJETO_2_ACTIONS_H
 #define PROJETO_2_ACTIONS_H
 

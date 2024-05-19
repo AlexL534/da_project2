@@ -1,0 +1,136 @@
+\doxysection{Edge Class Reference}
+\hypertarget{class_edge}{}\label{class_edge}\index{Edge@{Edge}}
+
+
+Represents an edge in the graph.  
+
+
+
+
+{\ttfamily \#include $<$Graph.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_edge_a8e7438a8df52c84fcf15a2b30000c288}{Edge}} (\mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*}src, \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*}dest, double weight)
+\begin{DoxyCompactList}\small\item\em Constructs an edge with the given source, destination, and weight. Time Complexity\+: O(1) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_edge_a5cda44e9ba257b03963a1ac301371a59}{get\+Dest}} () const
+\begin{DoxyCompactList}\small\item\em Gets the destination vertex of the edge. Time Complexity\+: O(1) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_edge_a58c9ca09b7487d92e22ed1dd4e284f19}{get\+Source}} () const
+\begin{DoxyCompactList}\small\item\em Gets the source vertex of the edge. Time Complexity\+: O(1) \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_edge_a30ff9f3127097db8dce20f5e8b15e6dc}{get\+Flow}} () const
+\begin{DoxyCompactList}\small\item\em Gets the flow through the edge. Time Complexity\+: O(1) \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_edge_a1caaffca117bab3ff5b7387623a356f8}{get\+Weight}} () const
+\begin{DoxyCompactList}\small\item\em Gets the weight of the edge. Time Complexity\+: O(1) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_edge_a788cfe1f98772af4e7bbfe6310d0ccaa}{set\+Flow}} (double flow)
+\begin{DoxyCompactList}\small\item\em Sets the flow through the edge. Time Complexity\+: O(1) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_edge_afab89afd724f1b07b1aaad6bdc61c47a}\label{class_edge_afab89afd724f1b07b1aaad6bdc61c47a} 
+class {\bfseries Graph}
+\item 
+\Hypertarget{class_edge_a1251d18f08324022e8e73506c3768f3c}\label{class_edge_a1251d18f08324022e8e73506c3768f3c} 
+class {\bfseries Vertex}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents an edge in the graph. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_edge_a8e7438a8df52c84fcf15a2b30000c288}\label{class_edge_a8e7438a8df52c84fcf15a2b30000c288} 
+\index{Edge@{Edge}!Edge@{Edge}}
+\index{Edge@{Edge}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{Edge()}{Edge()}}
+{\footnotesize\ttfamily Edge\+::\+Edge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*}}]{src,  }\item[{\mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*}}]{dest,  }\item[{double}]{weight }\end{DoxyParamCaption})}
+
+
+
+Constructs an edge with the given source, destination, and weight. Time Complexity\+: O(1) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em src} & The source vertex. \\
+\hline
+{\em dest} & The destination vertex. \\
+\hline
+{\em weight} & The weight of the edge. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_edge_a5cda44e9ba257b03963a1ac301371a59}\label{class_edge_a5cda44e9ba257b03963a1ac301371a59} 
+\index{Edge@{Edge}!getDest@{getDest}}
+\index{getDest@{getDest}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{getDest()}{getDest()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} Edge\+::get\+Dest (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets the destination vertex of the edge. Time Complexity\+: O(1) 
+
+\begin{DoxyReturn}{Returns}
+A pointer to the destination vertex. 
+\end{DoxyReturn}
+\Hypertarget{class_edge_a30ff9f3127097db8dce20f5e8b15e6dc}\label{class_edge_a30ff9f3127097db8dce20f5e8b15e6dc} 
+\index{Edge@{Edge}!getFlow@{getFlow}}
+\index{getFlow@{getFlow}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{getFlow()}{getFlow()}}
+{\footnotesize\ttfamily double Edge\+::get\+Flow (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets the flow through the edge. Time Complexity\+: O(1) 
+
+\begin{DoxyReturn}{Returns}
+The flow through the edge. 
+\end{DoxyReturn}
+\Hypertarget{class_edge_a58c9ca09b7487d92e22ed1dd4e284f19}\label{class_edge_a58c9ca09b7487d92e22ed1dd4e284f19} 
+\index{Edge@{Edge}!getSource@{getSource}}
+\index{getSource@{getSource}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{getSource()}{getSource()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} Edge\+::get\+Source (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets the source vertex of the edge. Time Complexity\+: O(1) 
+
+\begin{DoxyReturn}{Returns}
+A pointer to the source vertex. 
+\end{DoxyReturn}
+\Hypertarget{class_edge_a1caaffca117bab3ff5b7387623a356f8}\label{class_edge_a1caaffca117bab3ff5b7387623a356f8} 
+\index{Edge@{Edge}!getWeight@{getWeight}}
+\index{getWeight@{getWeight}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{getWeight()}{getWeight()}}
+{\footnotesize\ttfamily double Edge\+::get\+Weight (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets the weight of the edge. Time Complexity\+: O(1) 
+
+\begin{DoxyReturn}{Returns}
+The weight of the edge. 
+\end{DoxyReturn}
+\Hypertarget{class_edge_a788cfe1f98772af4e7bbfe6310d0ccaa}\label{class_edge_a788cfe1f98772af4e7bbfe6310d0ccaa} 
+\index{Edge@{Edge}!setFlow@{setFlow}}
+\index{setFlow@{setFlow}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{setFlow()}{setFlow()}}
+{\footnotesize\ttfamily void Edge\+::set\+Flow (\begin{DoxyParamCaption}\item[{double}]{flow }\end{DoxyParamCaption})}
+
+
+
+Sets the flow through the edge. Time Complexity\+: O(1) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em flow} & The new flow value. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_graph_8h}{Graph.\+h}}\item 
+Graph.\+cpp\end{DoxyCompactItemize}

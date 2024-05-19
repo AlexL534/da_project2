@@ -1,0 +1,349 @@
+\doxysection{Actions.\+h File Reference}
+\hypertarget{_actions_8h}{}\label{_actions_8h}\index{Actions.h@{Actions.h}}
+
+
+Header file for the Actions module.  
+
+
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$climits$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$limits$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include "{}graph.\+h"{}}\newline
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+{\ttfamily \#include $<$queue$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_pair_hash}{Pair\+Hash}}
+\begin{DoxyCompactList}\small\item\em Hash function for pairs used in memoization. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{_actions_8h_a5c8d45e169e35e5986354b3a63d2f610}\label{_actions_8h_a5c8d45e169e35e5986354b3a63d2f610} 
+using {\bfseries Memoization\+Table} = std\+::unordered\+\_\+map$<$std\+::pair$<$\mbox{\hyperlink{class_vertex}{Vertex}}\texorpdfstring{$\ast$}{*}, int$>$, double, \mbox{\hyperlink{struct_pair_hash}{Pair\+Hash}}$>$
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{_actions_8h_ac1d5fc2c93475767b5dd873f26a7df50}{TSPBacktracking}} (\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}graph)
+\begin{DoxyCompactList}\small\item\em Implements the backtracking algorithm to solve the TSP. The time complexity of this algorithm is O(n\texorpdfstring{$^\wedge$}{\string^}2 \texorpdfstring{$\ast$}{*} 2\texorpdfstring{$^\wedge$}{\string^}n). \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{_actions_8h_a0f0a1cb2c22a3fb8d03a11b494eddfc3}{TSPHeld\+Karp}} (\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}graph, \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*}curr, int bitmask, Memoization\+Table \&memoization)
+\begin{DoxyCompactList}\small\item\em Recursive helper function for TSPBacktracking. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_graph}{Graph}} \mbox{\hyperlink{_actions_8h_a5b4da6a2b11016fd064e0bcfa91afc4c}{prim\+MST}} (\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}graph, const std\+::string \&start\+Vertex\+Label)
+\begin{DoxyCompactList}\small\item\em Generates a Minimum Spanning Tree (MST) using Prim\textquotesingle{}s algorithm. The time complexity of this algorithm is (O((V + E) log V)) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_actions_8h_a3db56f60b011fb3c2421d68a5d80d208}{pre\+Order\+Walk}} (\mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*}vertex, std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} $>$ \&visited, std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} $>$ \&pre\+Order\+List)
+\begin{DoxyCompactList}\small\item\em Performs a pre-\/order walk on the MST to generate a tour. The time complexity of this algorithm is (O(V + E)) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_actions_8h_a67c5012286e810488418e5f5f2ab2a37}{connect\+All\+Edges}} (\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}graph)
+\begin{DoxyCompactList}\small\item\em Connects all edges in the graph based on the Haversine distance. The time complexity of this algorithm is (O(\+V\texorpdfstring{$^\wedge$}{\string^}2)) \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{_actions_8h_ae046997a18d9027f005e938cd55937de}{TSPTriangular\+Approximation}} (\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}graph)
+\begin{DoxyCompactList}\small\item\em Solves the TSP using the Triangular Approximation heuristic. The time complexity of this algorithm is (O(\+V\texorpdfstring{$^\wedge$}{\string^}2 log V)) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_graph}{Graph}} \mbox{\hyperlink{_actions_8h_aa3d17ac49826349ff6b11c9ec328dab1}{find\+Perfect\+Matching}} (\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}MST)
+\begin{DoxyCompactList}\small\item\em Finds a perfect matching on the odd degree vertices of the MST. The time complexity of this algorithm is (O(\+V\texorpdfstring{$^\wedge$}{\string^}3)) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_graph}{Graph}} \mbox{\hyperlink{_actions_8h_a3783770d349c3beb8b8c6c50fe6e9386}{combine\+MSTAnd\+PM}} (const \mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}MST, \mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}MWPM)
+\begin{DoxyCompactList}\small\item\em Combines the MST and minimum weight perfect matching to form a multigraph. The time complexity of this algorithm is (O(V + E)) \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{_actions_8h_a6102d9cd58af53b6404f32383bc42612}{find\+Eulerian\+Circuit}} (\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}multigraph)
+\begin{DoxyCompactList}\small\item\em Finds an Eulerian circuit in the given multigraph. The time complexity of this algorithm is (O(V + E)) \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{_actions_8h_a77597de03361f7c513e96b2aa9e4ead6}{shortcut\+Eulerian\+Circuit}} (const std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} $>$ \&eulerian\+Circuit)
+\begin{DoxyCompactList}\small\item\em Creates a Hamiltonian circuit by shortcutting the Eulerian circuit. The time complexity of this algorithm is (O(\+V)) \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{_actions_8h_aac2af149e343a6a07addc4b9c686b97a}{calculate\+Total\+Cost}} (const std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} $>$ \&hamiltonian\+Circuit, \mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}graph)
+\begin{DoxyCompactList}\small\item\em Calculates the total cost of a given Hamiltonian circuit. The time complexity of this algorithm is (O(\+V)) \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{_actions_8h_a1d68d0148d233c525b2d19a4c855c2f9}{TSPChristofides}} (\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}graph)
+\begin{DoxyCompactList}\small\item\em Solves the TSP using Christofides\textquotesingle{} algorithm. The time complexity of this algorithm is (O(\+V\texorpdfstring{$^\wedge$}{\string^}3)) \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{_actions_8h_a640d1481b7cc78b87646f058b159ac49}{nearest\+Neighbor\+TSP}} (\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}graph, const std\+::string \&start, double \&total\+Cost)
+\begin{DoxyCompactList}\small\item\em Solves the TSP using the Nearest Neighbor heuristic. The time complexity of this algorithm is (O(\+V\texorpdfstring{$^\wedge$}{\string^}2)) \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{_actions_8h_a1431edaed5abc3cec9d28668079d0fe2}{hybrid\+MSTAnd\+NNTSP}} (\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}graph, const std\+::string \&start, double \&total\+Cost)
+\begin{DoxyCompactList}\small\item\em Solves the TSP using a hybrid of MST and Nearest Neighbor heuristics. The time complexity of this algorithm is (O(\+V\texorpdfstring{$^\wedge$}{\string^}2 log V)) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header file for the Actions module. 
+
+This module contains the functions that implement the algorithms to solve the Traveling Salesman Problem (TSP). The algorithms implemented are\+:
+\begin{DoxyItemize}
+\item Backtracking
+\item Held-\/\+Karp
+\item Triangular Approximation
+\item Christofides
+\item Nearest Neighbor
+\item Hybrid MST and Nearest Neighbor
+\end{DoxyItemize}
+
+The module also contains helper functions to generate Minimum Spanning Trees (MST), perfect matchings, and Eulerian circuits. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_actions_8h_aac2af149e343a6a07addc4b9c686b97a}\label{_actions_8h_aac2af149e343a6a07addc4b9c686b97a} 
+\index{Actions.h@{Actions.h}!calculateTotalCost@{calculateTotalCost}}
+\index{calculateTotalCost@{calculateTotalCost}!Actions.h@{Actions.h}}
+\doxysubsubsection{\texorpdfstring{calculateTotalCost()}{calculateTotalCost()}}
+{\footnotesize\ttfamily double calculate\+Total\+Cost (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} $>$ \&}]{hamiltonian\+Circuit,  }\item[{\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}}]{graph }\end{DoxyParamCaption})}
+
+
+
+Calculates the total cost of a given Hamiltonian circuit. The time complexity of this algorithm is (O(\+V)) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em hamiltonian\+Circuit} & Vector of vertices representing the Hamiltonian circuit. \\
+\hline
+{\em graph} & Pointer to the graph. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The total cost of the Hamiltonian circuit. 
+\end{DoxyReturn}
+\Hypertarget{_actions_8h_a3783770d349c3beb8b8c6c50fe6e9386}\label{_actions_8h_a3783770d349c3beb8b8c6c50fe6e9386} 
+\index{Actions.h@{Actions.h}!combineMSTAndPM@{combineMSTAndPM}}
+\index{combineMSTAndPM@{combineMSTAndPM}!Actions.h@{Actions.h}}
+\doxysubsubsection{\texorpdfstring{combineMSTAndPM()}{combineMSTAndPM()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_graph}{Graph}} combine\+MSTAnd\+PM (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}}]{MST,  }\item[{\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}}]{MWPM }\end{DoxyParamCaption})}
+
+
+
+Combines the MST and minimum weight perfect matching to form a multigraph. The time complexity of this algorithm is (O(V + E)) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em MST} & Pointer to the MST graph. \\
+\hline
+{\em MWPM} & Pointer to the minimum weight perfect matching graph. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Combined multigraph. 
+\end{DoxyReturn}
+\Hypertarget{_actions_8h_a67c5012286e810488418e5f5f2ab2a37}\label{_actions_8h_a67c5012286e810488418e5f5f2ab2a37} 
+\index{Actions.h@{Actions.h}!connectAllEdges@{connectAllEdges}}
+\index{connectAllEdges@{connectAllEdges}!Actions.h@{Actions.h}}
+\doxysubsubsection{\texorpdfstring{connectAllEdges()}{connectAllEdges()}}
+{\footnotesize\ttfamily void connect\+All\+Edges (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}}]{graph }\end{DoxyParamCaption})}
+
+
+
+Connects all edges in the graph based on the Haversine distance. The time complexity of this algorithm is (O(\+V\texorpdfstring{$^\wedge$}{\string^}2)) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & Pointer to the graph. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{_actions_8h_a6102d9cd58af53b6404f32383bc42612}\label{_actions_8h_a6102d9cd58af53b6404f32383bc42612} 
+\index{Actions.h@{Actions.h}!findEulerianCircuit@{findEulerianCircuit}}
+\index{findEulerianCircuit@{findEulerianCircuit}!Actions.h@{Actions.h}}
+\doxysubsubsection{\texorpdfstring{findEulerianCircuit()}{findEulerianCircuit()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} $>$ find\+Eulerian\+Circuit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}}]{multigraph }\end{DoxyParamCaption})}
+
+
+
+Finds an Eulerian circuit in the given multigraph. The time complexity of this algorithm is (O(V + E)) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em multigraph} & Pointer to the multigraph. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vector of vertices representing the Eulerian circuit. 
+\end{DoxyReturn}
+\Hypertarget{_actions_8h_aa3d17ac49826349ff6b11c9ec328dab1}\label{_actions_8h_aa3d17ac49826349ff6b11c9ec328dab1} 
+\index{Actions.h@{Actions.h}!findPerfectMatching@{findPerfectMatching}}
+\index{findPerfectMatching@{findPerfectMatching}!Actions.h@{Actions.h}}
+\doxysubsubsection{\texorpdfstring{findPerfectMatching()}{findPerfectMatching()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_graph}{Graph}} find\+Perfect\+Matching (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}}]{MST }\end{DoxyParamCaption})}
+
+
+
+Finds a perfect matching on the odd degree vertices of the MST. The time complexity of this algorithm is (O(\+V\texorpdfstring{$^\wedge$}{\string^}3)) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em MST} & Pointer to the MST graph. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{class_graph}{Graph} representing the minimum weight perfect matching. 
+\end{DoxyReturn}
+\Hypertarget{_actions_8h_a1431edaed5abc3cec9d28668079d0fe2}\label{_actions_8h_a1431edaed5abc3cec9d28668079d0fe2} 
+\index{Actions.h@{Actions.h}!hybridMSTAndNNTSP@{hybridMSTAndNNTSP}}
+\index{hybridMSTAndNNTSP@{hybridMSTAndNNTSP}!Actions.h@{Actions.h}}
+\doxysubsubsection{\texorpdfstring{hybridMSTAndNNTSP()}{hybridMSTAndNNTSP()}}
+{\footnotesize\ttfamily double hybrid\+MSTAnd\+NNTSP (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}}]{graph,  }\item[{const std\+::string \&}]{start,  }\item[{double \&}]{total\+Cost }\end{DoxyParamCaption})}
+
+
+
+Solves the TSP using a hybrid of MST and Nearest Neighbor heuristics. The time complexity of this algorithm is (O(\+V\texorpdfstring{$^\wedge$}{\string^}2 log V)) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & Pointer to the graph. \\
+\hline
+{\em start} & Label of the starting vertex. \\
+\hline
+{\em total\+Cost} & Reference to store the total cost of the tour. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The approximate minimum path cost. 
+\end{DoxyReturn}
+\Hypertarget{_actions_8h_a640d1481b7cc78b87646f058b159ac49}\label{_actions_8h_a640d1481b7cc78b87646f058b159ac49} 
+\index{Actions.h@{Actions.h}!nearestNeighborTSP@{nearestNeighborTSP}}
+\index{nearestNeighborTSP@{nearestNeighborTSP}!Actions.h@{Actions.h}}
+\doxysubsubsection{\texorpdfstring{nearestNeighborTSP()}{nearestNeighborTSP()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} $>$ nearest\+Neighbor\+TSP (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}}]{graph,  }\item[{const std\+::string \&}]{start,  }\item[{double \&}]{total\+Cost }\end{DoxyParamCaption})}
+
+
+
+Solves the TSP using the Nearest Neighbor heuristic. The time complexity of this algorithm is (O(\+V\texorpdfstring{$^\wedge$}{\string^}2)) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & Pointer to the graph. \\
+\hline
+{\em start} & Label of the starting vertex. \\
+\hline
+{\em total\+Cost} & Reference to store the total cost of the tour. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vector of vertices representing the tour. 
+\end{DoxyReturn}
+\Hypertarget{_actions_8h_a3db56f60b011fb3c2421d68a5d80d208}\label{_actions_8h_a3db56f60b011fb3c2421d68a5d80d208} 
+\index{Actions.h@{Actions.h}!preOrderWalk@{preOrderWalk}}
+\index{preOrderWalk@{preOrderWalk}!Actions.h@{Actions.h}}
+\doxysubsubsection{\texorpdfstring{preOrderWalk()}{preOrderWalk()}}
+{\footnotesize\ttfamily void pre\+Order\+Walk (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*}}]{vertex,  }\item[{std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} $>$ \&}]{visited,  }\item[{std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} $>$ \&}]{pre\+Order\+List }\end{DoxyParamCaption})}
+
+
+
+Performs a pre-\/order walk on the MST to generate a tour. The time complexity of this algorithm is (O(V + E)) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vertex} & Pointer to the current vertex. \\
+\hline
+{\em visited} & Set of visited vertices. \\
+\hline
+{\em pre\+Order\+List} & List to store the pre-\/order walk vertices. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{_actions_8h_a5b4da6a2b11016fd064e0bcfa91afc4c}\label{_actions_8h_a5b4da6a2b11016fd064e0bcfa91afc4c} 
+\index{Actions.h@{Actions.h}!primMST@{primMST}}
+\index{primMST@{primMST}!Actions.h@{Actions.h}}
+\doxysubsubsection{\texorpdfstring{primMST()}{primMST()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_graph}{Graph}} prim\+MST (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}}]{graph,  }\item[{const std\+::string \&}]{start\+Vertex\+Label }\end{DoxyParamCaption})}
+
+
+
+Generates a Minimum Spanning Tree (MST) using Prim\textquotesingle{}s algorithm. The time complexity of this algorithm is (O((V + E) log V)) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & Pointer to the graph. \\
+\hline
+{\em start\+Vertex\+Label} & Label of the starting vertex. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The MST as a graph. 
+\end{DoxyReturn}
+\Hypertarget{_actions_8h_a77597de03361f7c513e96b2aa9e4ead6}\label{_actions_8h_a77597de03361f7c513e96b2aa9e4ead6} 
+\index{Actions.h@{Actions.h}!shortcutEulerianCircuit@{shortcutEulerianCircuit}}
+\index{shortcutEulerianCircuit@{shortcutEulerianCircuit}!Actions.h@{Actions.h}}
+\doxysubsubsection{\texorpdfstring{shortcutEulerianCircuit()}{shortcutEulerianCircuit()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} $>$ shortcut\+Eulerian\+Circuit (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} $>$ \&}]{eulerian\+Circuit }\end{DoxyParamCaption})}
+
+
+
+Creates a Hamiltonian circuit by shortcutting the Eulerian circuit. The time complexity of this algorithm is (O(\+V)) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em eulerian\+Circuit} & Vector of vertices representing the Eulerian circuit. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vector of vertices representing the Hamiltonian circuit. 
+\end{DoxyReturn}
+\Hypertarget{_actions_8h_ac1d5fc2c93475767b5dd873f26a7df50}\label{_actions_8h_ac1d5fc2c93475767b5dd873f26a7df50} 
+\index{Actions.h@{Actions.h}!TSPBacktracking@{TSPBacktracking}}
+\index{TSPBacktracking@{TSPBacktracking}!Actions.h@{Actions.h}}
+\doxysubsubsection{\texorpdfstring{TSPBacktracking()}{TSPBacktracking()}}
+{\footnotesize\ttfamily double TSPBacktracking (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}}]{graph }\end{DoxyParamCaption})}
+
+
+
+Implements the backtracking algorithm to solve the TSP. The time complexity of this algorithm is O(n\texorpdfstring{$^\wedge$}{\string^}2 \texorpdfstring{$\ast$}{*} 2\texorpdfstring{$^\wedge$}{\string^}n). 
+
+This function initiates the TSP solution using a backtracking approach starting and ending at node "{}0"{}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & Pointer to the graph representing the nodes and edges. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The minimum path cost calculated by the backtracking algorithm. 
+\end{DoxyReturn}
+\Hypertarget{_actions_8h_a1d68d0148d233c525b2d19a4c855c2f9}\label{_actions_8h_a1d68d0148d233c525b2d19a4c855c2f9} 
+\index{Actions.h@{Actions.h}!TSPChristofides@{TSPChristofides}}
+\index{TSPChristofides@{TSPChristofides}!Actions.h@{Actions.h}}
+\doxysubsubsection{\texorpdfstring{TSPChristofides()}{TSPChristofides()}}
+{\footnotesize\ttfamily double TSPChristofides (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}}]{graph }\end{DoxyParamCaption})}
+
+
+
+Solves the TSP using Christofides\textquotesingle{} algorithm. The time complexity of this algorithm is (O(\+V\texorpdfstring{$^\wedge$}{\string^}3)) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & Pointer to the graph. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The approximate minimum path cost. 
+\end{DoxyReturn}
+\Hypertarget{_actions_8h_a0f0a1cb2c22a3fb8d03a11b494eddfc3}\label{_actions_8h_a0f0a1cb2c22a3fb8d03a11b494eddfc3} 
+\index{Actions.h@{Actions.h}!TSPHeldKarp@{TSPHeldKarp}}
+\index{TSPHeldKarp@{TSPHeldKarp}!Actions.h@{Actions.h}}
+\doxysubsubsection{\texorpdfstring{TSPHeldKarp()}{TSPHeldKarp()}}
+{\footnotesize\ttfamily double TSPHeld\+Karp (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}}]{graph,  }\item[{\mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*}}]{curr,  }\item[{int}]{bitmask,  }\item[{Memoization\+Table \&}]{memoization }\end{DoxyParamCaption})}
+
+
+
+Recursive helper function for TSPBacktracking. 
+
+Uses memoization to efficiently calculate the minimum path cost.
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & Pointer to the graph. \\
+\hline
+{\em curr} & Current vertex in the tour. \\
+\hline
+{\em bitmask} & Bitmask representing visited nodes. \\
+\hline
+{\em memoization} & Memoization table to store already computed costs. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The minimum path cost from the current vertex. 
+\end{DoxyReturn}
+\Hypertarget{_actions_8h_ae046997a18d9027f005e938cd55937de}\label{_actions_8h_ae046997a18d9027f005e938cd55937de} 
+\index{Actions.h@{Actions.h}!TSPTriangularApproximation@{TSPTriangularApproximation}}
+\index{TSPTriangularApproximation@{TSPTriangularApproximation}!Actions.h@{Actions.h}}
+\doxysubsubsection{\texorpdfstring{TSPTriangularApproximation()}{TSPTriangularApproximation()}}
+{\footnotesize\ttfamily double TSPTriangular\+Approximation (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}}]{graph }\end{DoxyParamCaption})}
+
+
+
+Solves the TSP using the Triangular Approximation heuristic. The time complexity of this algorithm is (O(\+V\texorpdfstring{$^\wedge$}{\string^}2 log V)) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & Pointer to the graph. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The approximate minimum path cost. 
+\end{DoxyReturn}
