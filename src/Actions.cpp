@@ -211,7 +211,7 @@ Graph combineMSTAndPM(const Graph* MST, Graph *PM) {
     Graph multigraph = *MST;
 
     // Add edges from PM to the multigraph
-    for (const auto& vertexPair : PM->getVertexMap()) {
+        for (const auto& vertexPair : PM->getVertexMap()) {
         for (Edge* edge : vertexPair.second->getAdj()) {
             multigraph.addEdge(edge->getSource()->getInfo(), edge->getDest()->getInfo(), edge->getWeight());
         }
@@ -349,4 +349,43 @@ vector<Vertex*> nearestNeighborTSP(Graph* graph, const string& start, double& to
 double hybridMSTAndNNTSP(Graph* graph, const string& start, double& totalCost) {
     vector<Vertex*> nnPath = nearestNeighborTSP(graph, start, totalCost);
     return totalCost;
+}
+
+/* ===========================================Extended Christofides===============================================*/
+void floydWarshall(Graph* graph, unordered_map<Vertex*, unordered_map<Vertex*, double>>& shortestPaths) {
+    unordered_map<string, Vertex*> vertexMap = graph->getVertexMap();
+
+    // Initialize distances with infinity
+    for (auto& pair1 : vertexMap) {
+        Vertex* v1 = pair1.second;
+        shortestPaths[v1] = unordered_map<Vertex*, double>();
+        for (auto& pair2 : vertexMap) {
+            Vertex* v2 = pair2.second;
+            shortestPaths[v1][v2] = numeric_limits<double>::infinity();
+        }
+        shortestPaths[v1][v1] = 0; // Distance from a vertex to itself is 0
+    }
+
+    // Update distances based on direct edges
+    for (auto& pair : vertexMap) {
+        Vertex* v1 = pair.second;
+        for (Edge* edge : v1->getAdj()) {
+            Vertex* v2 = edge->getDest();
+            shortestPaths[v1][v2] = edge->getWeight();
+        }
+    }
+
+    // Floyd-Warshall algorithm
+    for (auto& k_pair : vertexMap) {
+        Vertex* k = k_pair.second;
+        for (auto& i_pair : vertexMap) {
+            Vertex* i = i_pair.second;
+            for (auto& j_pair : vertexMap) {
+                Vertex* j = j_pair.second;
+                if (shortestPaths[i][k] + shortestPaths[k][j] < shortestPaths[i][j]) {
+                    shortestPaths[i][j] = shortestPaths[i][k] + shortestPaths[k][j];
+                }
+            }
+        }
+    }
 }

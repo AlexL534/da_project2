@@ -1,7 +1,7 @@
 #include "Utils.h"
 
 double haversineDistance(double la1, double lo1, double la2, double lo2){
-    double R = 6371e3;
+    double R = 6371000;
     double phi1 = la1 * M_PI/180;
     double phi2 = la2 * M_PI/180;
     double deltaPhi = (la2-la1) * M_PI/180;
