@@ -149,3 +149,41 @@ double TSPTriangularApproximation(Graph* graph) {
 
     return minPath;
 }
+
+vector<Vertex*> nearestNeighborTSP(Graph* graph, const string& start) {
+    unordered_set<Vertex*> visited;
+    vector<Vertex*> path;
+    Vertex * current = graph->findVertex(start);
+    visited.insert(current);
+    path.push_back(current);
+
+    while (visited.size() < graph->getNumVertex()) {
+        double minCost = numeric_limits<double>::max();
+        Vertex* nextNode;
+
+        for (Edge* edge : current->getAdj()) {
+            Vertex *neighbor = edge->getDest();
+            if (visited.find(neighbor) == visited.end() && edge->getWeight() < minCost) {
+                minCost = edge->getWeight();
+                nextNode = neighbor;
+            }
+        }
+
+        if (nextNode == nullptr) return {};
+        visited.insert(nextNode);
+        path.push_back(nextNode);
+        current = nextNode;
+    }
+
+    path.push_back(graph->findVertex(start));
+    return path;
+}
+
+
+vector<Vertex*> hybridMSTAndNNTSP(Graph* graph,const string& start) {
+    auto mstGraph = primMST(graph, start);
+    auto nnPath = nearestNeighborTSP(graph, start);
+
+
+    return nnPath;
+}
