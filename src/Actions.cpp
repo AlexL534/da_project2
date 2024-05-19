@@ -1,4 +1,6 @@
 #include "Actions.h"
+
+#include <utility>
 #include "Utils.h"
 
 /* ===========================================4.1===============================================*/
@@ -149,55 +151,6 @@ double TSPTriangularApproximation(Graph* graph) {
     return minPath;
 }
 
-vector<Vertex*> nearestNeighborTSP(Graph* graph, const string& start, double& totalCost) {
-    unordered_set<Vertex*> visited;
-    vector<Vertex*> path;
-    Vertex* current = graph->findVertex(start);
-    visited.insert(current);
-    path.push_back(current);
-    totalCost = 0;
-
-    while (visited.size() < graph->getNumVertex()) {
-        double minCost = numeric_limits<double>::max();
-        Vertex* nextNode = nullptr;
-
-        for (Edge* edge : current->getAdj()) {
-            Vertex* neighbor = edge->getDest();
-            if (visited.find(neighbor) == visited.end() && edge->getWeight() < minCost) {
-                minCost = edge->getWeight();
-                nextNode = neighbor;
-            }
-        }
-
-        if (nextNode == nullptr) return {}; // No feasible TSP path exists
-
-        visited.insert(nextNode);
-        path.push_back(nextNode);
-        totalCost += minCost;
-        current = nextNode;
-    }
-
-    // Add the cost of returning to the start vertex
-    for (Edge* edge : current->getAdj()) {
-        if (edge->getDest()->getInfo() == start) {
-            totalCost += edge->getWeight();
-            path.push_back(graph->findVertex(start));
-            break;
-        }
-    }
-
-    return path;
-}
-
-vector<Vertex*> NNTSP(Graph* graph, const string& start, double& totalCost) {
-    vector<Vertex*> nnPath = nearestNeighborTSP(graph, start, totalCost);
-
-    for (auto it : nnPath) {
-        cout << it->getInfo() << " ";
-    }
-    cout << "\nTotal cost: " << totalCost << endl;
-    return nnPath;
-}
 /* ===========================================4.3===============================================*/
 Graph findPerfectMatching(Graph* MST) {
     Graph PM;
@@ -354,4 +307,105 @@ double TSPChristofides(Graph* graph) {
     return totalCost;
 }
 
-//4.4
+/* ===========================================4.4===============================================*/
+vector<Vertex*> nearestNeighborTSP(Graph* graph, const string& start, double& totalCost) {
+    unordered_set<Vertex*> visited;
+    vector<Vertex*> path;
+    Vertex* current = graph->findVertex(start);
+    visited.insert(current);
+    path.push_back(current);
+    totalCost = 0;
+
+    while (visited.size() < graph->getNumVertex()) {
+        double minCost = numeric_limits<double>::max();
+        Vertex* nextNode = nullptr;
+
+        for (Edge* edge : current->getAdj()) {
+            Vertex* neighbor = edge->getDest();
+            if (visited.find(neighbor) == visited.end() && edge->getWeight() < minCost) {
+                minCost = edge->getWeight();
+                nextNode = neighbor;
+            }
+        }
+
+        if (nextNode == nullptr) {cout << "\n No feasible solution!\n"; return {};} // No feasible TSP path exists
+
+        visited.insert(nextNode);
+        path.push_back(nextNode);
+        totalCost += minCost;
+        current = nextNode;
+
+    }
+
+    // Add the cost of returning to the start vertex
+    for (Edge* edge : current->getAdj()) {
+        if (edge->getDest()->getInfo() == start) {
+            totalCost += edge->getWeight();
+            path.push_back(graph->findVertex(start));
+            break;
+        }
+    }
+
+    return path;
+}
+
+double NNTSP(Graph* graph, const string& start, double& totalCost, vector<Vertex*>& solution) {
+    vector<Vertex*> nnPath = nearestNeighborTSP(graph, start, totalCost);
+    solution = nnPath;
+    return totalCost;
+}
+/* ===========================================S.A===============================================*/
+
+bool isFeasible(vector<Vertex *> newSolution, Graph* graph, int i, int j){
+    if(i != 0 && j!= 0 && i != newSolution.size() - 1 && j != newSolution.size() - 1) {
+        if (graph->findEdge(newSolution[i - 1]->getInfo(), newSolution[i]->getInfo()) == nullptr ||
+            graph->findEdge(newSolution[i]->getInfo(), newSolution[i + 1]->getInfo()) == nullptr ||
+            graph->findEdge(newSolution[j - 1]->getInfo(), newSolution[j]->getInfo()) == nullptr ||
+            graph->findEdge(newSolution[j]->getInfo(), newSolution[j + 1]->getInfo()) == nullptr) {
+            return false;
+        }
+    }
+    else{
+        return false;
+    }
+    return true;
+}
+
+double SimulatedAnnealing(Graph* graph, vector<Vertex*> solution, double& totalCost, double initialTemp, double finalTemp, double alpha, int maxIter){
+    vector<Vertex*> bestSolution = solution;
+    double bestCost = totalCost;
+    double temp = initialTemp;
+    int iter = 0;
+    while (temp > finalTemp && iter < maxIter){
+        vector<Vertex*> newSolution = bestSolution;
+        int i = rand() % (newSolution.size() - 1);
+        int j = rand() % (newSolution.size() - 1);
+        if (i == j) continue;
+        swap(newSolution[i], newSolution[j]);
+        if(isFeasible(newSolution, graph, i, j)){
+            double newCost = calculateTotalCost(newSolution, graph);
+            double delta = newCost - bestCost;
+            if (delta < 0){
+                bestSolution = newSolution;
+                bestCost = newCost;
+            }
+            else{
+                double r = (double) rand() / RAND_MAX;
+                if (r < exp(-delta/temp)){
+                    bestSolution = newSolution;
+                    bestCost = newCost;
+                }
+            }
+
+        }
+        temp *= alpha;
+        iter++;
+    }
+    totalCost = bestCost;
+    return totalCost;
+}
+
+
+
+
+

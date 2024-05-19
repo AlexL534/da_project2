@@ -5,6 +5,7 @@
 #include <climits>
 #include <algorithm>
 #include <limits>
+#include <random>
 #include <cmath>
 #include "graph.h"
 #include <unordered_map>
@@ -34,10 +35,10 @@ std::vector<Vertex*> findEulerianCircuit(Graph* multigraph);
 std::vector<Vertex*> shortcutEulerianCircuit(const std::vector<Vertex*>& eulerianCircuit);
 double calculateTotalCost(const std::vector<Vertex*>& hamiltonianCircuit, Graph* graph);
 double TSPChristofides(Graph* graph);
-vector<Vertex*> NNTSP(Graph* graph, const string& start, double& totalCost);
+/* ===========================================4.4===============================================*/
 vector<Vertex*> nearestNeighborTSP(Graph* graph, const string& start, double& totalCost);
-
-
-
+double NNTSP(Graph* graph, const string& start, double& totalCost, vector<Vertex*>& solution);
+/* ===========================================S.A===============================================*/
+double SimulatedAnnealing(Graph* graph, vector<Vertex*> solution, double& totalCost, double initialTemp, double finalTemp, double alpha, int maxIter);
 
 #endif //PROJETO_2_ACTIONS_H
