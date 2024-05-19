@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['operator_28_29_0',['operator()',['../struct_compare_weight.html#ab7d0fd97ff37b6fbc9fafc6920f12a2c',1,'CompareWeight']]]
+  ['nearestneighbortsp_0',['nearestNeighborTSP',['../_actions_8h.html#a640d1481b7cc78b87646f058b159ac49',1,'Actions.h']]]
 ];

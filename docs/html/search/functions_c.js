@@ -1,14 +1,7 @@
 var searchData=
 [
-  ['setdist_0',['setDist',['../class_vertex.html#a6939bef79bfe5fe5bf77d9fd1bd70085',1,'Vertex']]],
-  ['setflow_1',['setFlow',['../class_edge.html#a788cfe1f98772af4e7bbfe6310d0ccaa',1,'Edge']]],
-  ['setindegree_2',['setIndegree',['../class_vertex.html#aeb605d2ba9296a5e40496a9e37557d03',1,'Vertex']]],
-  ['setinfo_3',['setInfo',['../class_vertex.html#a75c76752ea4932e26b473bb8002583ff',1,'Vertex']]],
-  ['setlabel_4',['setLabel',['../class_vertex.html#a0b3dbdddcf75d62152264b3bbd995ade',1,'Vertex']]],
-  ['setlatitude_5',['setLatitude',['../class_vertex.html#a577ed4a9032ff6240b8e6b972e654735',1,'Vertex']]],
-  ['setlongitude_6',['setLongitude',['../class_vertex.html#a96d9dade409b0e65ca857f1f965b3fef',1,'Vertex']]],
-  ['setpath_7',['setPath',['../class_vertex.html#abe4bc30005eec65e775d0cd51f456460',1,'Vertex']]],
-  ['setprocessing_8',['setProcessing',['../class_vertex.html#ab8e07026d427d6fde1422236004fb548',1,'Vertex']]],
-  ['setvisited_9',['setVisited',['../class_vertex.html#a15eeabbbb6d517af746ae137c6d5b595',1,'Vertex']]],
-  ['shortcuteuleriancircuit_10',['shortcutEulerianCircuit',['../_actions_8h.html#a77597de03361f7c513e96b2aa9e4ead6',1,'Actions.cpp']]]
+  ['removeedge_0',['removeEdge',['../class_vertex.html#a7f26fa12ac7ee544bc924bf99c94541d',1,'Vertex::removeEdge()'],['../class_graph.html#a680b7db2b868494868aeb2227f24ecbd',1,'Graph::removeEdge()']]],
+  ['removeoutgoingedges_1',['removeOutgoingEdges',['../class_vertex.html#afcde6d707aff7627df7adde8d8b74a89',1,'Vertex']]],
+  ['removevertex_2',['removeVertex',['../class_graph.html#a0d8c86c581492d03c3c0714f7e931ba8',1,'Graph']]],
+  ['resetvisited_3',['resetVisited',['../class_graph.html#a00c89f9300992b2ac69104bb7ddcc868',1,'Graph']]]
 ];

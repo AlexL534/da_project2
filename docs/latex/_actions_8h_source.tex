@@ -9,58 +9,81 @@
 \DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <climits>}}
 \DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <algorithm>}}
 \DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <limits>}}
-\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <cmath>}}
-\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_graph_8h}{graph.h}}"{}}}
-\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
-\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <queue>}}
-\DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \textcolor{comment}{/*\ ===========================================4.1===============================================*/}}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00034\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_pair_hash}{PairHash}}\ \{}
-\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2>}
-\DoxyCodeLine{00036\ \ \ \ \ std::size\_t\ operator()\ (\textcolor{keyword}{const}\ std::pair<T1,\ T2>\&\ pair)\textcolor{keyword}{\ const\ }\{}
-\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ hash1\ =\ std::hash<T1>\{\}(pair.first);}
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ hash2\ =\ std::hash<T2>\{\}(pair.second);}
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ hash1\ \string^\ hash2;}
-\DoxyCodeLine{00040\ \ \ \ \ \}}
-\DoxyCodeLine{00041\ \};}
-\DoxyCodeLine{00042\ }
-\DoxyCodeLine{00043\ \textcolor{keyword}{using\ }MemoizationTable\ =\ std::unordered\_map<std::pair<Vertex*,\ int>,\ double,\ \mbox{\hyperlink{struct_pair_hash}{PairHash}}>;}
-\DoxyCodeLine{00044\ }
-\DoxyCodeLine{00054\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_actions_8h_ac1d5fc2c93475767b5dd873f26a7df50}{TSPBacktracking}}(\mbox{\hyperlink{class_graph}{Graph}}*\ graph);}
-\DoxyCodeLine{00055\ }
-\DoxyCodeLine{00067\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_actions_8h_a0f0a1cb2c22a3fb8d03a11b494eddfc3}{TSPHeldKarp}}(\mbox{\hyperlink{class_graph}{Graph}}*\ graph,\ \mbox{\hyperlink{class_vertex}{Vertex}}*\ curr,\ \textcolor{keywordtype}{int}\ bitmask,\ MemoizationTable\&\ memoization);}
-\DoxyCodeLine{00068\ }
-\DoxyCodeLine{00069\ \textcolor{comment}{/*\ ===========================================4.2===============================================*/}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <random>}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_graph_8h}{graph.h}}"{}}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <queue>}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{comment}{/*\ ===========================================4.1===============================================*/}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_pair_hash}{PairHash}}\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2>}
+\DoxyCodeLine{00037\ \ \ \ \ std::size\_t\ operator()\ (\textcolor{keyword}{const}\ std::pair<T1,\ T2>\&\ pair)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ hash1\ =\ std::hash<T1>\{\}(pair.first);}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ hash2\ =\ std::hash<T2>\{\}(pair.second);}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ hash1\ \string^\ hash2;}
+\DoxyCodeLine{00041\ \ \ \ \ \}}
+\DoxyCodeLine{00042\ \};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{using\ }MemoizationTable\ =\ std::unordered\_map<std::pair<Vertex*,\ int>,\ double,\ \mbox{\hyperlink{struct_pair_hash}{PairHash}}>;}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00055\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_actions_8h_ac1d5fc2c93475767b5dd873f26a7df50}{TSPBacktracking}}(\mbox{\hyperlink{class_graph}{Graph}}*\ graph);}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00069\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_actions_8h_a0f0a1cb2c22a3fb8d03a11b494eddfc3}{TSPHeldKarp}}(\mbox{\hyperlink{class_graph}{Graph}}*\ graph,\ \mbox{\hyperlink{class_vertex}{Vertex}}*\ curr,\ \textcolor{keywordtype}{int}\ bitmask,\ MemoizationTable\&\ memoization);}
 \DoxyCodeLine{00070\ }
-\DoxyCodeLine{00079\ \mbox{\hyperlink{class_graph}{Graph}}\ \mbox{\hyperlink{_actions_8h_a5b4da6a2b11016fd064e0bcfa91afc4c}{primMST}}(\mbox{\hyperlink{class_graph}{Graph}}*\ graph,\ \textcolor{keyword}{const}\ std::string\&\ startVertexLabel);}
-\DoxyCodeLine{00080\ }
-\DoxyCodeLine{00089\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_actions_8h_a3db56f60b011fb3c2421d68a5d80d208}{preOrderWalk}}(\mbox{\hyperlink{class_vertex}{Vertex}}*\ vertex,\ std::unordered\_set<Vertex*>\&\ visited,\ std::vector<Vertex*>\&\ preOrderList);}
-\DoxyCodeLine{00090\ }
-\DoxyCodeLine{00097\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_actions_8h_a67c5012286e810488418e5f5f2ab2a37}{connectAllEdges}}(\mbox{\hyperlink{class_graph}{Graph}}\ *graph);}
-\DoxyCodeLine{00098\ }
-\DoxyCodeLine{00106\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_actions_8h_ae046997a18d9027f005e938cd55937de}{TSPTriangularApproximation}}(\mbox{\hyperlink{class_graph}{Graph}}*\ graph);}
-\DoxyCodeLine{00107\ }
-\DoxyCodeLine{00108\ \textcolor{comment}{/*\ ===========================================Other\ heuristics===============================================*/}}
+\DoxyCodeLine{00071\ \textcolor{comment}{/*\ ===========================================4.2===============================================*/}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00081\ \mbox{\hyperlink{class_graph}{Graph}}\ \mbox{\hyperlink{_actions_8h_a5b4da6a2b11016fd064e0bcfa91afc4c}{primMST}}(\mbox{\hyperlink{class_graph}{Graph}}*\ graph,\ \textcolor{keyword}{const}\ std::string\&\ startVertexLabel);}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00091\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_actions_8h_a3db56f60b011fb3c2421d68a5d80d208}{preOrderWalk}}(\mbox{\hyperlink{class_vertex}{Vertex}}*\ vertex,\ std::unordered\_set<Vertex*>\&\ visited,\ std::vector<Vertex*>\&\ preOrderList);}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00099\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_actions_8h_a67c5012286e810488418e5f5f2ab2a37}{connectAllEdges}}(\mbox{\hyperlink{class_graph}{Graph}}\ *graph);}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00108\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_actions_8h_ae046997a18d9027f005e938cd55937de}{TSPTriangularApproximation}}(\mbox{\hyperlink{class_graph}{Graph}}*\ graph);}
 \DoxyCodeLine{00109\ }
-\DoxyCodeLine{00117\ \mbox{\hyperlink{class_graph}{Graph}}\ \mbox{\hyperlink{_actions_8h_aa3d17ac49826349ff6b11c9ec328dab1}{findPerfectMatching}}(\mbox{\hyperlink{class_graph}{Graph}}\ *MST);}
-\DoxyCodeLine{00118\ }
-\DoxyCodeLine{00127\ \mbox{\hyperlink{class_graph}{Graph}}\ \mbox{\hyperlink{_actions_8h_a3783770d349c3beb8b8c6c50fe6e9386}{combineMSTAndPM}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_graph}{Graph}}*\ MST,\ \mbox{\hyperlink{class_graph}{Graph}}\ *MWPM);}
-\DoxyCodeLine{00128\ }
-\DoxyCodeLine{00136\ std::vector<Vertex*>\ \mbox{\hyperlink{_actions_8h_a6102d9cd58af53b6404f32383bc42612}{findEulerianCircuit}}(\mbox{\hyperlink{class_graph}{Graph}}*\ multigraph);}
-\DoxyCodeLine{00137\ }
-\DoxyCodeLine{00145\ std::vector<Vertex*>\ \mbox{\hyperlink{_actions_8h_a77597de03361f7c513e96b2aa9e4ead6}{shortcutEulerianCircuit}}(\textcolor{keyword}{const}\ std::vector<Vertex*>\&\ eulerianCircuit);}
-\DoxyCodeLine{00146\ }
-\DoxyCodeLine{00155\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_actions_8h_aac2af149e343a6a07addc4b9c686b97a}{calculateTotalCost}}(\textcolor{keyword}{const}\ std::vector<Vertex*>\&\ hamiltonianCircuit,\ \mbox{\hyperlink{class_graph}{Graph}}*\ graph);}
-\DoxyCodeLine{00156\ }
-\DoxyCodeLine{00164\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_actions_8h_a1d68d0148d233c525b2d19a4c855c2f9}{TSPChristofides}}(\mbox{\hyperlink{class_graph}{Graph}}*\ graph);}
-\DoxyCodeLine{00165\ }
-\DoxyCodeLine{00166\ \textcolor{comment}{/*\ ===========================================4.4===============================================*/}}
+\DoxyCodeLine{00110\ \textcolor{comment}{/*\ ===========================================Other\ heuristics===============================================*/}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00119\ \mbox{\hyperlink{class_graph}{Graph}}\ \mbox{\hyperlink{_actions_8h_aa3d17ac49826349ff6b11c9ec328dab1}{findPerfectMatching}}(\mbox{\hyperlink{class_graph}{Graph}}\ *MST);}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00129\ \mbox{\hyperlink{class_graph}{Graph}}\ \mbox{\hyperlink{_actions_8h_a3783770d349c3beb8b8c6c50fe6e9386}{combineMSTAndPM}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_graph}{Graph}}*\ MST,\ \mbox{\hyperlink{class_graph}{Graph}}\ *MWPM);}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00138\ std::vector<Vertex*>\ \mbox{\hyperlink{_actions_8h_a6102d9cd58af53b6404f32383bc42612}{findEulerianCircuit}}(\mbox{\hyperlink{class_graph}{Graph}}*\ multigraph);}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00147\ std::vector<Vertex*>\ \mbox{\hyperlink{_actions_8h_a77597de03361f7c513e96b2aa9e4ead6}{shortcutEulerianCircuit}}(\textcolor{keyword}{const}\ std::vector<Vertex*>\&\ eulerianCircuit);}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00157\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_actions_8h_aac2af149e343a6a07addc4b9c686b97a}{calculateTotalCost}}(\textcolor{keyword}{const}\ std::vector<Vertex*>\&\ hamiltonianCircuit,\ \mbox{\hyperlink{class_graph}{Graph}}*\ graph);}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00166\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_actions_8h_a1d68d0148d233c525b2d19a4c855c2f9}{TSPChristofides}}(\mbox{\hyperlink{class_graph}{Graph}}*\ graph);}
 \DoxyCodeLine{00167\ }
-\DoxyCodeLine{00177\ std::vector<Vertex*>\ \mbox{\hyperlink{_actions_8h_a640d1481b7cc78b87646f058b159ac49}{nearestNeighborTSP}}(\mbox{\hyperlink{class_graph}{Graph}}*\ graph,\ \textcolor{keyword}{const}\ std::string\&\ start,\ \textcolor{keywordtype}{double}\&\ totalCost);}
-\DoxyCodeLine{00178\ }
-\DoxyCodeLine{00188\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_actions_8h_a1431edaed5abc3cec9d28668079d0fe2}{hybridMSTAndNNTSP}}(\mbox{\hyperlink{class_graph}{Graph}}*\ graph,\ \textcolor{keyword}{const}\ std::string\&\ start,\ \textcolor{keywordtype}{double}\&\ totalCost);}
-\DoxyCodeLine{00189\ }
-\DoxyCodeLine{00190\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ PROJETO\_2\_ACTIONS\_H}}
+\DoxyCodeLine{00168\ \textcolor{comment}{/*\ ===========================================4.4===============================================*/}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00179\ std::vector<Vertex*>\ \mbox{\hyperlink{_actions_8h_a640d1481b7cc78b87646f058b159ac49}{nearestNeighborTSP}}(\mbox{\hyperlink{class_graph}{Graph}}*\ graph,\ \textcolor{keyword}{const}\ std::string\&\ start,\ \textcolor{keywordtype}{double}\&\ totalCost);}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00190\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_actions_8h_a1431edaed5abc3cec9d28668079d0fe2}{hybridMSTAndNNTSP}}(\mbox{\hyperlink{class_graph}{Graph}}*\ graph,\ \textcolor{keyword}{const}\ std::string\&\ start,\ \textcolor{keywordtype}{double}\&\ totalCost);}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \textcolor{comment}{/*\ ===========================================Extended-\/Christofides===============================================*/}}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00201\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_actions_8h_a189ca605a8fb05330b41332e72f9250f}{floydWarshall}}(\mbox{\hyperlink{class_graph}{Graph}}*\ graph,\ std::unordered\_map<\mbox{\hyperlink{class_vertex}{Vertex}}*,\ std::unordered\_map<Vertex*,\ double>>\&\ shortestPaths);}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00210\ std::vector<Vertex*>\ \mbox{\hyperlink{_actions_8h_adb251236c733f1480f822c2aa9c18194}{findOddDegreeVertices}}(\mbox{\hyperlink{class_graph}{Graph}}*\ graph);}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00219\ std::vector<Edge*>\ \mbox{\hyperlink{_actions_8h_a0d6df4e9dca4e00364e9192e5cadbd81}{minimumCostPerfectMatching}}(\mbox{\hyperlink{class_graph}{Graph}}*\ mst);}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00230\ \mbox{\hyperlink{class_graph}{Graph}}\ \mbox{\hyperlink{_actions_8h_a7cd4a7322fa3de69fe7a7e3b2bdd3d20}{combineMSTAndMWPM}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_graph}{Graph}}*\ MST,\ \textcolor{keyword}{const}\ std::vector<Vertex*>\&\ oddDegreeVertices,\ std::unordered\_map<\mbox{\hyperlink{class_vertex}{Vertex}}*,\ std::unordered\_map<Vertex*,\ double>>\&\ shortestPaths);}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00239\ std::vector<Vertex*>\ \mbox{\hyperlink{_actions_8h_adc368fe41e770e2d0d33dcab86d086ee}{findEulerianWalk}}(\mbox{\hyperlink{class_graph}{Graph}}*\ multigraph);}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00250\ std::vector<Vertex*>\ \mbox{\hyperlink{_actions_8h_ad4567ea5fadfe7d570fb28e1a51ccadd}{substituteShortestPath}}(\textcolor{keyword}{const}\ std::vector<Vertex*>\&\ eulerianCircuit,\ \mbox{\hyperlink{class_graph}{Graph}}*\ graph,\ std::unordered\_map<\mbox{\hyperlink{class_vertex}{Vertex}}*,\ std::unordered\_map<Vertex*,\ double>>\&\ shortestPaths);}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00261\ std::vector<Vertex*>\ \mbox{\hyperlink{_actions_8h_a6d46cfc8cc6a68d51b1f93b4486efc58}{findShortestPath}}(\mbox{\hyperlink{class_vertex}{Vertex}}*\ start,\ \mbox{\hyperlink{class_vertex}{Vertex}}*\ end,\ \mbox{\hyperlink{class_graph}{Graph}}*\ graph);}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00271\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_actions_8h_a87277d8561c171de0ae00327376e8162}{TSPExtendedChristofides}}(\mbox{\hyperlink{class_graph}{Graph}}*\ graph,\ \textcolor{keyword}{const}\ std::string\&\ startVertexLabel);}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00273\ \textcolor{keyword}{using\ }MatchedPairs\ =\ std::vector<std::pair<Vertex*,\ Vertex*>>;}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00283\ MatchedPairs\ \mbox{\hyperlink{_actions_8h_a2df4a14a6c4b030c6a96d8820600d490}{hungarianAlgorithm}}(\textcolor{keyword}{const}\ std::vector<Vertex*>\&\ oddDegreeVertices,\ std::unordered\_map<\mbox{\hyperlink{class_vertex}{Vertex}}*,\ std::unordered\_map<Vertex*,\ double>>\&\ shortestPaths);}
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00285\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ PROJETO\_2\_ACTIONS\_H}}
 
 \end{DoxyCode}

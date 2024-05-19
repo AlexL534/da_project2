@@ -85,6 +85,7 @@ $(function() {
 <code>#include &lt;climits&gt;</code><br />
 <code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;limits&gt;</code><br />
+<code>#include &lt;random&gt;</code><br />
 <code>#include &lt;cmath&gt;</code><br />
 <code>#include &quot;<a class="el" href="_graph_8h_source.html">graph.h</a>&quot;</code><br />
 <code>#include &lt;unordered_map&gt;</code><br />
@@ -103,6 +104,9 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a5c8d45e169e35e5986354b3a63d2f610" id="r_a5c8d45e169e35e5986354b3a63d2f610"><td class="memItemLeft" align="right" valign="top"><a id="a5c8d45e169e35e5986354b3a63d2f610" name="a5c8d45e169e35e5986354b3a63d2f610"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>MemoizationTable</b> = std::unordered_map&lt;std::pair&lt;<a class="el" href="class_vertex.html">Vertex</a>*, int&gt;, double, <a class="el" href="struct_pair_hash.html">PairHash</a>&gt;</td></tr>
 <tr class="separator:a5c8d45e169e35e5986354b3a63d2f610"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46660c16f5465560945c41519290f09e" id="r_a46660c16f5465560945c41519290f09e"><td class="memItemLeft" align="right" valign="top"><a id="a46660c16f5465560945c41519290f09e" name="a46660c16f5465560945c41519290f09e"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>MatchedPairs</b> = std::vector&lt;std::pair&lt;<a class="el" href="class_vertex.html">Vertex</a>*, <a class="el" href="class_vertex.html">Vertex</a>*&gt;&gt;</td></tr>
+<tr class="separator:a46660c16f5465560945c41519290f09e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -110,44 +114,71 @@ Functions</h2></td></tr>
 <tr class="memdesc:ac1d5fc2c93475767b5dd873f26a7df50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements the backtracking algorithm to solve the TSP. The time complexity of this algorithm is O(n^2 * 2^n).  <br /></td></tr>
 <tr class="separator:ac1d5fc2c93475767b5dd873f26a7df50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f0a1cb2c22a3fb8d03a11b494eddfc3" id="r_a0f0a1cb2c22a3fb8d03a11b494eddfc3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0f0a1cb2c22a3fb8d03a11b494eddfc3">TSPHeldKarp</a> (<a class="el" href="class_graph.html">Graph</a> *graph, <a class="el" href="class_vertex.html">Vertex</a> *curr, int bitmask, MemoizationTable &amp;memoization)</td></tr>
-<tr class="memdesc:a0f0a1cb2c22a3fb8d03a11b494eddfc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recursive helper function for TSPBacktracking.  <br /></td></tr>
+<tr class="memdesc:a0f0a1cb2c22a3fb8d03a11b494eddfc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recursive helper function for TSPBacktracking. The time complexity of this algorithm is O(n^2 * 2^n).  <br /></td></tr>
 <tr class="separator:a0f0a1cb2c22a3fb8d03a11b494eddfc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b4da6a2b11016fd064e0bcfa91afc4c" id="r_a5b4da6a2b11016fd064e0bcfa91afc4c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_graph.html">Graph</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5b4da6a2b11016fd064e0bcfa91afc4c">primMST</a> (<a class="el" href="class_graph.html">Graph</a> *graph, const std::string &amp;startVertexLabel)</td></tr>
-<tr class="memdesc:a5b4da6a2b11016fd064e0bcfa91afc4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a Minimum Spanning Tree (MST) using Prim's algorithm. The time complexity of this algorithm is (O((V + E) log V))  <br /></td></tr>
+<tr class="memdesc:a5b4da6a2b11016fd064e0bcfa91afc4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a Minimum Spanning Tree (MST) using Prim's algorithm. The time complexity of this algorithm is O((V + E) log V).  <br /></td></tr>
 <tr class="separator:a5b4da6a2b11016fd064e0bcfa91afc4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3db56f60b011fb3c2421d68a5d80d208" id="r_a3db56f60b011fb3c2421d68a5d80d208"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3db56f60b011fb3c2421d68a5d80d208">preOrderWalk</a> (<a class="el" href="class_vertex.html">Vertex</a> *vertex, std::unordered_set&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt; &amp;visited, std::vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt; &amp;preOrderList)</td></tr>
-<tr class="memdesc:a3db56f60b011fb3c2421d68a5d80d208"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a pre-order walk on the MST to generate a tour. The time complexity of this algorithm is (O(V + E))  <br /></td></tr>
+<tr class="memdesc:a3db56f60b011fb3c2421d68a5d80d208"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a pre-order walk on the MST to generate a tour. The time complexity of this algorithm is O(V + E).  <br /></td></tr>
 <tr class="separator:a3db56f60b011fb3c2421d68a5d80d208"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a67c5012286e810488418e5f5f2ab2a37" id="r_a67c5012286e810488418e5f5f2ab2a37"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a67c5012286e810488418e5f5f2ab2a37">connectAllEdges</a> (<a class="el" href="class_graph.html">Graph</a> *graph)</td></tr>
-<tr class="memdesc:a67c5012286e810488418e5f5f2ab2a37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Connects all edges in the graph based on the Haversine distance. The time complexity of this algorithm is (O(V^2))  <br /></td></tr>
+<tr class="memdesc:a67c5012286e810488418e5f5f2ab2a37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Connects all edges in the graph based on the Haversine distance. The time complexity of this algorithm is O(V^2).  <br /></td></tr>
 <tr class="separator:a67c5012286e810488418e5f5f2ab2a37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae046997a18d9027f005e938cd55937de" id="r_ae046997a18d9027f005e938cd55937de"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae046997a18d9027f005e938cd55937de">TSPTriangularApproximation</a> (<a class="el" href="class_graph.html">Graph</a> *graph)</td></tr>
-<tr class="memdesc:ae046997a18d9027f005e938cd55937de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves the TSP using the Triangular Approximation heuristic. The time complexity of this algorithm is (O(V^2 log V))  <br /></td></tr>
+<tr class="memdesc:ae046997a18d9027f005e938cd55937de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves the TSP using the Triangular Approximation heuristic. The time complexity of this algorithm is O(V^2 log V).  <br /></td></tr>
 <tr class="separator:ae046997a18d9027f005e938cd55937de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3d17ac49826349ff6b11c9ec328dab1" id="r_aa3d17ac49826349ff6b11c9ec328dab1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_graph.html">Graph</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa3d17ac49826349ff6b11c9ec328dab1">findPerfectMatching</a> (<a class="el" href="class_graph.html">Graph</a> *MST)</td></tr>
-<tr class="memdesc:aa3d17ac49826349ff6b11c9ec328dab1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds a perfect matching on the odd degree vertices of the MST. The time complexity of this algorithm is (O(V^3))  <br /></td></tr>
+<tr class="memdesc:aa3d17ac49826349ff6b11c9ec328dab1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds a perfect matching on the odd degree vertices of the MST. The time complexity of this algorithm is O(V^3).  <br /></td></tr>
 <tr class="separator:aa3d17ac49826349ff6b11c9ec328dab1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3783770d349c3beb8b8c6c50fe6e9386" id="r_a3783770d349c3beb8b8c6c50fe6e9386"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_graph.html">Graph</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3783770d349c3beb8b8c6c50fe6e9386">combineMSTAndPM</a> (const <a class="el" href="class_graph.html">Graph</a> *MST, <a class="el" href="class_graph.html">Graph</a> *MWPM)</td></tr>
-<tr class="memdesc:a3783770d349c3beb8b8c6c50fe6e9386"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combines the MST and minimum weight perfect matching to form a multigraph. The time complexity of this algorithm is (O(V + E))  <br /></td></tr>
+<tr class="memdesc:a3783770d349c3beb8b8c6c50fe6e9386"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combines the MST and minimum weight perfect matching to form a multigraph. The time complexity of this algorithm is O(V + E).  <br /></td></tr>
 <tr class="separator:a3783770d349c3beb8b8c6c50fe6e9386"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6102d9cd58af53b6404f32383bc42612" id="r_a6102d9cd58af53b6404f32383bc42612"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6102d9cd58af53b6404f32383bc42612">findEulerianCircuit</a> (<a class="el" href="class_graph.html">Graph</a> *multigraph)</td></tr>
-<tr class="memdesc:a6102d9cd58af53b6404f32383bc42612"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds an Eulerian circuit in the given multigraph. The time complexity of this algorithm is (O(V + E))  <br /></td></tr>
+<tr class="memdesc:a6102d9cd58af53b6404f32383bc42612"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds an Eulerian circuit in the given multigraph. The time complexity of this algorithm is O(V + E).  <br /></td></tr>
 <tr class="separator:a6102d9cd58af53b6404f32383bc42612"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77597de03361f7c513e96b2aa9e4ead6" id="r_a77597de03361f7c513e96b2aa9e4ead6"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a77597de03361f7c513e96b2aa9e4ead6">shortcutEulerianCircuit</a> (const std::vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt; &amp;eulerianCircuit)</td></tr>
-<tr class="memdesc:a77597de03361f7c513e96b2aa9e4ead6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a Hamiltonian circuit by shortcutting the Eulerian circuit. The time complexity of this algorithm is (O(V))  <br /></td></tr>
+<tr class="memdesc:a77597de03361f7c513e96b2aa9e4ead6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a Hamiltonian circuit by shortcutting the Eulerian circuit. The time complexity of this algorithm is O(V).  <br /></td></tr>
 <tr class="separator:a77597de03361f7c513e96b2aa9e4ead6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac2af149e343a6a07addc4b9c686b97a" id="r_aac2af149e343a6a07addc4b9c686b97a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac2af149e343a6a07addc4b9c686b97a">calculateTotalCost</a> (const std::vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt; &amp;hamiltonianCircuit, <a class="el" href="class_graph.html">Graph</a> *graph)</td></tr>
-<tr class="memdesc:aac2af149e343a6a07addc4b9c686b97a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the total cost of a given Hamiltonian circuit. The time complexity of this algorithm is (O(V))  <br /></td></tr>
+<tr class="memdesc:aac2af149e343a6a07addc4b9c686b97a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the total cost of a given Hamiltonian circuit. The time complexity of this algorithm is O(V).  <br /></td></tr>
 <tr class="separator:aac2af149e343a6a07addc4b9c686b97a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d68d0148d233c525b2d19a4c855c2f9" id="r_a1d68d0148d233c525b2d19a4c855c2f9"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d68d0148d233c525b2d19a4c855c2f9">TSPChristofides</a> (<a class="el" href="class_graph.html">Graph</a> *graph)</td></tr>
-<tr class="memdesc:a1d68d0148d233c525b2d19a4c855c2f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves the TSP using Christofides' algorithm. The time complexity of this algorithm is (O(V^3))  <br /></td></tr>
+<tr class="memdesc:a1d68d0148d233c525b2d19a4c855c2f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves the TSP using Christofides' algorithm. The time complexity of this algorithm is O(V^3).  <br /></td></tr>
 <tr class="separator:a1d68d0148d233c525b2d19a4c855c2f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a640d1481b7cc78b87646f058b159ac49" id="r_a640d1481b7cc78b87646f058b159ac49"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a640d1481b7cc78b87646f058b159ac49">nearestNeighborTSP</a> (<a class="el" href="class_graph.html">Graph</a> *graph, const std::string &amp;start, double &amp;totalCost)</td></tr>
-<tr class="memdesc:a640d1481b7cc78b87646f058b159ac49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves the TSP using the Nearest Neighbor heuristic. The time complexity of this algorithm is (O(V^2))  <br /></td></tr>
+<tr class="memdesc:a640d1481b7cc78b87646f058b159ac49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves the TSP using the Nearest Neighbor heuristic. The time complexity of this algorithm is O(V^2).  <br /></td></tr>
 <tr class="separator:a640d1481b7cc78b87646f058b159ac49"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1431edaed5abc3cec9d28668079d0fe2" id="r_a1431edaed5abc3cec9d28668079d0fe2"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1431edaed5abc3cec9d28668079d0fe2">hybridMSTAndNNTSP</a> (<a class="el" href="class_graph.html">Graph</a> *graph, const std::string &amp;start, double &amp;totalCost)</td></tr>
-<tr class="memdesc:a1431edaed5abc3cec9d28668079d0fe2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves the TSP using a hybrid of MST and Nearest Neighbor heuristics. The time complexity of this algorithm is (O(V^2 log V))  <br /></td></tr>
+<tr class="memdesc:a1431edaed5abc3cec9d28668079d0fe2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves the TSP using a hybrid of MST and Nearest Neighbor heuristics. The time complexity of this algorithm is O(V^2 log V).  <br /></td></tr>
 <tr class="separator:a1431edaed5abc3cec9d28668079d0fe2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a189ca605a8fb05330b41332e72f9250f" id="r_a189ca605a8fb05330b41332e72f9250f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a189ca605a8fb05330b41332e72f9250f">floydWarshall</a> (<a class="el" href="class_graph.html">Graph</a> *graph, std::unordered_map&lt; <a class="el" href="class_vertex.html">Vertex</a> *, std::unordered_map&lt; <a class="el" href="class_vertex.html">Vertex</a> *, double &gt; &gt; &amp;shortestPaths)</td></tr>
+<tr class="memdesc:a189ca605a8fb05330b41332e72f9250f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the Floyd-Warshall algorithm to find shortest paths between all pairs of vertices. The time complexity of this algorithm is O(V^3).  <br /></td></tr>
+<tr class="separator:a189ca605a8fb05330b41332e72f9250f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb251236c733f1480f822c2aa9c18194" id="r_adb251236c733f1480f822c2aa9c18194"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adb251236c733f1480f822c2aa9c18194">findOddDegreeVertices</a> (<a class="el" href="class_graph.html">Graph</a> *graph)</td></tr>
+<tr class="memdesc:adb251236c733f1480f822c2aa9c18194"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds vertices with odd degree in the graph. The time complexity of this algorithm is O(V).  <br /></td></tr>
+<tr class="separator:adb251236c733f1480f822c2aa9c18194"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d6df4e9dca4e00364e9192e5cadbd81" id="r_a0d6df4e9dca4e00364e9192e5cadbd81"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_edge.html">Edge</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0d6df4e9dca4e00364e9192e5cadbd81">minimumCostPerfectMatching</a> (<a class="el" href="class_graph.html">Graph</a> *mst)</td></tr>
+<tr class="memdesc:a0d6df4e9dca4e00364e9192e5cadbd81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the minimum cost perfect matching among vertices with odd degree. The time complexity of this algorithm is O(V^3).  <br /></td></tr>
+<tr class="separator:a0d6df4e9dca4e00364e9192e5cadbd81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7cd4a7322fa3de69fe7a7e3b2bdd3d20" id="r_a7cd4a7322fa3de69fe7a7e3b2bdd3d20"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_graph.html">Graph</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7cd4a7322fa3de69fe7a7e3b2bdd3d20">combineMSTAndMWPM</a> (const <a class="el" href="class_graph.html">Graph</a> *MST, const std::vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt; &amp;oddDegreeVertices, std::unordered_map&lt; <a class="el" href="class_vertex.html">Vertex</a> *, std::unordered_map&lt; <a class="el" href="class_vertex.html">Vertex</a> *, double &gt; &gt; &amp;shortestPaths)</td></tr>
+<tr class="memdesc:a7cd4a7322fa3de69fe7a7e3b2bdd3d20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combines the MST and minimum weight perfect matching to form a multigraph. The time complexity of this algorithm is O(V^2).  <br /></td></tr>
+<tr class="separator:a7cd4a7322fa3de69fe7a7e3b2bdd3d20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc368fe41e770e2d0d33dcab86d086ee" id="r_adc368fe41e770e2d0d33dcab86d086ee"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adc368fe41e770e2d0d33dcab86d086ee">findEulerianWalk</a> (<a class="el" href="class_graph.html">Graph</a> *multigraph)</td></tr>
+<tr class="memdesc:adc368fe41e770e2d0d33dcab86d086ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds an Eulerian walk in the given multigraph. The time complexity of this algorithm is O(V + E).  <br /></td></tr>
+<tr class="separator:adc368fe41e770e2d0d33dcab86d086ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4567ea5fadfe7d570fb28e1a51ccadd" id="r_ad4567ea5fadfe7d570fb28e1a51ccadd"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4567ea5fadfe7d570fb28e1a51ccadd">substituteShortestPath</a> (const std::vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt; &amp;eulerianCircuit, <a class="el" href="class_graph.html">Graph</a> *graph, std::unordered_map&lt; <a class="el" href="class_vertex.html">Vertex</a> *, std::unordered_map&lt; <a class="el" href="class_vertex.html">Vertex</a> *, double &gt; &gt; &amp;shortestPaths)</td></tr>
+<tr class="memdesc:ad4567ea5fadfe7d570fb28e1a51ccadd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Substitutes the shortest path for each edge in the Eulerian circuit. The time complexity of this algorithm is O(V^2).  <br /></td></tr>
+<tr class="separator:ad4567ea5fadfe7d570fb28e1a51ccadd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d46cfc8cc6a68d51b1f93b4486efc58" id="r_a6d46cfc8cc6a68d51b1f93b4486efc58"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6d46cfc8cc6a68d51b1f93b4486efc58">findShortestPath</a> (<a class="el" href="class_vertex.html">Vertex</a> *start, <a class="el" href="class_vertex.html">Vertex</a> *end, <a class="el" href="class_graph.html">Graph</a> *graph)</td></tr>
+<tr class="memdesc:a6d46cfc8cc6a68d51b1f93b4486efc58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the shortest path between two vertices in the graph. The time complexity of this algorithm is O(V^2).  <br /></td></tr>
+<tr class="separator:a6d46cfc8cc6a68d51b1f93b4486efc58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87277d8561c171de0ae00327376e8162" id="r_a87277d8561c171de0ae00327376e8162"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a87277d8561c171de0ae00327376e8162">TSPExtendedChristofides</a> (<a class="el" href="class_graph.html">Graph</a> *graph, const std::string &amp;startVertexLabel)</td></tr>
+<tr class="memdesc:a87277d8561c171de0ae00327376e8162"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves the TSP using an extended version of Christofides' algorithm. The time complexity of this algorithm is O(V^3).  <br /></td></tr>
+<tr class="separator:a87277d8561c171de0ae00327376e8162"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2df4a14a6c4b030c6a96d8820600d490" id="r_a2df4a14a6c4b030c6a96d8820600d490"><td class="memItemLeft" align="right" valign="top">MatchedPairs&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2df4a14a6c4b030c6a96d8820600d490">hungarianAlgorithm</a> (const std::vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt; &amp;oddDegreeVertices, std::unordered_map&lt; <a class="el" href="class_vertex.html">Vertex</a> *, std::unordered_map&lt; <a class="el" href="class_vertex.html">Vertex</a> *, double &gt; &gt; &amp;shortestPaths)</td></tr>
+<tr class="memdesc:a2df4a14a6c4b030c6a96d8820600d490"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves the minimum cost perfect matching problem using the Hungarian algorithm. The time complexity of this algorithm is O(V^3).  <br /></td></tr>
+<tr class="separator:a2df4a14a6c4b030c6a96d8820600d490"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Header file for the Actions module. </p>
@@ -180,7 +211,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Calculates the total cost of a given Hamiltonian circuit. The time complexity of this algorithm is (O(V)) </p>
+<p>Calculates the total cost of a given Hamiltonian circuit. The time complexity of this algorithm is O(V). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">hamiltonianCircuit</td><td>Vector of vertices representing the Hamiltonian circuit. </td></tr>
@@ -189,6 +220,43 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The total cost of the Hamiltonian circuit. </dd></dl>
+
+</div>
+</div>
+<a id="a7cd4a7322fa3de69fe7a7e3b2bdd3d20" name="a7cd4a7322fa3de69fe7a7e3b2bdd3d20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cd4a7322fa3de69fe7a7e3b2bdd3d20">&#9670;&#160;</a></span>combineMSTAndMWPM()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_graph.html">Graph</a> combineMSTAndMWPM </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_graph.html">Graph</a> *</td>          <td class="paramname"><span class="paramname"><em>MST</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>oddDegreeVertices</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::unordered_map&lt; <a class="el" href="class_vertex.html">Vertex</a> *, std::unordered_map&lt; <a class="el" href="class_vertex.html">Vertex</a> *, double &gt; &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>shortestPaths</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Combines the MST and minimum weight perfect matching to form a multigraph. The time complexity of this algorithm is O(V^2). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MST</td><td>Pointer to the MST graph. </td></tr>
+    <tr><td class="paramname">oddDegreeVertices</td><td>Vector of vertices with odd degree. </td></tr>
+    <tr><td class="paramname">shortestPaths</td><td>A map containing the shortest paths between vertices. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Combined multigraph. </dd></dl>
 
 </div>
 </div>
@@ -211,7 +279,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Combines the MST and minimum weight perfect matching to form a multigraph. The time complexity of this algorithm is (O(V + E)) </p>
+<p>Combines the MST and minimum weight perfect matching to form a multigraph. The time complexity of this algorithm is O(V + E). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">MST</td><td>Pointer to the MST graph. </td></tr>
@@ -238,7 +306,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Connects all edges in the graph based on the Haversine distance. The time complexity of this algorithm is (O(V^2)) </p>
+<p>Connects all edges in the graph based on the Haversine distance. The time complexity of this algorithm is O(V^2). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">graph</td><td>Pointer to the graph. </td></tr>
@@ -263,7 +331,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Finds an Eulerian circuit in the given multigraph. The time complexity of this algorithm is (O(V + E)) </p>
+<p>Finds an Eulerian circuit in the given multigraph. The time complexity of this algorithm is O(V + E). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">multigraph</td><td>Pointer to the multigraph. </td></tr>
@@ -271,6 +339,58 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Vector of vertices representing the Eulerian circuit. </dd></dl>
+
+</div>
+</div>
+<a id="adc368fe41e770e2d0d33dcab86d086ee" name="adc368fe41e770e2d0d33dcab86d086ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc368fe41e770e2d0d33dcab86d086ee">&#9670;&#160;</a></span>findEulerianWalk()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt; findEulerianWalk </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_graph.html">Graph</a> *</td>          <td class="paramname"><span class="paramname"><em>multigraph</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Finds an Eulerian walk in the given multigraph. The time complexity of this algorithm is O(V + E). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">multigraph</td><td>Pointer to the multigraph. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Vector of vertices representing the Eulerian walk. </dd></dl>
+
+</div>
+</div>
+<a id="adb251236c733f1480f822c2aa9c18194" name="adb251236c733f1480f822c2aa9c18194"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb251236c733f1480f822c2aa9c18194">&#9670;&#160;</a></span>findOddDegreeVertices()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt; findOddDegreeVertices </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_graph.html">Graph</a> *</td>          <td class="paramname"><span class="paramname"><em>graph</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Finds vertices with odd degree in the graph. The time complexity of this algorithm is O(V). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>Pointer to the graph. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Vector of vertices with odd degree. </dd></dl>
 
 </div>
 </div>
@@ -289,7 +409,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Finds a perfect matching on the odd degree vertices of the MST. The time complexity of this algorithm is (O(V^3)) </p>
+<p>Finds a perfect matching on the odd degree vertices of the MST. The time complexity of this algorithm is O(V^3). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">MST</td><td>Pointer to the MST graph. </td></tr>
@@ -297,6 +417,104 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_graph.html" title="Represents a graph.">Graph</a> representing the minimum weight perfect matching. </dd></dl>
+
+</div>
+</div>
+<a id="a6d46cfc8cc6a68d51b1f93b4486efc58" name="a6d46cfc8cc6a68d51b1f93b4486efc58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d46cfc8cc6a68d51b1f93b4486efc58">&#9670;&#160;</a></span>findShortestPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt; findShortestPath </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_vertex.html">Vertex</a> *</td>          <td class="paramname"><span class="paramname"><em>start</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_vertex.html">Vertex</a> *</td>          <td class="paramname"><span class="paramname"><em>end</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_graph.html">Graph</a> *</td>          <td class="paramname"><span class="paramname"><em>graph</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Finds the shortest path between two vertices in the graph. The time complexity of this algorithm is O(V^2). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">start</td><td>Pointer to the starting vertex. </td></tr>
+    <tr><td class="paramname">end</td><td>Pointer to the ending vertex. </td></tr>
+    <tr><td class="paramname">graph</td><td>Pointer to the graph. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Vector of vertices representing the shortest path. </dd></dl>
+
+</div>
+</div>
+<a id="a189ca605a8fb05330b41332e72f9250f" name="a189ca605a8fb05330b41332e72f9250f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a189ca605a8fb05330b41332e72f9250f">&#9670;&#160;</a></span>floydWarshall()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void floydWarshall </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_graph.html">Graph</a> *</td>          <td class="paramname"><span class="paramname"><em>graph</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::unordered_map&lt; <a class="el" href="class_vertex.html">Vertex</a> *, std::unordered_map&lt; <a class="el" href="class_vertex.html">Vertex</a> *, double &gt; &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>shortestPaths</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Runs the Floyd-Warshall algorithm to find shortest paths between all pairs of vertices. The time complexity of this algorithm is O(V^3). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>Pointer to the graph. </td></tr>
+    <tr><td class="paramname">shortestPaths</td><td>A map to store the shortest paths. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a2df4a14a6c4b030c6a96d8820600d490" name="a2df4a14a6c4b030c6a96d8820600d490"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2df4a14a6c4b030c6a96d8820600d490">&#9670;&#160;</a></span>hungarianAlgorithm()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">MatchedPairs hungarianAlgorithm </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>oddDegreeVertices</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::unordered_map&lt; <a class="el" href="class_vertex.html">Vertex</a> *, std::unordered_map&lt; <a class="el" href="class_vertex.html">Vertex</a> *, double &gt; &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>shortestPaths</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Solves the minimum cost perfect matching problem using the Hungarian algorithm. The time complexity of this algorithm is O(V^3). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">oddDegreeVertices</td><td>Vector of vertices with odd degree. </td></tr>
+    <tr><td class="paramname">shortestPaths</td><td>A map containing the shortest paths between vertices. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Vector of pairs representing the minimum cost perfect matching. </dd></dl>
 
 </div>
 </div>
@@ -324,7 +542,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Solves the TSP using a hybrid of MST and Nearest Neighbor heuristics. The time complexity of this algorithm is (O(V^2 log V)) </p>
+<p>Solves the TSP using a hybrid of MST and Nearest Neighbor heuristics. The time complexity of this algorithm is O(V^2 log V). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">graph</td><td>Pointer to the graph. </td></tr>
@@ -334,6 +552,32 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The approximate minimum path cost. </dd></dl>
+
+</div>
+</div>
+<a id="a0d6df4e9dca4e00364e9192e5cadbd81" name="a0d6df4e9dca4e00364e9192e5cadbd81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d6df4e9dca4e00364e9192e5cadbd81">&#9670;&#160;</a></span>minimumCostPerfectMatching()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="class_edge.html">Edge</a> * &gt; minimumCostPerfectMatching </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_graph.html">Graph</a> *</td>          <td class="paramname"><span class="paramname"><em>mst</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Finds the minimum cost perfect matching among vertices with odd degree. The time complexity of this algorithm is O(V^3). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mst</td><td>Pointer to the MST graph. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Vector of edges representing the minimum cost perfect matching. </dd></dl>
 
 </div>
 </div>
@@ -361,7 +605,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Solves the TSP using the Nearest Neighbor heuristic. The time complexity of this algorithm is (O(V^2)) </p>
+<p>Solves the TSP using the Nearest Neighbor heuristic. The time complexity of this algorithm is O(V^2). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">graph</td><td>Pointer to the graph. </td></tr>
@@ -398,7 +642,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Performs a pre-order walk on the MST to generate a tour. The time complexity of this algorithm is (O(V + E)) </p>
+<p>Performs a pre-order walk on the MST to generate a tour. The time complexity of this algorithm is O(V + E). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">vertex</td><td>Pointer to the current vertex. </td></tr>
@@ -429,7 +673,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Generates a Minimum Spanning Tree (MST) using Prim's algorithm. The time complexity of this algorithm is (O((V + E) log V)) </p>
+<p>Generates a Minimum Spanning Tree (MST) using Prim's algorithm. The time complexity of this algorithm is O((V + E) log V). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">graph</td><td>Pointer to the graph. </td></tr>
@@ -456,10 +700,47 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a Hamiltonian circuit by shortcutting the Eulerian circuit. The time complexity of this algorithm is (O(V)) </p>
+<p>Creates a Hamiltonian circuit by shortcutting the Eulerian circuit. The time complexity of this algorithm is O(V). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">eulerianCircuit</td><td>Vector of vertices representing the Eulerian circuit. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Vector of vertices representing the Hamiltonian circuit. </dd></dl>
+
+</div>
+</div>
+<a id="ad4567ea5fadfe7d570fb28e1a51ccadd" name="ad4567ea5fadfe7d570fb28e1a51ccadd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4567ea5fadfe7d570fb28e1a51ccadd">&#9670;&#160;</a></span>substituteShortestPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt; substituteShortestPath </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>eulerianCircuit</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_graph.html">Graph</a> *</td>          <td class="paramname"><span class="paramname"><em>graph</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::unordered_map&lt; <a class="el" href="class_vertex.html">Vertex</a> *, std::unordered_map&lt; <a class="el" href="class_vertex.html">Vertex</a> *, double &gt; &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>shortestPaths</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Substitutes the shortest path for each edge in the Eulerian circuit. The time complexity of this algorithm is O(V^2). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">eulerianCircuit</td><td>Vector of vertices representing the Eulerian circuit. </td></tr>
+    <tr><td class="paramname">graph</td><td>Pointer to the graph. </td></tr>
+    <tr><td class="paramname">shortestPaths</td><td>A map containing the shortest paths between vertices. </td></tr>
   </table>
   </dd>
 </dl>
@@ -509,10 +790,41 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Solves the TSP using Christofides' algorithm. The time complexity of this algorithm is (O(V^3)) </p>
+<p>Solves the TSP using Christofides' algorithm. The time complexity of this algorithm is O(V^3). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">graph</td><td>Pointer to the graph. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The approximate minimum path cost. </dd></dl>
+
+</div>
+</div>
+<a id="a87277d8561c171de0ae00327376e8162" name="a87277d8561c171de0ae00327376e8162"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87277d8561c171de0ae00327376e8162">&#9670;&#160;</a></span>TSPExtendedChristofides()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double TSPExtendedChristofides </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_graph.html">Graph</a> *</td>          <td class="paramname"><span class="paramname"><em>graph</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>startVertexLabel</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Solves the TSP using an extended version of Christofides' algorithm. The time complexity of this algorithm is O(V^3). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>Pointer to the graph. </td></tr>
+    <tr><td class="paramname">startVertexLabel</td><td>Label of the starting vertex. </td></tr>
   </table>
   </dd>
 </dl>
@@ -549,7 +861,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Recursive helper function for TSPBacktracking. </p>
+<p>Recursive helper function for TSPBacktracking. The time complexity of this algorithm is O(n^2 * 2^n). </p>
 <p>Uses memoization to efficiently calculate the minimum path cost.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -579,7 +891,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Solves the TSP using the Triangular Approximation heuristic. The time complexity of this algorithm is (O(V^2 log V)) </p>
+<p>Solves the TSP using the Triangular Approximation heuristic. The time complexity of this algorithm is O(V^2 log V). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">graph</td><td>Pointer to the graph. </td></tr>
