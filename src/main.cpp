@@ -23,7 +23,7 @@ Stadiums:
         Duration: 2.60e-04 seconds
         Minimum cost: 398.1
     Christofides:
-        Duration: 1.6e-04 seconds  1.9
+        Duration: 1.6e-04 seconds
         Minimum cost: 391.4
     Nearest Neighbour:
         Duration: 2.80e-04 seconds

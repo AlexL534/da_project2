@@ -21,6 +21,7 @@
 #include <climits>
 #include <algorithm>
 #include <limits>
+#include <random>
 #include <cmath>
 #include "graph.h"
 #include <unordered_map>
@@ -165,6 +166,14 @@ double TSPChristofides(Graph* graph);
 
 /* ===========================================4.4===============================================*/
 
+vector<Vertex*> nearestNeighborTSP(Graph* graph, const string& start, double& totalCost);
+double NNTSP(Graph* graph, const string& start, double& totalCost, vector<Vertex*>& solution);
+/* ===========================================S.A===============================================*/
+double SimulatedAnnealing(Graph* graph, vector<Vertex*> solution, double& totalCost, double initialTemp, double finalTemp, double alpha, int maxIter);
+
+
+
+
 /**
  * @brief Solves the TSP using the Nearest Neighbor heuristic.
  * The time complexity of this algorithm is (O(V^2))
@@ -186,5 +195,17 @@ std::vector<Vertex*> nearestNeighborTSP(Graph* graph, const std::string& start, 
  * @return The approximate minimum path cost.
  */
 double hybridMSTAndNNTSP(Graph* graph, const std::string& start, double& totalCost);
+/* ===========================================Extended-Christofides===============================================*/
+void floydWarshall(Graph* graph, unordered_map<Vertex*, unordered_map<Vertex*, double>>& shortestPaths);
+vector<Vertex*> findOddDegreeVertices(Graph* graph);
+vector<Edge*> minimumCostPerfectMatching(Graph* mst);
+Graph combineMSTAndMWPM(const Graph* MST, const vector<Vertex*>& oddDegreeVertices, unordered_map<Vertex*, unordered_map<Vertex*, double>>& shortestPaths);
+std::vector<Vertex*> findEulerianWalk(Graph* multigraph);
+std::vector<Vertex*> substituteShortestPath(const std::vector<Vertex*>& eulerianCircuit, Graph* graph, unordered_map<Vertex*, unordered_map<Vertex*, double>>& shortestPaths);
+std::vector<Vertex*> findShortestPath(Vertex* start, Vertex* end, Graph* graph);
+double TSPExtendedChristofides(Graph* graph, const string& startVertexLabel);
+using MatchedPairs = vector<pair<Vertex*, Vertex*>>;
+MatchedPairs hungarianAlgorithm(const vector<Vertex*>& oddDegreeVertices, unordered_map<Vertex*, unordered_map<Vertex*, double>>& shortestPaths);
 
-#endif // PROJETO_2_ACTIONS_H
+
+#endif //PROJETO_2_ACTIONS_H

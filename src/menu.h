@@ -109,26 +109,37 @@ void menu() {
                             a:
                             std::string strt;
                             std::string c;
+                            std::string c1;
+                            std::string iterations;
+                            vector<Vertex*> solution;
+                            double initialTemp = 10.0;
+                            double finalTemp = 0.001;
+                            double alpha = 0.95;
                             double totalCost;
                             Graph* g = graph;
                             cout << "Select the starting vertex label: \n";
-                            string largestVertexInfo = "0";
-                            for (const auto& it : graph->getVertexMap()) {
-                                if (stoi(it.first) > stoi(largestVertexInfo)) {
-                                    largestVertexInfo = it.first;
-                                }
+                            if(graphType == 2){
                             }
-
-                            cout << "Options: 0-" << largestVertexInfo << endl;
+                            cout << "Option range: 0 to " << graph->getVertexMap().size() - 1 << " "; cout << endl;
                             cin >> strt;
                             auto start = std::chrono::high_resolution_clock::now();
-                            double minCost = hybridMSTAndNNTSP(graph, strt, totalCost);
+                            double minCost = NNTSP(graph, strt, totalCost, solution);
                             auto end = std::chrono::high_resolution_clock::now();
                             auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-
                             std::cout << "Duration: " << std::scientific << std::setprecision(2) << static_cast<double>(duration.count()) * 1e-6 << " seconds" << std::endl;
                             std::cout << "Minimum cost: " << std::fixed << std::setprecision(1) << minCost << std::endl;
-
+                            cout << "\nDo you want to run Simulated annealing on top of the solution? (y/n)\n";
+                            cin >> c1;
+                            if(c1 == "y" || c1=="Y" || c1=="yes" || c1=="Yes" || c1=="YES"){
+                                cout << "\nEnter the number of iterations: ";
+                                cin >> iterations;
+                                auto start1 = std::chrono::high_resolution_clock::now();
+                                double Cost = SimulatedAnnealing(g, solution, totalCost, initialTemp, finalTemp, alpha, stoi(iterations));
+                                auto end1 = std::chrono::high_resolution_clock::now();
+                                auto duration1 = std::chrono::duration_cast<std::chrono::microseconds>(end1 - start1);
+                                std::cout << "Duration: " << std::scientific << std::setprecision(2) << static_cast<double>(duration1.count()) * 1e-6 << " seconds" << std::endl;
+                                std::cout << "Minimum cost: " << std::fixed << std::setprecision(1) << Cost << std::endl;
+                            }
                             cout << "\nTry another vertex? (y/n)\n";
                             cin >> c;
                             if(c == "y" || c=="Y" || c=="yes" || c=="Yes" || c=="YES") {graph = g; totalCost = 0; goto a;}
