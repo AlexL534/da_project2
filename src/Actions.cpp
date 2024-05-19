@@ -403,5 +403,224 @@ double SimulatedAnnealing(Graph* graph, vector<Vertex*> solution, double& totalC
     }
     totalCost = bestCost;
     return totalCost;
+}
 
+/* ===========================================Extended Christofides (not working)===============================================*/
+void floydWarshall(Graph* graph, unordered_map<Vertex*, unordered_map<Vertex*, double>>& shortestPaths) {
+    unordered_map<string, Vertex*> vertexMap = graph->getVertexMap();
+
+    // Initialize distances with infinity
+    for (auto& pair1 : vertexMap) {
+        Vertex* v1 = pair1.second;
+        for (auto& pair2 : vertexMap) {
+            Vertex* v2 = pair2.second;
+            if (v1 != v2) {
+                shortestPaths[v1][v2] = numeric_limits<double>::infinity();
+            } else {
+                shortestPaths[v1][v2] = 0; // Distance from a vertex to itself is 0
+            }
+        }
+    }
+
+    // Update distances based on direct edges
+    for (auto& pair : vertexMap) {
+        Vertex* v1 = pair.second;
+        for (Edge* edge : v1->getAdj()) {
+            Vertex* v2 = edge->getDest();
+            shortestPaths[v1][v2] = edge->getWeight();
+        }
+    }
+
+    // Floyd-Warshall algorithm
+    for (auto& k_pair : vertexMap) {
+        Vertex* k = k_pair.second;
+        for (auto& i_pair : vertexMap) {
+            Vertex* i = i_pair.second;
+            for (auto& j_pair : vertexMap) {
+                Vertex* j = j_pair.second;
+                if (shortestPaths[i][k] + shortestPaths[k][j] < shortestPaths[i][j]) {
+                    shortestPaths[i][j] = shortestPaths[i][k] + shortestPaths[k][j];
+                }
+            }
+        }
+    }
+}
+
+
+vector<Vertex*> findOddDegreeVertices(Graph* graph) {
+    unordered_map<string, Vertex*> vertexMap = graph->getVertexMap();
+    vector<Vertex*> oddDegreeVertices;
+
+    // Count degrees of vertices
+    unordered_map<Vertex*, int> degreeCount;
+    for (const auto& pair : vertexMap) {
+        Vertex* vertex = pair.second;
+        degreeCount[vertex] = vertex->getAdj().size(); // Assuming getAdj() returns list of adjacent vertices
+    }
+
+    // Find vertices with odd degrees
+    for (const auto& pair : degreeCount) {
+        Vertex* vertex = pair.first;
+        int degree = pair.second;
+        if (degree % 2 != 0) {
+            oddDegreeVertices.push_back(vertex);
+        }
+    }
+
+    return oddDegreeVertices;
+}
+
+// Define a type alias for convenience
+using MatchedPairs = vector<pair<Vertex*, Vertex*>>;
+
+// Define infinity as a very large value
+const double INF = numeric_limits<double>::max();
+
+Graph combineMSTAndMWPM(const Graph* MST, const vector<Vertex*>& oddDegreeVertices, unordered_map<Vertex*, unordered_map<Vertex*, double>>& shortestPaths) {
+    Graph multigraph = *MST;
+
+    // Find the minimum weight perfect matching using the Hungarian algorithm
+    MatchedPairs mwpm = hungarianAlgorithm(oddDegreeVertices, shortestPaths);
+
+    // Add edges from MWPM to the multigraph
+    for (const auto& pair : mwpm) {
+        Vertex* u = pair.first;
+        Vertex* v = pair.second;
+        double weight = shortestPaths[u][v];
+        multigraph.addEdge(u->getInfo(), v->getInfo(), weight);
+    }
+
+    return multigraph;
+}
+
+// Helper function to find an augmenting path
+bool findAugmentingPath(Vertex* u, unordered_map<Vertex*, bool>& visited, unordered_map<Vertex*, Vertex*>& match, unordered_map<Vertex*, unordered_map<Vertex*, double>>& weights) {
+    for (Edge* edge : u->getAdj()) {
+        Vertex* v = edge->getDest();
+        if (!visited[v]) {
+            visited[v] = true;
+            if (match[v] == nullptr || findAugmentingPath(match[v], visited, match, weights)) {
+                match[v] = u;
+                return true;
+            }
+        }
+    }
+    return false;
+}
+// Hungarian algorithm function
+MatchedPairs hungarianAlgorithm(const vector<Vertex*>& oddDegreeVertices, unordered_map<Vertex*, unordered_map<Vertex*, double>>& shortestPaths) {
+    MatchedPairs result;
+
+    unordered_map<Vertex*, Vertex*> match;
+    for (Vertex* u : oddDegreeVertices) {
+        match[u] = nullptr;
+    }
+
+    for (Vertex* u : oddDegreeVertices) {
+        unordered_map<Vertex*, bool> visited;
+        for (Vertex* v : oddDegreeVertices) {
+            visited[v] = false;
+        }
+        findAugmentingPath(u, visited, match, shortestPaths);
+    }
+
+    for (const auto& pair : match) {
+        if (pair.second != nullptr) {
+            result.push_back({pair.second, pair.first});
+        }
+    }
+
+    return result;
+}
+
+void findEulerianWalkDFS(Vertex* u, Graph* multigraph, std::vector<Vertex*>& walk) {
+    while (!u->getAdj().empty()) {
+        Edge* edge = u->getAdj().front();
+        Vertex* v = edge->getDest();
+        u->removeEdge(edge->getDest()->getInfo()); // Remove the edge from the multigraph
+        findEulerianWalkDFS(v, multigraph, walk);
+    }
+    walk.push_back(u);
+}
+
+std::vector<Vertex*> findEulerianWalk(Graph* multigraph) {
+    std::vector<Vertex*> walk;
+
+    // Check if the graph is empty
+    if (multigraph->getVertexMap().empty()) {
+        return walk;
+    }
+
+    // Initialize visited map
+    std::unordered_map<std::string, bool> visited;
+    for (const auto& pair : multigraph->getVertexMap()) {
+        visited[pair.first] = false;
+    }
+
+    // Start the walk from an arbitrary vertex
+    Vertex* startVertex = multigraph->getVertexMap().begin()->second;
+
+    // Perform DFS to find the Eulerian walk
+    findEulerianWalkDFS(startVertex, multigraph, walk);
+
+    // Reverse the walk to get the correct order
+    std::reverse(walk.begin(), walk.end());
+
+    return walk;
+}
+
+
+std::vector<Vertex*> substituteShortestPath(const std::vector<Vertex*>& eulerianCircuit, Graph* graph, unordered_map<Vertex*, unordered_map<Vertex*, double>>& shortestPaths) {
+    std::vector<Vertex*> tspTour;
+
+    for (size_t i = 0; i < eulerianCircuit.size() - 1; ++i) {
+        Vertex* currentVertex = eulerianCircuit[i];
+        Vertex* nextVertex = eulerianCircuit[i + 1];
+
+        // Retrieve the shortest path between currentVertex and nextVertex from the precomputed shortestPaths
+        std::vector<Vertex*> shortestPath;
+        Vertex* vertex = currentVertex;
+        while (vertex != nextVertex) {
+            shortestPath.push_back(vertex);
+            for (const auto& pair : shortestPaths[vertex]) {
+                if (pair.first == nextVertex) {
+                    vertex = pair.first;
+                    break;
+                }
+            }
+        }
+        shortestPath.push_back(nextVertex);
+
+        tspTour.insert(tspTour.end(), shortestPath.begin(), shortestPath.end() - 1);
+    }
+
+    tspTour.push_back(eulerianCircuit.back());  // Add the last vertex from the Eulerian circuit
+
+    return tspTour;
+}
+
+double TSPExtendedChristofides(Graph* graph, const string& startVertexLabel) {
+    // Step 1: Floyd Warshall Algorithm
+    unordered_map<Vertex*, unordered_map<Vertex*, double>> shortestPaths;
+    floydWarshall(graph, shortestPaths);
+
+    // Step 2: Minimum Spanning Tree (MST)
+    Graph MST = primMST(graph, startVertexLabel);
+
+    // Step 3: Find Odd Degree Vertices
+    vector<Vertex*> oddDegreeVertices = findOddDegreeVertices(&MST);
+
+    // Step 4: Combine MST and MWPM
+    Graph multigraph = combineMSTAndMWPM(&MST, oddDegreeVertices, shortestPaths);
+
+    // Step 5: Find Eulerian Walk
+    vector<Vertex*> eulerianWalk = findEulerianWalk(&multigraph);
+
+    // Step 6: Substitute Shortest Paths
+    std::vector<Vertex*> tspTour = substituteShortestPath(eulerianWalk, graph, shortestPaths);
+
+    // Calculate total cost of TSP tour
+    double totalCost = calculateTotalCost(tspTour, graph);
+
+    return totalCost;
 }

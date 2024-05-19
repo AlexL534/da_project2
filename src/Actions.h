@@ -185,7 +185,7 @@ vector<Vertex*> findOddDegreeVertices(Graph* graph);
 vector<Edge*> minimumCostPerfectMatching(Graph* mst);
 Graph combineMSTAndMWPM(const Graph* MST, const vector<Vertex*>& oddDegreeVertices, unordered_map<Vertex*, unordered_map<Vertex*, double>>& shortestPaths);
 std::vector<Vertex*> findEulerianWalk(Graph* multigraph);
-std::vector<Vertex*> substituteShortestPath(const std::vector<Vertex*>& eulerianCircuit, Graph* graph);
+std::vector<Vertex*> substituteShortestPath(const std::vector<Vertex*>& eulerianCircuit, Graph* graph, unordered_map<Vertex*, unordered_map<Vertex*, double>>& shortestPaths);
 std::vector<Vertex*> findShortestPath(Vertex* start, Vertex* end, Graph* graph);
 double TSPExtendedChristofides(Graph* graph, const string& startVertexLabel);
 using MatchedPairs = vector<pair<Vertex*, Vertex*>>;
