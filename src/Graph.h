@@ -368,6 +368,11 @@ public:
      * @return A pointer to the edge between the specified vertices, or nullptr if not found.
      */
     Edge* findEdge(const std::string& source, const std::string& dest) const;
+
+    /**
+     * @brief Resets the visited flag for all vertices in the graph.
+     */
+    void resetVisited();
 };
 
 #endif // GRAPH_H

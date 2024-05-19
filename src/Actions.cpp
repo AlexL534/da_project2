@@ -149,184 +149,160 @@ double TSPTriangularApproximation(Graph* graph) {
 
     return minPath;
 }
-/* ===========================================2-opt===============================================*/
-std::vector<Vertex*> initializeTour(Graph* graph) {
-    std::vector<Vertex*> tour;
+/* ===========================================4.3===============================================*/
+Graph findPerfectMatching(Graph* MST) {
+    Graph PM;
 
-    // Start from vertex "0"
-    Vertex* currentVertex = graph->findVertex("0");
-    currentVertex->setVisited(true);
-    tour.push_back(currentVertex);
+    // Check if MST is not nullptr
+    if (!MST) {
+        // Handle the case where MST is nullptr
+        // For example, throw an exception or return an empty PM
+        return PM;
+    }
 
-    // Greedily select the next vertex based on the closest unvisited neighbor
-    while (tour.size() < graph->getNumVertex()) {
-        Edge* minEdge = nullptr;
-        double minDistance = std::numeric_limits<double>::max();
+    // Find nodes with odd in-degrees in MST to form subgraph O
+    std::list<Vertex*> oddVertices;
+    for (const auto& vertexPair : MST->getVertexMap()) {
+        Vertex* vertex = vertexPair.second;
+        unsigned degree = vertex->getAdj().size();
+        if (degree % 2 != 0) {
+            oddVertices.push_back(vertex);
+        }
+    }
 
-        for (Edge* edge : currentVertex->getAdj()) {
-            Vertex* neighbor = edge->getDest();
-            if (!neighbor->isVisited()) {
-                if (edge->getWeight() < minDistance) {
-                    minEdge = edge;
-                    minDistance = edge->getWeight();
-                }
+    // Greedily find perfect matching within subgraph O
+    while (!oddVertices.empty()) {
+        // Take the first odd vertex and find its nearest neighbor
+        Vertex* first = oddVertices.front();
+        double closestDist = std::numeric_limits<double>::max();
+        Vertex* closestVertex = nullptr;
+        for (auto it = std::next(oddVertices.begin()); it != oddVertices.end(); ++it) {
+            Vertex* vertex = *it;
+            Edge* edge = MST->findEdge(first->getInfo(), vertex->getInfo());
+            double distance;
+            if (edge) {
+                distance = edge->getWeight();
+            } else {
+                distance = haversineDistance(first->getLatitude(), first->getLongitude(),
+                                             vertex->getLatitude(), vertex->getLongitude());
+            }
+            if (distance < closestDist) {
+                closestDist = distance;
+                closestVertex = vertex;
             }
         }
 
-        if (minEdge) {
-            Vertex* nextVertex = minEdge->getDest();
-            nextVertex->setVisited(true);
-            tour.push_back(nextVertex);
-            currentVertex = nextVertex;
+        // Check if closestVertex is nullptr (no suitable match found)
+        if (closestVertex) {
+            PM.addEdge(first->getInfo(), closestVertex->getInfo(), closestDist);
+
+            // Remove both vertices from the oddVertices list
+            oddVertices.pop_front();
+            oddVertices.remove(closestVertex);
         } else {
-            // If there are no unvisited neighbors, break out of the loop
-            break;
+            oddVertices.pop_front(); // Remove first if no match found
         }
     }
 
-    // Add the starting vertex to the end to complete the tour
-    tour.push_back(tour.front());
-
-    return tour;
+    return PM;
 }
 
-double calculateTourCost(Graph* graph, const std::vector<Vertex*>& tour) {
-    double cost = 0.0;
-    for (size_t i = 0; i < tour.size() - 1; ++i) {
-        Edge* edge = graph->findEdge(tour[i]->getInfo(), tour[i + 1]->getInfo());
-        if (edge) {
-            cost += edge->getWeight();
-        }
-    }
-    // Add distance from the last vertex back to the starting vertex
-    Edge* returnEdge = graph->findEdge(tour.back()->getInfo(), tour.front()->getInfo());
-    if (returnEdge) {
-        cost += returnEdge->getWeight();
-    }
-    return cost;
-}
 
-std::vector<Vertex*> optSwap(const std::vector<Vertex*>& tour, size_t i, size_t j) {
-    std::vector<Vertex*> newTour = tour;
-    while (i < j) {
-        std::swap(newTour[i], newTour[j]);
-        ++i;
-        --j;
-    }
-    return newTour;
-}
+Graph combineMSTAndPM(const Graph* MST, Graph *PM) {
+    Graph multigraph = *MST;
 
-double TSP2Opt(Graph* graph) {
-    // Initialize the initial tour, e.g., using a greedy algorithm
-    std::vector<Vertex*> tour = initializeTour(graph);
-
-    // Calculate the initial tour cost
-    double initialTourCost = calculateTourCost(graph, tour);
-
-    // Perform 2-opt optimization until no improvement is possible
-    bool improvement = true;
-    while (improvement) {
-        improvement = false;
-        double bestDiffTourCost = 0.0;
-        size_t bestI, bestJ;
-
-        for (size_t i = 0; i < tour.size() - 1; ++i) {
-            for (size_t j = i + 1; j < tour.size(); ++j) {
-                // Apply 2-opt swap
-                std::vector<Vertex*> newTour = optSwap(tour, i, j);
-
-                // Calculate the difference in tour cost
-                double diffTourCost = calculateTourCost(graph, newTour) - initialTourCost;
-
-                // If the new tour is shorter, update the tour
-                if (diffTourCost < bestDiffTourCost) {
-                    bestDiffTourCost = diffTourCost;
-                    bestI = i;
-                    bestJ = j;
-                    improvement = true;
-                }
-            }
-        }
-
-        // If an improvement is found, apply the best 2-opt swap
-        if (improvement) {
-            tour = optSwap(tour, bestI, bestJ);
-            initialTourCost += bestDiffTourCost;
+    // Add edges from PM to the multigraph
+    for (const auto& vertexPair : PM->getVertexMap()) {
+        for (Edge* edge : vertexPair.second->getAdj()) {
+            multigraph.addEdge(edge->getSource()->getInfo(), edge->getDest()->getInfo(), edge->getWeight());
         }
     }
 
-    // Return the final tour cost
-    return initialTourCost;
+    return multigraph;
 }
 
-/* ===========================================Lin-Kernighan===============================================*/
-std::vector<Vertex*> twoOptSwap(const std::vector<Vertex*>& tour, int i, int k) {
-    std::vector<Vertex*> newTour = tour;
-    std::reverse(newTour.begin() + i, newTour.begin() + k + 1);
-    return newTour;
-}
+std::vector<Vertex*> findEulerianCircuit(Graph* multigraph) {
 
-std::vector<Vertex*> linKernighan(Graph* graph, std::vector<Vertex*> initialTour) {
-    bool improvement = true;
-    std::vector<Vertex*> bestTour = initialTour;
-    double bestCost = calculateTourCost(graph, bestTour);
+    // Find Eulerian circuit using Hierholzer's algorithm
+    std::vector<Vertex*> circuit;
+    std::stack<Vertex*> stack;
+    Vertex* currVertex = multigraph->findVertex("0");
+    stack.push(currVertex);
 
-    while (improvement) {
-        improvement = false;
-        for (size_t i = 1; i < bestTour.size() - 1; ++i) {
-            for (size_t k = i + 1; k < bestTour.size(); ++k) {
-                std::vector<Vertex*> newTour = twoOptSwap(bestTour, i, k);
-                double newCost = calculateTourCost(graph, newTour);
-                if (newCost < bestCost) {
-                    bestTour = newTour;
-                    bestCost = newCost;
-                    improvement = true;
-                }
-            }
+    while (!stack.empty()) {
+        Vertex* u = stack.top();
+        if (!u->getAdj().empty()) {
+            Vertex* v = u->getAdj().front()->getDest();
+            stack.push(v);
+            multigraph->removeEdge(u->getInfo(), v->getInfo()); // Remove edge from multigraph
+        } else {
+            circuit.push_back(u);
+            stack.pop();
         }
     }
 
-    return bestTour;
+    return circuit;
 }
 
-std::vector<Vertex*> initializeGreedyTour(Graph* graph) {
-    std::vector<Vertex*> tour;
+std::vector<Vertex*> shortcutEulerianCircuit(const std::vector<Vertex*>& eulerianCircuit) {
     std::unordered_set<Vertex*> visited;
+    std::vector<Vertex*> hamiltonianCircuit;
 
-    Vertex* startVertex = graph->findVertex("0");
-    tour.push_back(startVertex);
-    visited.insert(startVertex);
-
-    Vertex* currentVertex = startVertex;
-    while (tour.size() < graph->getNumVertex()) {
-        Edge* minEdge = nullptr;
-        double minDistance = std::numeric_limits<double>::max();
-
-        for (Edge* edge : currentVertex->getAdj()) {
-            Vertex* neighbor = edge->getDest();
-            if (visited.find(neighbor) == visited.end() && edge->getWeight() < minDistance) {
-                minEdge = edge;
-                minDistance = edge->getWeight();
-            }
-        }
-
-        if (minEdge) {
-            Vertex* nextVertex = minEdge->getDest();
-            tour.push_back(nextVertex);
-            visited.insert(nextVertex);
-            currentVertex = nextVertex;
-        } else {
-            break;
+    for (Vertex* vertex : eulerianCircuit) {
+        if (visited.find(vertex) == visited.end()) {
+            hamiltonianCircuit.push_back(vertex);
+            visited.insert(vertex);
         }
     }
 
-    tour.push_back(startVertex); // Complete the tour
-    return tour;
+    return hamiltonianCircuit;
 }
 
-double TSP_LinKernighan(Graph* graph) {
-    std::vector<Vertex*> initialTour = initializeGreedyTour(graph);
-    std::vector<Vertex*> optimizedTour = linKernighan(graph, initialTour);
-    double tourCost = calculateTourCost(graph, optimizedTour);
-    return tourCost;
+double calculateTotalCost(const std::vector<Vertex*>& hamiltonianCircuit, Graph* graph) {
+    double totalCost = 0;
+    // Iterate over the vertices in the Hamiltonian circuit
+    for (size_t i = 0; i < hamiltonianCircuit.size(); ++i) {
+        // Get the current and next vertices
+        Vertex* currentVertex = hamiltonianCircuit[i];
+        Vertex* nextVertex = hamiltonianCircuit[(i + 1) % hamiltonianCircuit.size()];  // Wrap around for the last vertex
+
+        // Find the edge between currentVertex and nextVertex in the graph
+        Edge* edge = graph->findEdge(currentVertex->getInfo(), nextVertex->getInfo());
+        if (edge) {
+            // If edge weight is specified, use it
+            totalCost += edge->getWeight();
+        } else {
+            // If edge weight is not specified, calculate the Haversine distance
+            double distance = haversineDistance(currentVertex->getLatitude(), currentVertex->getLongitude(),
+                                                nextVertex->getLatitude(), nextVertex->getLongitude());
+            totalCost += distance;
+        }
+    }
+
+    return totalCost;
 }
+
+
+double TSPChristofides(Graph* graph) {
+    // Step 1: Find Minimum Spanning Tree (MST)
+    Graph MST = primMST(graph, "0");
+
+    // Step 2: Find Minimum Weight Perfect Matching (PM)
+    Graph PM = findPerfectMatching(&MST);
+
+    // Step 3: Combine MST and MWPM
+    Graph multigraph = combineMSTAndPM(&MST, &PM);
+
+    // Step 4: Find Eulerian Circuit
+    std::vector<Vertex*> eulerianCircuit = findEulerianCircuit(&multigraph);
+
+    // Step 5: Shortcut Eulerian Circuit to Hamiltonian Circuit
+    std::vector<Vertex*> hamiltonianCircuit = shortcutEulerianCircuit(eulerianCircuit);
+
+    // Step 6: Calculate Total Cost of Hamiltonian Circuit
+    double totalCost = calculateTotalCost(hamiltonianCircuit, graph);
+
+    return totalCost;
+}
+
+//4.4

@@ -96,24 +96,23 @@ void menu() {
                             }
 
                             auto start = std::chrono::high_resolution_clock::now();
+                            double minCost = TSPChristofides(graph);
                             auto end = std::chrono::high_resolution_clock::now();
                             auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
 
                             std::cout << "Duration: " << std::scientific << std::setprecision(2) << static_cast<double>(duration.count()) * 1e-6 << " seconds" << std::endl;
+                            std::cout << "Minimum cost: " << std::fixed << std::setprecision(1) << minCost << std::endl;
                             break;
                         }
                         case 4:
                         {
-                            if (graphType == 1 && graphChoice == 1) {
-                                std::cout << "This algorithm does not work with this graph (not fully connected and no coordinates given)\n\n";
-                                continue;
-                            }
-
                             auto start = std::chrono::high_resolution_clock::now();
+                            double minCost = TSPChristofides2(graph);
                             auto end = std::chrono::high_resolution_clock::now();
                             auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
 
                             std::cout << "Duration: " << std::scientific << std::setprecision(2) << static_cast<double>(duration.count()) * 1e-6 << " seconds" << std::endl;
+                            std::cout << "Minimum cost: " << std::fixed << std::setprecision(1) << minCost << std::endl;
                             break;
                         }
                         default:
