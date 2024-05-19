@@ -34,8 +34,9 @@ std::vector<Vertex*> findEulerianCircuit(Graph* multigraph);
 std::vector<Vertex*> shortcutEulerianCircuit(const std::vector<Vertex*>& eulerianCircuit);
 double calculateTotalCost(const std::vector<Vertex*>& hamiltonianCircuit, Graph* graph);
 double TSPChristofides(Graph* graph);
-vector<Vertex*> hybridMSTAndNNTSP(Graph* graph, const string& start, double& totalCost);
-vector<Vertex*> nearestNeighborTSP(Graph graph, const string& start, double totalCost);
+/* ===========================================4.4===============================================*/
+vector<Vertex*> nearestNeighborTSP(Graph* graph, const string& start, double& totalCost);
+double hybridMSTAndNNTSP(Graph* graph, const string& start, double& totalCost);
 
 
 

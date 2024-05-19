@@ -112,14 +112,22 @@ void menu() {
                             double totalCost;
                             Graph* g = graph;
                             cout << "Select the starting vertex label: \n";
-                            cout << "Options: "; for(const auto& it : graph->getVertexMap()) cout << it.first << " "; cout << endl;
+                            string largestVertexInfo = "0";
+                            for (const auto& it : graph->getVertexMap()) {
+                                if (stoi(it.first) > stoi(largestVertexInfo)) {
+                                    largestVertexInfo = it.first;
+                                }
+                            }
+
+                            cout << "Options: 0-" << largestVertexInfo << endl;
                             cin >> strt;
                             auto start = std::chrono::high_resolution_clock::now();
-                            auto path = hybridMSTAndNNTSP(graph, strt, totalCost);
+                            double minCost = hybridMSTAndNNTSP(graph, strt, totalCost);
                             auto end = std::chrono::high_resolution_clock::now();
                             auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
 
                             std::cout << "Duration: " << std::scientific << std::setprecision(2) << static_cast<double>(duration.count()) * 1e-6 << " seconds" << std::endl;
+                            std::cout << "Minimum cost: " << std::fixed << std::setprecision(1) << minCost << std::endl;
 
                             cout << "\nTry another vertex? (y/n)\n";
                             cin >> c;

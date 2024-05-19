@@ -148,57 +148,6 @@ double TSPTriangularApproximation(Graph* graph) {
     }
     return minPath;
 }
-
-vector<Vertex*> nearestNeighborTSP(Graph* graph, const string& start, double& totalCost) {
-    unordered_set<Vertex*> visited;
-    vector<Vertex*> path;
-    Vertex* current = graph->findVertex(start);
-    visited.insert(current);
-    path.push_back(current);
-    totalCost = 0;
-
-    while (visited.size() < graph->getNumVertex()) {
-        double minCost = numeric_limits<double>::max();
-        Vertex* nextNode = nullptr;
-
-        for (Edge* edge : current->getAdj()) {
-            Vertex* neighbor = edge->getDest();
-            if (visited.find(neighbor) == visited.end() && edge->getWeight() < minCost) {
-                minCost = edge->getWeight();
-                nextNode = neighbor;
-            }
-        }
-
-        if (nextNode == nullptr) return {}; // No feasible TSP path exists
-
-        visited.insert(nextNode);
-        path.push_back(nextNode);
-        totalCost += minCost;
-        current = nextNode;
-    }
-
-    // Add the cost of returning to the start vertex
-    for (Edge* edge : current->getAdj()) {
-        if (edge->getDest()->getInfo() == start) {
-            totalCost += edge->getWeight();
-            path.push_back(graph->findVertex(start));
-            break;
-        }
-    }
-
-    return path;
-}
-
-vector<Vertex*> hybridMSTAndNNTSP(Graph* graph, const string& start, double& totalCost) {
-    Graph mstGraph = primMST(graph, start);
-    vector<Vertex*> nnPath = nearestNeighborTSP(graph, start, totalCost);
-
-    for (auto it : nnPath) {
-        cout << it->getInfo() << " ";
-    }
-    cout << "\nTotal cost: " << totalCost << endl;
-    return nnPath;
-}
 /* ===========================================4.3===============================================*/
 Graph findPerfectMatching(Graph* MST) {
     Graph PM;
@@ -355,4 +304,49 @@ double TSPChristofides(Graph* graph) {
     return totalCost;
 }
 
-//4.4
+/* ===========================================4.4===============================================*/
+vector<Vertex*> nearestNeighborTSP(Graph* graph, const string& start, double& totalCost) {
+    unordered_set<Vertex*> visited;
+    vector<Vertex*> path;
+    Vertex* current = graph->findVertex(start);
+    visited.insert(current);
+    path.push_back(current);
+    totalCost = 0;
+
+    while (visited.size() < graph->getNumVertex()) {
+        double minCost = numeric_limits<double>::max();
+        Vertex* nextNode = nullptr;
+
+        for (Edge* edge : current->getAdj()) {
+            Vertex* neighbor = edge->getDest();
+            if (visited.find(neighbor) == visited.end() && edge->getWeight() < minCost) {
+                minCost = edge->getWeight();
+                nextNode = neighbor;
+            }
+        }
+
+        if (nextNode == nullptr) return {}; // No feasible TSP path exists
+
+        visited.insert(nextNode);
+        path.push_back(nextNode);
+        totalCost += minCost;
+        current = nextNode;
+
+    }
+
+    // Add the cost of returning to the start vertex
+    for (Edge* edge : current->getAdj()) {
+        if (edge->getDest()->getInfo() == start) {
+            totalCost += edge->getWeight();
+            path.push_back(graph->findVertex(start));
+            break;
+        }
+    }
+
+    return path;
+}
+
+double hybridMSTAndNNTSP(Graph* graph, const string& start, double& totalCost) {
+    vector<Vertex*> nnPath = nearestNeighborTSP(graph, start, totalCost);
+    return totalCost;
+}
