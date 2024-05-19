@@ -189,6 +189,10 @@ std::vector<Vertex*> nearestNeighborTSP(Graph* graph, const std::string& start, 
  */
 double hybridMSTAndNNTSP(Graph* graph, const std::string& start, double& totalCost);
 
+double NNTSP(Graph* graph, const string& start, double& totalCost, vector<Vertex*>& solution);
+
+double SimulatedAnnealing(Graph* graph, vector<Vertex*> solution, double& totalCost, double initialTemp, double finalTemp, double alpha, int maxIter);
+
 /* ===========================================Extended-Christofides===============================================*/
 
 /**
