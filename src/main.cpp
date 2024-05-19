@@ -25,6 +25,9 @@ Stadiums:
     Christofides:
         Duration: 1.6e-04 seconds  1.9
         Minimum cost: 391.4
+    Nearest Neighbour:
+        Duration: 2.80e-04 seconds
+        Minimum cost: 407.4
 
 Tourism:
     Backtracking:
@@ -47,6 +50,9 @@ Tourism:
     Christofides:
         Duration: 6.52e-03 seconds
         Minimum cost: 362891.5
+    Near Neighbour:
+        Duration: 3.20e-04 seconds
+        Minimum cost: 244672.9
 
 50 edges:
     Triangular:
