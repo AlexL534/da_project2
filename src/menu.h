@@ -55,7 +55,7 @@ void menu() {
                 bool chooseApproach = true;
                 while (chooseApproach) {
                     int approachChoice;
-                    std::cout << "Choose the approach:\n1. Backtracking Algorithm\n2. Triangular Approximation Algorithm\n3. Other heuristics\n4. Not implemented\n5. Go back\n";
+                    std::cout << "Choose the approach:\n1. Backtracking Algorithm\n2. Triangular Approximation Algorithm\n3. Other heuristics\n4. Real world approach\n5. Go back\n";
                     std::cin >> approachChoice;
 
                     if (approachChoice == 5) {
@@ -106,11 +106,33 @@ void menu() {
                         }
                         case 4:
                         {
+                            a:
+                            std::string strt;
+                            std::string c;
+                            double totalCost;
+                            Graph* g = graph;
+                            cout << "Select the starting vertex label: \n";
+                            string largestVertexInfo = "0";
+                            for (const auto& it : graph->getVertexMap()) {
+                                if (stoi(it.first) > stoi(largestVertexInfo)) {
+                                    largestVertexInfo = it.first;
+                                }
+                            }
+
+                            cout << "Options: 0-" << largestVertexInfo << endl;
+                            cin >> strt;
                             auto start = std::chrono::high_resolution_clock::now();
+                            double minCost = hybridMSTAndNNTSP(graph, strt, totalCost);
                             auto end = std::chrono::high_resolution_clock::now();
                             auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
 
                             std::cout << "Duration: " << std::scientific << std::setprecision(2) << static_cast<double>(duration.count()) * 1e-6 << " seconds" << std::endl;
+                            std::cout << "Minimum cost: " << std::fixed << std::setprecision(1) << minCost << std::endl;
+
+                            cout << "\nTry another vertex? (y/n)\n";
+                            cin >> c;
+                            if(c == "y" || c=="Y" || c=="yes" || c=="Yes" || c=="YES") {graph = g; totalCost = 0; goto a;}
+
                             break;
                         }
                         default:
