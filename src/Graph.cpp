@@ -241,3 +241,9 @@ Edge* Graph::findEdge(const std::string& source, const std::string& dest) const 
     }
     return nullptr;
 }
+
+void Graph::resetVisited() {
+    for (const auto& pair : vertexMap) {
+        pair.second->setVisited(false);
+    }
+}

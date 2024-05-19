@@ -12,60 +12,20 @@ void menu() {
     while (true) {
         int graphType;
         int graphChoice;
-        int approachChoice;
-        int connectionType;
         Graph* graph = nullptr;
-        bool goBackSelected = false;
 
         while (true) {
             std::cout << "Choose the type of graph:\n1. Toy-Graphs\n2. Extra-Fully-Connected-Graphs\n3. Real-world Graphs\n4. Exit\n";
             std::cin >> graphType;
 
-            if (graphType == 4) exit(0);
+            if (graphType == 4) return;
 
             switch(graphType) {
                 case 1: {
-                    std::cout << "Choose the connection type:\n1. Not Fully Connected\n2. Fully Connected\n3. Go back\n";
-                    std::cin >> connectionType;
-
-                    if (connectionType == 3) {
-                        goBackSelected = true;
-                        break;
-                    }
-
-                    switch(connectionType) {
-                        case 1: {
-                            std::vector<std::string> notFullyConnectedGraphs = {"shipping"};
-                            std::cout << "Choose the graph:\n1. shipping\n2. Go back\n";
-                            std::cin >> graphChoice;
-
-                            if (graphChoice == 2) {
-                                goBackSelected = true;
-                                break;
-                            }
-
-                            graph = parseToyGraph("../Datasets/Toy-Graphs/Toy-Graphs/" + notFullyConnectedGraphs[graphChoice - 1] + ".csv");
-                            break;
-                        }
-                        case 2: {
-                            std::vector<std::string> fullyConnectedGraphs = {"stadiums", "tourism"};
-                            std::cout << "Choose the graph:\n1. stadiums\n2. tourism\n3. Go back\n";
-                            std::cin >> graphChoice;
-
-                            if (graphChoice == 3) {
-                                goBackSelected = true;
-                                break;
-                            }
-
-                            graph = parseToyGraph("../Datasets/Toy-Graphs/Toy-Graphs/" + fullyConnectedGraphs[graphChoice - 1] + ".csv");
-                            break;
-                        }
-                        default:
-                            std::cout << "Invalid option. Please try again.\n";
-                            std::cin.clear(); // Clear the error state
-                            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard invalid input
-                            continue;
-                    }
+                    std::vector<std::string> toyGraphs = {"shipping", "stadiums", "tourism"};
+                    std::cout << "Choose the graph:\n1. shipping\n2. stadiums\n3. tourism\n";
+                    std::cin >> graphChoice;
+                    graph = parseToyGraph("../Datasets/Toy-Graphs/Toy-Graphs/" + toyGraphs[graphChoice - 1] + ".csv");
                     break;
                 }
                 case 2: {
@@ -85,77 +45,109 @@ void menu() {
                 default:
                     std::cout << "Invalid option. Please try again.\n";
                     std::cin.clear(); // Clear the error state
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard invalid input
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     continue;
             }
 
             if (graph == nullptr) {
-                if (!goBackSelected) std::cout << "Error: Unable to load graph.\n";
+                std::cout << "Error: Unable to load graph.\n";
             } else {
-                break;
-            }
-        }
+                bool chooseApproach = true;
+                while (chooseApproach) {
+                    int approachChoice;
+                    std::cout << "Choose the approach:\n1. Backtracking Algorithm\n2. Triangular Approximation Algorithm\n3. Other heuristics\n4. Real world approach\n5. Go back\n";
+                    std::cin >> approachChoice;
 
-        while (true) {
-            std::cout << "Choose the approach:\n1. Backtracking Algorithm\n2. Triangular Approximation Algorithm\n3. 2-opt\n4. Go back\n";
-            std::cin >> approachChoice;
-
-            if (approachChoice == 4) {
-                goBackSelected = true;
-                break;
-            }
-
-            switch(approachChoice) {
-                case 1:
-                {
-                    auto start = std::chrono::high_resolution_clock::now();
-                    double minCost = TSPBacktracking(graph);
-                    auto end = std::chrono::high_resolution_clock::now();
-                    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-                    std::cout << "Duration: " << std::scientific << std::setprecision(2) << static_cast<double>(duration.count()) * 1e-6 << " seconds" << std::endl;
-                    std::cout << "Minimum cost: " << std::fixed << std::setprecision(1) << minCost << std::endl;
-                    return;
-                }
-                case 2:
-                {
-                    if (graphType == 1 && connectionType == 1) {
-                        std::cout << "This algorithm does not work with this graph (not fully connected and no coordinates given)\n\n";
-                        continue;
+                    if (approachChoice == 5) {
+                        break;
                     }
 
-                    auto start = std::chrono::high_resolution_clock::now();
-                    double minCost = TSPTriangularApproximation(graph);
-                    auto end = std::chrono::high_resolution_clock::now();
-                    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+                    switch(approachChoice) {
+                        case 1:
+                        {
+                            auto start = std::chrono::high_resolution_clock::now();
+                            double minCost = TSPBacktracking(graph);
+                            auto end = std::chrono::high_resolution_clock::now();
+                            auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+                            std::cout << "Duration: " << std::scientific << std::setprecision(2) << static_cast<double>(duration.count()) * 1e-6 << " seconds" << std::endl;
+                            std::cout << "Minimum cost: " << std::fixed << std::setprecision(1) << minCost << std::endl;
+                            break;
+                        }
+                        case 2:
+                        {
+                            if (graphType == 1 && graphChoice == 1) {
+                                std::cout << "This algorithm does not work with this graph (not fully connected and no coordinates given)\n\n";
+                                continue;
+                            }
+                            auto start = std::chrono::high_resolution_clock::now();
+                            double minCost = TSPTriangularApproximation(graph);
+                            auto end = std::chrono::high_resolution_clock::now();
+                            auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
 
-                    std::cout << "Duration: " << std::scientific << std::setprecision(2) << static_cast<double>(duration.count()) * 1e-6 << " seconds" << std::endl;
-                    std::cout << "Minimum cost: " << std::fixed << std::setprecision(1) << minCost << std::endl;
-                    return;
-                }
-                case 3:
-                {
-                    if (graphType == 1 && connectionType == 1) {
-                        std::cout << "This algorithm does not work with this graph (not fully connected and no coordinates given)\n\n";
-                        continue;
+                            std::cout << "Duration: " << std::scientific << std::setprecision(2) << static_cast<double>(duration.count()) * 1e-6 << " seconds" << std::endl;
+                            std::cout << "Minimum cost: " << std::fixed << std::setprecision(1) << minCost << std::endl;
+                            break;
+                        }
+                        case 3:
+                        {
+                            if (graphType == 1 && graphChoice == 1) {
+                                std::cout << "This algorithm does not work with this graph (not fully connected and no coordinates given)\n\n";
+                                continue;
+                            }
+
+                            auto start = std::chrono::high_resolution_clock::now();
+                            double minCost = TSPChristofides(graph);
+                            auto end = std::chrono::high_resolution_clock::now();
+                            auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+
+                            std::cout << "Duration: " << std::scientific << std::setprecision(2) << static_cast<double>(duration.count()) * 1e-6 << " seconds" << std::endl;
+                            std::cout << "Minimum cost: " << std::fixed << std::setprecision(1) << minCost << std::endl;
+                            break;
+                        }
+                        case 4:
+                        {
+                            a:
+                            std::string strt;
+                            std::string c;
+                            double totalCost;
+                            Graph* g = graph;
+                            cout << "Select the starting vertex label: \n";
+                            cout << "Options: "; for(const auto& it : graph->getVertexMap()) cout << it.first << " "; cout << endl;
+                            cin >> strt;
+                            auto start = std::chrono::high_resolution_clock::now();
+                            auto path = hybridMSTAndNNTSP(graph, strt, totalCost);
+                            auto end = std::chrono::high_resolution_clock::now();
+                            auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+
+                            std::cout << "Duration: " << std::scientific << std::setprecision(2) << static_cast<double>(duration.count()) * 1e-6 << " seconds" << std::endl;
+
+                            cout << "\nTry another vertex? (y/n)\n";
+                            cin >> c;
+                            if(c == "y" || c=="Y" || c=="yes" || c=="Yes" || c=="YES") {graph = g; totalCost = 0; goto a;}
+
+                            break;
+                        }
+                        default:
+                            std::cout << "Invalid option. Please try again.\n";
+                            std::cin.clear();
+                            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                            continue;
                     }
 
-                    auto start = std::chrono::high_resolution_clock::now();
-                    double minCost = TSP2Opt(graph);
-                    auto end = std::chrono::high_resolution_clock::now();
-                    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-
-                    std::cout << "Duration: " << std::scientific << std::setprecision(2) << static_cast<double>(duration.count()) * 1e-6 << " seconds" << std::endl;
-                    std::cout << "Minimum cost: " << std::fixed << std::setprecision(1) << minCost << std::endl;
-                    return;
+                    std::cout << "Do you want to continue using the program or Exit?\n1. Continue\n2. Exit\n";
+                    int continueChoice;
+                    std::cin >> continueChoice;
+                    if (continueChoice == 2) {
+                        std::cin.clear();
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        return;
+                    }
+                    if (continueChoice == 1) {
+                        chooseApproach = false;
+                    }
                 }
-                default:
-                    std::cout << "Invalid option. Please try again.\n";
-                    std::cin.clear(); // Clear the error state
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard invalid input
-                    continue;
             }
         }
     }
 }
-
 #endif // MENU_H
