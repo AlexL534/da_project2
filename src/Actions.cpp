@@ -146,7 +146,6 @@ double TSPTriangularApproximation(Graph* graph) {
             minPath += edge->getWeight();
         }
     }
-
     return minPath;
 }
 /* ===========================================4.3===============================================*/
