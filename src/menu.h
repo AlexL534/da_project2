@@ -116,8 +116,6 @@ void menu() {
                             double finalTemp = 0.001;
                             double alpha = 0.95;
                             double totalCost;
-                            bool a = true;
-                            int number = 0;
                             Graph* g = graph;
                             cout << "Select the starting vertex label: \n";
                             if(graphType == 2){

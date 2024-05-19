@@ -209,7 +209,6 @@ Graph findPerfectMatching(Graph* MST) {
     return PM;
 }
 
-
 Graph combineMSTAndPM(const Graph* MST, Graph *PM) {
     Graph multigraph = *MST;
 
@@ -354,6 +353,7 @@ double NNTSP(Graph* graph, const string& start, double& totalCost, vector<Vertex
     solution = nnPath;
     return totalCost;
 }
+
 /* ===========================================S.A===============================================*/
 
 bool isFeasible(vector<Vertex *> newSolution, Graph* graph, int i, int j){
@@ -403,9 +403,5 @@ double SimulatedAnnealing(Graph* graph, vector<Vertex*> solution, double& totalC
     }
     totalCost = bestCost;
     return totalCost;
+
 }
-
-
-
-
-
