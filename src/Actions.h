@@ -5,7 +5,6 @@
 #include <climits>
 #include <algorithm>
 #include <limits>
-#include <xmath.h>
 #include <cmath>
 #include "graph.h"
 #include <unordered_map>
@@ -28,7 +27,15 @@ Graph primMST(Graph* graph, const string& startVertexLabel);
 void preOrderWalk(Vertex* vertex, std::unordered_set<Vertex*>& visited, std::vector<Vertex*>& preOrderList);
 void connectAllEdges(Graph *graph);
 double TSPTriangularApproximation(Graph* graph);
-/* ===========================================4.3===============================================*/
+/* ===========================================Other heuristics===============================================*/
+Graph findPerfectMatching(Graph *MST);
+Graph combineMSTAndPM(const Graph* MST, Graph *MWPM);
+std::vector<Vertex*> findEulerianCircuit(Graph* multigraph);
+std::vector<Vertex*> shortcutEulerianCircuit(const std::vector<Vertex*>& eulerianCircuit);
+double calculateTotalCost(const std::vector<Vertex*>& hamiltonianCircuit, Graph* graph);
+double TSPChristofides(Graph* graph);
+
+
 
 
 #endif //PROJETO_2_ACTIONS_H
