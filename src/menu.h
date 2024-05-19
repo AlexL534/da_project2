@@ -112,10 +112,10 @@ void menu() {
                             double totalCost;
                             Graph* g = graph;
                             cout << "Select the starting vertex label: \n";
-                            cout << "Options: "; for(const auto& it : graph->getVertexMap()) cout << it.first << " "; cout << endl;
+                            cout << "Option range: 0 to " << graph->getVertexMap().size() - 1 << " "; cout << endl;
                             cin >> strt;
                             auto start = std::chrono::high_resolution_clock::now();
-                            auto path = hybridMSTAndNNTSP(graph, strt, totalCost);
+                            auto path = NNTSP(graph, strt, totalCost);
                             auto end = std::chrono::high_resolution_clock::now();
                             auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
 

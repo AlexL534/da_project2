@@ -189,8 +189,7 @@ vector<Vertex*> nearestNeighborTSP(Graph* graph, const string& start, double& to
     return path;
 }
 
-vector<Vertex*> hybridMSTAndNNTSP(Graph* graph, const string& start, double& totalCost) {
-    Graph mstGraph = primMST(graph, start);
+vector<Vertex*> NNTSP(Graph* graph, const string& start, double& totalCost) {
     vector<Vertex*> nnPath = nearestNeighborTSP(graph, start, totalCost);
 
     for (auto it : nnPath) {
