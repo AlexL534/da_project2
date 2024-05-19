@@ -206,12 +206,11 @@ Graph findPerfectMatching(Graph* MST) {
     return PM;
 }
 
-
 Graph combineMSTAndPM(const Graph* MST, Graph *PM) {
     Graph multigraph = *MST;
 
     // Add edges from PM to the multigraph
-        for (const auto& vertexPair : PM->getVertexMap()) {
+    for (const auto& vertexPair : PM->getVertexMap()) {
         for (Edge* edge : vertexPair.second->getAdj()) {
             multigraph.addEdge(edge->getSource()->getInfo(), edge->getDest()->getInfo(), edge->getWeight());
         }
@@ -388,4 +387,264 @@ void floydWarshall(Graph* graph, unordered_map<Vertex*, unordered_map<Vertex*, d
             }
         }
     }
+}
+
+vector<Vertex*> findOddDegreeVertices(Graph* graph) {
+    unordered_map<string, Vertex*> vertexMap = graph->getVertexMap();
+    vector<Vertex*> oddDegreeVertices;
+
+    // Count degrees of vertices
+    unordered_map<Vertex*, int> degreeCount;
+    for (const auto& pair : vertexMap) {
+        Vertex* vertex = pair.second;
+        degreeCount[vertex] = vertex->getAdj().size(); // Assuming getAdj() returns list of adjacent vertices
+    }
+
+    // Find vertices with odd degrees
+    for (const auto& pair : degreeCount) {
+        Vertex* vertex = pair.first;
+        int degree = pair.second;
+        if (degree % 2 != 0) {
+            oddDegreeVertices.push_back(vertex);
+        }
+    }
+
+    return oddDegreeVertices;
+}
+
+vector<Edge*> minimumCostPerfectMatching(Graph* mst) {
+    vector<Edge*> matchingEdges;
+
+    // Priority queue to store edges sorted by weight
+    priority_queue<Edge*, vector<Edge*>, CompareWeight> pq;
+
+    // Get odd degree vertices from MST
+    unordered_map<string, Vertex*> vertexMap = mst->getVertexMap();
+    vector<Vertex*> oddDegreeVertices;
+    unordered_map<Vertex*, int> degreeCount;
+    for (const auto& pair : vertexMap) {
+        Vertex* vertex = pair.second;
+        int degree = vertex->getAdj().size();
+        degreeCount[vertex] = degree;
+        if (degree % 2 != 0) {
+            oddDegreeVertices.push_back(vertex);
+        }
+    }
+
+    // Process odd degree vertices to find matching edges
+    for (size_t i = 0; i < oddDegreeVertices.size(); ++i) {
+        Vertex* u = oddDegreeVertices[i];
+        for (size_t j = i + 1; j < oddDegreeVertices.size(); ++j) {
+            Vertex* v = oddDegreeVertices[j];
+            Edge* edge = mst->findEdge(u->getInfo(), v->getInfo()); // Assuming findEdge returns the edge between u and v
+            if (edge) {
+                pq.push(edge);
+            }
+        }
+    }
+
+    // Perform matching by adding edges from priority queue to matching set
+    while (!pq.empty()) {
+        Edge* edge = pq.top();
+        pq.pop();
+        matchingEdges.push_back(edge); // Add edge to matching
+    }
+
+    return matchingEdges;
+}
+
+// Define a type alias for convenience
+using MatchedPairs = vector<pair<Vertex*, Vertex*>>;
+
+// Define infinity as a very large value
+const double INF = numeric_limits<double>::max();
+
+Graph combineMSTAndMWPM(const Graph* MST, const vector<Vertex*>& oddDegreeVertices, unordered_map<Vertex*, unordered_map<Vertex*, double>>& shortestPaths) {
+    Graph multigraph = *MST;
+
+    // Find the minimum weight perfect matching using the Hungarian algorithm
+    MatchedPairs mwpm = hungarianAlgorithm(oddDegreeVertices, shortestPaths);
+
+    // Add edges from MWPM to the multigraph
+    for (const auto& pair : mwpm) {
+        Vertex* u = pair.first;
+        Vertex* v = pair.second;
+        double weight = shortestPaths[u][v];
+        multigraph.addEdge(u->getInfo(), v->getInfo(), weight);
+    }
+
+    return multigraph;
+}
+
+// Helper function to find an augmenting path
+bool findAugmentingPath(Vertex* u, unordered_map<Vertex*, bool>& visited, unordered_map<Vertex*, Vertex*>& match, unordered_map<Vertex*, unordered_map<Vertex*, double>>& weights) {
+    for (Edge* edge : u->getAdj()) {
+        Vertex* v = edge->getDest();
+        if (!visited[v]) {
+            visited[v] = true;
+            if (match[v] == nullptr || findAugmentingPath(match[v], visited, match, weights)) {
+                match[v] = u;
+                return true;
+            }
+        }
+    }
+    return false;
+}
+// Hungarian algorithm function
+MatchedPairs hungarianAlgorithm(const vector<Vertex*>& oddDegreeVertices, unordered_map<Vertex*, unordered_map<Vertex*, double>>& shortestPaths) {
+    MatchedPairs result;
+
+    unordered_map<Vertex*, Vertex*> match;
+    for (Vertex* u : oddDegreeVertices) {
+        match[u] = nullptr;
+    }
+
+    for (Vertex* u : oddDegreeVertices) {
+        unordered_map<Vertex*, bool> visited;
+        for (Vertex* v : oddDegreeVertices) {
+            visited[v] = false;
+        }
+        findAugmentingPath(u, visited, match, shortestPaths);
+    }
+
+    for (const auto& pair : match) {
+        if (pair.second != nullptr) {
+            result.push_back({pair.second, pair.first});
+        }
+    }
+
+    return result;
+}
+
+void findEulerianWalkDFS(Vertex* u, Graph* multigraph, std::vector<Vertex*>& walk) {
+    while (!u->getAdj().empty()) {
+        Edge* edge = u->getAdj().front();
+        Vertex* v = edge->getDest();
+        u->removeEdge(edge->getDest()->getInfo()); // Remove the edge from the multigraph
+        findEulerianWalkDFS(v, multigraph, walk);
+    }
+    walk.push_back(u);
+}
+
+std::vector<Vertex*> findEulerianWalk(Graph* multigraph) {
+    std::vector<Vertex*> walk;
+
+    // Check if the graph is empty
+    if (multigraph->getVertexMap().empty()) {
+        return walk;
+    }
+
+    // Initialize visited map
+    std::unordered_map<std::string, bool> visited;
+    for (const auto& pair : multigraph->getVertexMap()) {
+        visited[pair.first] = false;
+    }
+
+    // Start the walk from an arbitrary vertex
+    Vertex* startVertex = multigraph->getVertexMap().begin()->second;
+
+    // Perform DFS to find the Eulerian walk
+    findEulerianWalkDFS(startVertex, multigraph, walk);
+
+    // Reverse the walk to get the correct order
+    std::reverse(walk.begin(), walk.end());
+
+    return walk;
+}
+
+
+std::vector<Vertex*> substituteShortestPath(const std::vector<Vertex*>& eulerianCircuit, Graph* graph) {
+    std::vector<Vertex*> tspTour;
+
+    for (size_t i = 0; i < eulerianCircuit.size() - 1; ++i) {
+        Vertex* currentVertex = eulerianCircuit[i];
+        Vertex* nextVertex = eulerianCircuit[i + 1];
+
+        std::vector<Vertex*> shortestPath = findShortestPath(currentVertex, nextVertex, graph);
+
+        tspTour.insert(tspTour.end(), shortestPath.begin(), shortestPath.end() - 1);
+    }
+
+    tspTour.push_back(eulerianCircuit.back());  // Add the last vertex from the Eulerian circuit
+
+    return tspTour;
+}
+
+
+
+std::vector<Vertex*> findShortestPath(Vertex* start, Vertex* end, Graph* graph) {
+    // Initialize data structures for storing distances and previous vertices
+    std::unordered_map<Vertex *, double> distances;
+    std::unordered_map<Vertex *, Vertex *> previous;
+    std::priority_queue<std::pair<double, Vertex *>, std::vector<std::pair<double, Vertex *>>, std::greater<>> pq;
+
+    // Initialize distances to infinity and add the start vertex to the priority queue
+    for (const auto &pair: graph->getVertexMap()) {
+        distances[pair.second] = std::numeric_limits<double>::infinity();
+        previous[pair.second] = nullptr;
+    }
+    distances[start] = 0;
+    pq.emplace(0, start);
+
+// Dijkstra's algorithm
+    while (!pq.empty()) {
+        Vertex *current = pq.top().second;
+        pq.pop();
+
+        // Stop if the destination vertex is reached
+        if (current == end) {
+            break;
+        }
+
+        // Iterate over adjacent vertices
+        for (Edge *edge: current->getAdj()) {
+            Vertex *neighbor = edge->getDest();
+            double weight = edge->getWeight();
+            double newDistance = distances[current] + weight;
+
+            // Relaxation step
+            if (newDistance < distances[neighbor]) {
+                distances[neighbor] = newDistance;
+                previous[neighbor] = current;
+                pq.emplace(newDistance, neighbor);
+            }
+        }
+    }
+
+// Reconstruct the shortest path
+    std::vector<Vertex *> shortestPath;
+    Vertex *current = end;
+    while (current != nullptr) {
+        shortestPath.push_back(current);
+        current = previous[current];
+    }
+    std::reverse(shortestPath.begin(), shortestPath.end());
+
+    return shortestPath;
+}
+
+double TSPExtendedChristofides(Graph* graph, const string& startVertexLabel) {
+    // Step 1: Floyd Warshall Algorithm
+    unordered_map<Vertex*, unordered_map<Vertex*, double>> shortestPaths;
+    floydWarshall(graph, shortestPaths);
+
+    // Step 2: Minimum Spanning Tree (MST)
+    Graph MST = primMST(graph, startVertexLabel);
+
+    // Step 3: Find Odd Degree Vertices
+    vector<Vertex*> oddDegreeVertices = findOddDegreeVertices(&MST);
+
+    // Step 4: Combine MST and MWPM
+    Graph multigraph = combineMSTAndMWPM(&MST, oddDegreeVertices, shortestPaths);
+
+    // Step 5: Find Eulerian Walk
+    vector<Vertex*> eulerianWalk = findEulerianWalk(&multigraph);
+
+    // Step 6: Substitute Shortest Paths
+    vector<Vertex*> tspTour = substituteShortestPath(eulerianWalk, graph);
+
+    // Calculate total cost of TSP tour
+    double totalCost = calculateTotalCost(tspTour, graph);
+
+    return totalCost;
 }

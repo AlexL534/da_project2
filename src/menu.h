@@ -122,7 +122,7 @@ void menu() {
                             cout << "Options: 0-" << largestVertexInfo << endl;
                             cin >> strt;
                             auto start = std::chrono::high_resolution_clock::now();
-                            double minCost = hybridMSTAndNNTSP(graph, strt, totalCost);
+                            double minCost = TSPExtendedChristofides(graph,strt);
                             auto end = std::chrono::high_resolution_clock::now();
                             auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
 
