@@ -351,6 +351,9 @@ vector<Vertex*> nearestNeighborTSP(Graph* graph, const string& start, double& to
 double NNTSP(Graph* graph, const string& start, double& totalCost, vector<Vertex*>& solution) {
     vector<Vertex*> nnPath = nearestNeighborTSP(graph, start, totalCost);
     solution = nnPath;
+    if (nnPath.empty()) {
+        return 0.0;
+    }
     return totalCost;
 }
 
