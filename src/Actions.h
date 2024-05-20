@@ -176,7 +176,7 @@ double TSPChristofides(Graph* graph);
  * @param totalCost Reference to store the total cost of the tour.
  * @return Vector of vertices representing the tour.
  */
-std::vector<Vertex*> nearestNeighborTSP(Graph* graph, const std::string& start, double& totalCost);
+std::vector<Vertex*> nearestNeighborTSP(Graph* graph, const std::string& start, double& totalCost, int size, bool isFC);
 
 /**
  * @brief Solves the TSP using a hybrid of MST and Nearest Neighbor heuristics.
@@ -189,7 +189,7 @@ std::vector<Vertex*> nearestNeighborTSP(Graph* graph, const std::string& start, 
  */
 double hybridMSTAndNNTSP(Graph* graph, const std::string& start, double& totalCost);
 
-double NNTSP(Graph* graph, const string& start, double& totalCost, vector<Vertex*>& solution);
+double NNTSP(Graph* graph, const string& start, double& totalCost, vector<Vertex*>& solution, int size, bool isFC);
 
 double SimulatedAnnealing(Graph* graph, vector<Vertex*> solution, double& totalCost, double initialTemp, double finalTemp, double alpha, int maxIter);
 

@@ -307,15 +307,21 @@ double TSPChristofides(Graph* graph) {
 }
 
 /* ===========================================4.4===============================================*/
-vector<Vertex*> nearestNeighborTSP(Graph* graph, const string& start, double& totalCost) {
+vector<Vertex*> nearestNeighborTSP(Graph* graph, const string& start, double& totalCost, int size, bool isFC) {
     unordered_set<Vertex*> visited;
     vector<Vertex*> path;
     Vertex* current = graph->findVertex(start);
     visited.insert(current);
     path.push_back(current);
     totalCost = 0;
-
-    while (visited.size() < graph->getNumVertex()) {
+    int length = 0;
+    if(isFC){
+        length = size;
+    }
+    else{
+        length = graph->getVertexMap().size();
+    }
+    while (visited.size() < length) {
         double minCost = numeric_limits<double>::max();
         Vertex* nextNode = nullptr;
 
@@ -348,8 +354,8 @@ vector<Vertex*> nearestNeighborTSP(Graph* graph, const string& start, double& to
     return path;
 }
 
-double NNTSP(Graph* graph, const string& start, double& totalCost, vector<Vertex*>& solution) {
-    vector<Vertex*> nnPath = nearestNeighborTSP(graph, start, totalCost);
+double NNTSP(Graph* graph, const string& start, double& totalCost, vector<Vertex*>& solution, int size, bool isFC) {
+    vector<Vertex*> nnPath = nearestNeighborTSP(graph, start, totalCost, size, isFC);
     solution = nnPath;
     if (nnPath.empty()) {
         return 0.0;

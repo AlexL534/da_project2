@@ -116,14 +116,21 @@ void menu() {
                             double finalTemp = 0.001;
                             double alpha = 0.95;
                             double totalCost;
+                            bool aaa = false;
                             Graph* g = graph;
+                            std::vector<std::string> nodes = {"25","50","75","100","200","300","400","500","600","700","800","900"};
                             cout << "Select the starting vertex label: \n";
-                            if(graphType == 2){
+                            if (graphType == 2) {
+                                aaa = true;
+                                cout << "Option range: 0 to " <<nodes[graphChoice - 1] << " ";
+                                cout << endl;
+                            } else {
+                                cout << "Option range: 0 to " << graph->getVertexMap().size() - 1 << " ";
+                                cout << endl;
                             }
-                            cout << "Option range: 0 to " << graph->getVertexMap().size() - 1 << " "; cout << endl;
                             cin >> strt;
                             auto start = std::chrono::high_resolution_clock::now();
-                            double minCost = NNTSP(graph, strt, totalCost, solution);
+                            double minCost = NNTSP(graph, strt, totalCost, solution, stoi(nodes[graphChoice - 1]), aaa);
                             auto end = std::chrono::high_resolution_clock::now();
                             auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
                             std::cout << "Duration: " << std::scientific << std::setprecision(2) << static_cast<double>(duration.count()) * 1e-6 << " seconds" << std::endl;
