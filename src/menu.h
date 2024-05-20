@@ -104,23 +104,27 @@ void menu() {
                             std::cout << "Minimum cost: " << std::fixed << std::setprecision(1) << minCost << std::endl;
                             break;
                         }
-                        case 4:
-                        {
+                        case 4: {
                             a:
                             std::string strt;
                             std::string c;
                             std::string c1;
                             std::string iterations;
-                            vector<Vertex*> solution;
+                            vector<Vertex *> solution;
                             double initialTemp = 10.0;
                             double finalTemp = 0.001;
                             double alpha = 0.95;
                             double totalCost;
-                            Graph* g = graph;
+                            Graph *g = graph;
                             cout << "Select the starting vertex label: \n";
-                            if(graphType == 2){
+                            if (graphType == 2) {
+                                std::vector<std::string> nodes = {"25","50","75","100","200","300","400","500","600","700","800","900"};
+                                cout << "Option range: 0 to " <<nodes[graphChoice - 1] << " ";
+                                cout << endl;
+                            } else {
+                            cout << "Option range: 0 to " << graph->getVertexMap().size() - 1 << " ";
+                            cout << endl;
                             }
-                            cout << "Option range: 0 to " << graph->getVertexMap().size() - 1 << " "; cout << endl;
                             cin >> strt;
                             auto start = std::chrono::high_resolution_clock::now();
                             double minCost = NNTSP(graph, strt, totalCost, solution);

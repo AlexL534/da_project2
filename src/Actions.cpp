@@ -43,113 +43,113 @@ double TSPHeldKarp(Graph* graph, Vertex* curr, int bitmask, MemoizationTable& me
     return min_path_cost;
 }
 /* ===========================================4.2===============================================*/
-Graph primMST(Graph* graph, const string& startVertexLabel) {
+    Graph primMST(Graph* graph, const string& startVertexLabel) {
 
-    priority_queue<Edge*, vector<Edge*>, CompareWeight> pq;
+        priority_queue<Edge*, vector<Edge*>, CompareWeight> pq;
 
-    unordered_map<string, bool> visited;
+        unordered_map<string, bool> visited;
 
-    auto vertexMap = graph->getVertexMap();
-    for (const auto& pair : vertexMap) {
-        visited[pair.first] = false;
-    }
-
-    Vertex* startVertex = graph->findVertex(startVertexLabel);
-    visited[startVertexLabel] = true;
-
-    for (Edge* edge : startVertex->getAdj()) {
-        pq.push(edge);
-    }
-
-    Graph MST;
-
-    while (!pq.empty()) {
-        Edge* minEdge = pq.top();
-        pq.pop();
-
-        Vertex* src = minEdge->getSource();
-        Vertex* dest = minEdge->getDest();
-
-        if (visited[dest->getInfo()]) {
-            continue;
+        auto vertexMap = graph->getVertexMap();
+        for (const auto& pair : vertexMap) {
+            visited[pair.first] = false;
         }
 
-        MST.addVertex(src->getInfo());
-        MST.addVertex(dest->getInfo());
-        MST.addEdge(src->getInfo(), dest->getInfo(), minEdge->getWeight());
+        Vertex* startVertex = graph->findVertex(startVertexLabel);
+        visited[startVertexLabel] = true;
 
-        visited[dest->getInfo()] = true;
+        for (Edge* edge : startVertex->getAdj()) {
+            pq.push(edge);
+        }
 
-        for (Edge* edge : dest->getAdj()) {
-            if (!visited[edge->getDest()->getInfo()]) {
-                pq.push(edge);
+        Graph MST;
+
+        while (!pq.empty()) {
+            Edge* minEdge = pq.top();
+            pq.pop();
+
+            Vertex* src = minEdge->getSource();
+            Vertex* dest = minEdge->getDest();
+
+            if (visited[dest->getInfo()]) {
+                continue;
+            }
+
+            MST.addVertex(src->getInfo());
+            MST.addVertex(dest->getInfo());
+            MST.addEdge(src->getInfo(), dest->getInfo(), minEdge->getWeight());
+
+            visited[dest->getInfo()] = true;
+
+            for (Edge* edge : dest->getAdj()) {
+                if (!visited[edge->getDest()->getInfo()]) {
+                    pq.push(edge);
+                }
+            }
+        }
+
+        return MST;
+    }
+
+    void preOrderWalk(Vertex* vertex, std::unordered_set<Vertex*>& visited, std::vector<Vertex*>& preOrderList) {
+        if (vertex == nullptr) return;
+
+        preOrderList.push_back(vertex);
+        visited.insert(vertex);
+
+        for (Edge* edge : vertex->getAdj()) {
+            Vertex* nextVertex = edge->getDest();
+            if (visited.find(nextVertex) == visited.end()) {
+                preOrderWalk(nextVertex, visited, preOrderList);
             }
         }
     }
 
-    return MST;
-}
+    void connectAllEdges(Graph *graph) {
+        auto vertexMap = graph->getVertexMap();
 
-void preOrderWalk(Vertex* vertex, std::unordered_set<Vertex*>& visited, std::vector<Vertex*>& preOrderList) {
-    if (vertex == nullptr) return;
-
-    preOrderList.push_back(vertex);
-    visited.insert(vertex);
-
-    for (Edge* edge : vertex->getAdj()) {
-        Vertex* nextVertex = edge->getDest();
-        if (visited.find(nextVertex) == visited.end()) {
-            preOrderWalk(nextVertex, visited, preOrderList);
-        }
-    }
-}
-
-void connectAllEdges(Graph *graph) {
-    auto vertexMap = graph->getVertexMap();
-
-    for (const auto& pair : vertexMap) {
-        auto vertex = pair.second;
-        const std::vector<Edge*>& adjEdges = vertex->getAdj();
-        for (Edge* edge : adjEdges) {
-            Vertex* adjacentVertex = edge->getDest();
-            if (!graph->findEdge(vertex->getInfo(), adjacentVertex->getInfo())) {
-                double dist = haversineDistance(vertex->getLatitude(), vertex->getLongitude(),adjacentVertex->getLatitude(), adjacentVertex->getLongitude());
-                graph->addEdge(vertex->getInfo(), adjacentVertex->getInfo(), dist);
+        for (const auto& pair : vertexMap) {
+            auto vertex = pair.second;
+            const std::vector<Edge*>& adjEdges = vertex->getAdj();
+            for (Edge* edge : adjEdges) {
+                Vertex* adjacentVertex = edge->getDest();
+                if (!graph->findEdge(vertex->getInfo(), adjacentVertex->getInfo())) {
+                    double dist = haversineDistance(vertex->getLatitude(), vertex->getLongitude(),adjacentVertex->getLatitude(), adjacentVertex->getLongitude());
+                    graph->addEdge(vertex->getInfo(), adjacentVertex->getInfo(), dist);
+                }
             }
         }
     }
-}
 
-double TSPTriangularApproximation(Graph* graph) {
-    double minPath = 0;
+    double TSPTriangularApproximation(Graph* graph) {
+        double minPath = 0;
 
-    connectAllEdges(graph);
+        connectAllEdges(graph);
 
-    Graph MST = primMST(graph, "0");
-    std::unordered_set<Vertex*> visited;
-    std::vector<Vertex*> preOrderList;
-    preOrderWalk(MST.findVertex("0"), visited, preOrderList);
-    std::unordered_set<Vertex*> visitedInTour;
-    std::vector<Vertex*> tour;
-    for (Vertex* vertex : preOrderList) {
-        if (visitedInTour.find(vertex) == visitedInTour.end()) {
-            tour.push_back(vertex);
-            visitedInTour.insert(vertex);
+        Graph MST = primMST(graph, "0");
+        std::unordered_set<Vertex*> visited;
+        std::vector<Vertex*> preOrderList;
+        preOrderWalk(MST.findVertex("0"), visited, preOrderList);
+        std::unordered_set<Vertex*> visitedInTour;
+        std::vector<Vertex*> tour;
+        for (Vertex* vertex : preOrderList) {
+            if (visitedInTour.find(vertex) == visitedInTour.end()) {
+                tour.push_back(vertex);
+                visitedInTour.insert(vertex);
+            }
         }
-    }
 
-    minPath += haversineDistance(tour.back()->getLatitude(), tour.back()->getLongitude(),
-                                 tour.front()->getLatitude(), tour.front()->getLongitude());
-    tour.push_back(tour.front());
+        minPath += haversineDistance(tour.back()->getLatitude(), tour.back()->getLongitude(),
+                                     tour.front()->getLatitude(), tour.front()->getLongitude());
+        tour.push_back(tour.front());
 
-    for (size_t i = 0; i < tour.size() - 1; ++i) {
-        Edge* edge = graph->findEdge(tour[i]->getInfo(), tour[i + 1]->getInfo());
-        if (edge) {
-            minPath += edge->getWeight();
+        for (size_t i = 0; i < tour.size() - 1; ++i) {
+            Edge* edge = graph->findEdge(tour[i]->getInfo(), tour[i + 1]->getInfo());
+            if (edge) {
+                minPath += edge->getWeight();
+            }
         }
+        return minPath;
     }
-    return minPath;
-}
 
 /* ===========================================4.3===============================================*/
 Graph findPerfectMatching(Graph* MST) {
