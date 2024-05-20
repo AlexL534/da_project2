@@ -58,32 +58,34 @@
 \DoxyCodeLine{00167\ }
 \DoxyCodeLine{00168\ \textcolor{comment}{/*\ ===========================================4.4===============================================*/}}
 \DoxyCodeLine{00169\ }
-\DoxyCodeLine{00179\ std::vector<Vertex*>\ \mbox{\hyperlink{_actions_8h_a640d1481b7cc78b87646f058b159ac49}{nearestNeighborTSP}}(\mbox{\hyperlink{class_graph}{Graph}}*\ graph,\ \textcolor{keyword}{const}\ std::string\&\ start,\ \textcolor{keywordtype}{double}\&\ totalCost);}
-\DoxyCodeLine{00180\ }
-\DoxyCodeLine{00190\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_actions_8h_a1431edaed5abc3cec9d28668079d0fe2}{hybridMSTAndNNTSP}}(\mbox{\hyperlink{class_graph}{Graph}}*\ graph,\ \textcolor{keyword}{const}\ std::string\&\ start,\ \textcolor{keywordtype}{double}\&\ totalCost);}
-\DoxyCodeLine{00191\ }
-\DoxyCodeLine{00192\ \textcolor{comment}{/*\ ===========================================Extended-\/Christofides===============================================*/}}
-\DoxyCodeLine{00193\ }
-\DoxyCodeLine{00201\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_actions_8h_a189ca605a8fb05330b41332e72f9250f}{floydWarshall}}(\mbox{\hyperlink{class_graph}{Graph}}*\ graph,\ std::unordered\_map<\mbox{\hyperlink{class_vertex}{Vertex}}*,\ std::unordered\_map<Vertex*,\ double>>\&\ shortestPaths);}
-\DoxyCodeLine{00202\ }
-\DoxyCodeLine{00210\ std::vector<Vertex*>\ \mbox{\hyperlink{_actions_8h_adb251236c733f1480f822c2aa9c18194}{findOddDegreeVertices}}(\mbox{\hyperlink{class_graph}{Graph}}*\ graph);}
-\DoxyCodeLine{00211\ }
-\DoxyCodeLine{00219\ std::vector<Edge*>\ \mbox{\hyperlink{_actions_8h_a0d6df4e9dca4e00364e9192e5cadbd81}{minimumCostPerfectMatching}}(\mbox{\hyperlink{class_graph}{Graph}}*\ mst);}
-\DoxyCodeLine{00220\ }
-\DoxyCodeLine{00230\ \mbox{\hyperlink{class_graph}{Graph}}\ \mbox{\hyperlink{_actions_8h_a7cd4a7322fa3de69fe7a7e3b2bdd3d20}{combineMSTAndMWPM}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_graph}{Graph}}*\ MST,\ \textcolor{keyword}{const}\ std::vector<Vertex*>\&\ oddDegreeVertices,\ std::unordered\_map<\mbox{\hyperlink{class_vertex}{Vertex}}*,\ std::unordered\_map<Vertex*,\ double>>\&\ shortestPaths);}
-\DoxyCodeLine{00231\ }
-\DoxyCodeLine{00239\ std::vector<Vertex*>\ \mbox{\hyperlink{_actions_8h_adc368fe41e770e2d0d33dcab86d086ee}{findEulerianWalk}}(\mbox{\hyperlink{class_graph}{Graph}}*\ multigraph);}
-\DoxyCodeLine{00240\ }
-\DoxyCodeLine{00250\ std::vector<Vertex*>\ \mbox{\hyperlink{_actions_8h_ad4567ea5fadfe7d570fb28e1a51ccadd}{substituteShortestPath}}(\textcolor{keyword}{const}\ std::vector<Vertex*>\&\ eulerianCircuit,\ \mbox{\hyperlink{class_graph}{Graph}}*\ graph,\ std::unordered\_map<\mbox{\hyperlink{class_vertex}{Vertex}}*,\ std::unordered\_map<Vertex*,\ double>>\&\ shortestPaths);}
-\DoxyCodeLine{00251\ }
-\DoxyCodeLine{00261\ std::vector<Vertex*>\ \mbox{\hyperlink{_actions_8h_a6d46cfc8cc6a68d51b1f93b4486efc58}{findShortestPath}}(\mbox{\hyperlink{class_vertex}{Vertex}}*\ start,\ \mbox{\hyperlink{class_vertex}{Vertex}}*\ end,\ \mbox{\hyperlink{class_graph}{Graph}}*\ graph);}
-\DoxyCodeLine{00262\ }
-\DoxyCodeLine{00271\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_actions_8h_a87277d8561c171de0ae00327376e8162}{TSPExtendedChristofides}}(\mbox{\hyperlink{class_graph}{Graph}}*\ graph,\ \textcolor{keyword}{const}\ std::string\&\ startVertexLabel);}
-\DoxyCodeLine{00272\ }
-\DoxyCodeLine{00273\ \textcolor{keyword}{using\ }MatchedPairs\ =\ std::vector<std::pair<Vertex*,\ Vertex*>>;}
-\DoxyCodeLine{00274\ }
-\DoxyCodeLine{00283\ MatchedPairs\ \mbox{\hyperlink{_actions_8h_a2df4a14a6c4b030c6a96d8820600d490}{hungarianAlgorithm}}(\textcolor{keyword}{const}\ std::vector<Vertex*>\&\ oddDegreeVertices,\ std::unordered\_map<\mbox{\hyperlink{class_vertex}{Vertex}}*,\ std::unordered\_map<Vertex*,\ double>>\&\ shortestPaths);}
-\DoxyCodeLine{00284\ }
-\DoxyCodeLine{00285\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ PROJETO\_2\_ACTIONS\_H}}
+\DoxyCodeLine{00181\ std::vector<Vertex*>\ \mbox{\hyperlink{_actions_8h_a71958dc1dd4a1d37f077088b3a72f0b1}{nearestNeighborTSP}}(\mbox{\hyperlink{class_graph}{Graph}}*\ graph,\ \textcolor{keyword}{const}\ std::string\&\ start,\ \textcolor{keywordtype}{double}\&\ totalCost,\ \textcolor{keywordtype}{int}\ size,\ \textcolor{keywordtype}{bool}\ isFC);}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00194\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_actions_8h_a2245b7b1bc97ce746403db4b5c22afba}{NNTSP}}(\mbox{\hyperlink{class_graph}{Graph}}*\ graph,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ start,\ \textcolor{keywordtype}{double}\&\ totalCost,\ vector<Vertex*>\&\ solution,\ \textcolor{keywordtype}{int}\ size,\ \textcolor{keywordtype}{bool}\ isFC);}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00209\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_actions_8h_a48fb6db37840224b552684fc086f3bb3}{SimulatedAnnealing}}(\mbox{\hyperlink{class_graph}{Graph}}*\ graph,\ vector<Vertex*>\ solution,\ \textcolor{keywordtype}{double}\&\ totalCost,\ \textcolor{keywordtype}{double}\ initialTemp,\ \textcolor{keywordtype}{double}\ finalTemp,\ \textcolor{keywordtype}{double}\ alpha,\ \textcolor{keywordtype}{int}\ maxIter);}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \textcolor{comment}{/*\ ===========================================Extended-\/Christofides===============================================*/}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00220\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_actions_8h_a189ca605a8fb05330b41332e72f9250f}{floydWarshall}}(\mbox{\hyperlink{class_graph}{Graph}}*\ graph,\ std::unordered\_map<\mbox{\hyperlink{class_vertex}{Vertex}}*,\ std::unordered\_map<Vertex*,\ double>>\&\ shortestPaths);}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00229\ std::vector<Vertex*>\ \mbox{\hyperlink{_actions_8h_adb251236c733f1480f822c2aa9c18194}{findOddDegreeVertices}}(\mbox{\hyperlink{class_graph}{Graph}}*\ graph);}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00238\ std::vector<Edge*>\ \mbox{\hyperlink{_actions_8h_a0d6df4e9dca4e00364e9192e5cadbd81}{minimumCostPerfectMatching}}(\mbox{\hyperlink{class_graph}{Graph}}*\ mst);}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00249\ \mbox{\hyperlink{class_graph}{Graph}}\ \mbox{\hyperlink{_actions_8h_a7cd4a7322fa3de69fe7a7e3b2bdd3d20}{combineMSTAndMWPM}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_graph}{Graph}}*\ MST,\ \textcolor{keyword}{const}\ std::vector<Vertex*>\&\ oddDegreeVertices,\ std::unordered\_map<\mbox{\hyperlink{class_vertex}{Vertex}}*,\ std::unordered\_map<Vertex*,\ double>>\&\ shortestPaths);}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00258\ std::vector<Vertex*>\ \mbox{\hyperlink{_actions_8h_adc368fe41e770e2d0d33dcab86d086ee}{findEulerianWalk}}(\mbox{\hyperlink{class_graph}{Graph}}*\ multigraph);}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00269\ std::vector<Vertex*>\ \mbox{\hyperlink{_actions_8h_ad4567ea5fadfe7d570fb28e1a51ccadd}{substituteShortestPath}}(\textcolor{keyword}{const}\ std::vector<Vertex*>\&\ eulerianCircuit,\ \mbox{\hyperlink{class_graph}{Graph}}*\ graph,\ std::unordered\_map<\mbox{\hyperlink{class_vertex}{Vertex}}*,\ std::unordered\_map<Vertex*,\ double>>\&\ shortestPaths);}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00280\ std::vector<Vertex*>\ \mbox{\hyperlink{_actions_8h_a6d46cfc8cc6a68d51b1f93b4486efc58}{findShortestPath}}(\mbox{\hyperlink{class_vertex}{Vertex}}*\ start,\ \mbox{\hyperlink{class_vertex}{Vertex}}*\ end,\ \mbox{\hyperlink{class_graph}{Graph}}*\ graph);}
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00290\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_actions_8h_a87277d8561c171de0ae00327376e8162}{TSPExtendedChristofides}}(\mbox{\hyperlink{class_graph}{Graph}}*\ graph,\ \textcolor{keyword}{const}\ std::string\&\ startVertexLabel);}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ \textcolor{keyword}{using\ }MatchedPairs\ =\ std::vector<std::pair<Vertex*,\ Vertex*>>;}
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00302\ MatchedPairs\ \mbox{\hyperlink{_actions_8h_a2df4a14a6c4b030c6a96d8820600d490}{hungarianAlgorithm}}(\textcolor{keyword}{const}\ std::vector<Vertex*>\&\ oddDegreeVertices,\ std::unordered\_map<\mbox{\hyperlink{class_vertex}{Vertex}}*,\ std::unordered\_map<Vertex*,\ double>>\&\ shortestPaths);}
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00304\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ PROJETO\_2\_ACTIONS\_H}}
 
 \end{DoxyCode}

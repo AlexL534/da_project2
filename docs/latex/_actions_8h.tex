@@ -55,10 +55,12 @@ double \mbox{\hyperlink{_actions_8h_aac2af149e343a6a07addc4b9c686b97a}{calculate
 \begin{DoxyCompactList}\small\item\em Calculates the total cost of a given Hamiltonian circuit. The time complexity of this algorithm is O(\+V). \end{DoxyCompactList}\item 
 double \mbox{\hyperlink{_actions_8h_a1d68d0148d233c525b2d19a4c855c2f9}{TSPChristofides}} (\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}graph)
 \begin{DoxyCompactList}\small\item\em Solves the TSP using Christofides\textquotesingle{} algorithm. The time complexity of this algorithm is O(\+V\texorpdfstring{$^\wedge$}{\string^}3). \end{DoxyCompactList}\item 
-std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{_actions_8h_a640d1481b7cc78b87646f058b159ac49}{nearest\+Neighbor\+TSP}} (\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}graph, const std\+::string \&start, double \&total\+Cost)
+std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{_actions_8h_a71958dc1dd4a1d37f077088b3a72f0b1}{nearest\+Neighbor\+TSP}} (\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}graph, const std\+::string \&start, double \&total\+Cost, int size, bool is\+FC)
 \begin{DoxyCompactList}\small\item\em Solves the TSP using the Nearest Neighbor heuristic. The time complexity of this algorithm is O(\+V\texorpdfstring{$^\wedge$}{\string^}2). \end{DoxyCompactList}\item 
-double \mbox{\hyperlink{_actions_8h_a1431edaed5abc3cec9d28668079d0fe2}{hybrid\+MSTAnd\+NNTSP}} (\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}graph, const std\+::string \&start, double \&total\+Cost)
-\begin{DoxyCompactList}\small\item\em Solves the TSP using a hybrid of MST and Nearest Neighbor heuristics. The time complexity of this algorithm is O(\+V\texorpdfstring{$^\wedge$}{\string^}2 log V). \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{_actions_8h_a2245b7b1bc97ce746403db4b5c22afba}{NNTSP}} (\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}graph, const string \&start, double \&total\+Cost, vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} $>$ \&solution, int size, bool is\+FC)
+\begin{DoxyCompactList}\small\item\em Solves the TSP using the Nearest Neighbor heuristic with a time limit. The time complexity of this algorithm is O(\+V\texorpdfstring{$^\wedge$}{\string^}2). \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{_actions_8h_a48fb6db37840224b552684fc086f3bb3}{Simulated\+Annealing}} (\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}graph, vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} $>$ solution, double \&total\+Cost, double initial\+Temp, double final\+Temp, double alpha, int max\+Iter)
+\begin{DoxyCompactList}\small\item\em Solves the TSP using Simulated Annealing. The time complexity of this algorithm is O(k \texorpdfstring{$\ast$}{*} V\texorpdfstring{$^\wedge$}{\string^}2), where k is the number of iterations. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{_actions_8h_a189ca605a8fb05330b41332e72f9250f}{floyd\+Warshall}} (\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}graph, std\+::unordered\+\_\+map$<$ \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*}, std\+::unordered\+\_\+map$<$ \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*}, double $>$ $>$ \&shortest\+Paths)
 \begin{DoxyCompactList}\small\item\em Runs the Floyd-\/\+Warshall algorithm to find shortest paths between all pairs of vertices. The time complexity of this algorithm is O(\+V\texorpdfstring{$^\wedge$}{\string^}3). \end{DoxyCompactList}\item 
 std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{_actions_8h_adb251236c733f1480f822c2aa9c18194}{find\+Odd\+Degree\+Vertices}} (\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}graph)
@@ -303,28 +305,6 @@ Solves the minimum cost perfect matching problem using the Hungarian algorithm. 
 \begin{DoxyReturn}{Returns}
 Vector of pairs representing the minimum cost perfect matching. 
 \end{DoxyReturn}
-\Hypertarget{_actions_8h_a1431edaed5abc3cec9d28668079d0fe2}\label{_actions_8h_a1431edaed5abc3cec9d28668079d0fe2} 
-\index{Actions.h@{Actions.h}!hybridMSTAndNNTSP@{hybridMSTAndNNTSP}}
-\index{hybridMSTAndNNTSP@{hybridMSTAndNNTSP}!Actions.h@{Actions.h}}
-\doxysubsubsection{\texorpdfstring{hybridMSTAndNNTSP()}{hybridMSTAndNNTSP()}}
-{\footnotesize\ttfamily double hybrid\+MSTAnd\+NNTSP (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}}]{graph,  }\item[{const std\+::string \&}]{start,  }\item[{double \&}]{total\+Cost }\end{DoxyParamCaption})}
-
-
-
-Solves the TSP using a hybrid of MST and Nearest Neighbor heuristics. The time complexity of this algorithm is O(\+V\texorpdfstring{$^\wedge$}{\string^}2 log V). 
-
-
-\begin{DoxyParams}{Parameters}
-{\em graph} & Pointer to the graph. \\
-\hline
-{\em start} & Label of the starting vertex. \\
-\hline
-{\em total\+Cost} & Reference to store the total cost of the tour. \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-The approximate minimum path cost. 
-\end{DoxyReturn}
 \Hypertarget{_actions_8h_a0d6df4e9dca4e00364e9192e5cadbd81}\label{_actions_8h_a0d6df4e9dca4e00364e9192e5cadbd81} 
 \index{Actions.h@{Actions.h}!minimumCostPerfectMatching@{minimumCostPerfectMatching}}
 \index{minimumCostPerfectMatching@{minimumCostPerfectMatching}!Actions.h@{Actions.h}}
@@ -343,11 +323,11 @@ Finds the minimum cost perfect matching among vertices with odd degree. The time
 \begin{DoxyReturn}{Returns}
 Vector of edges representing the minimum cost perfect matching. 
 \end{DoxyReturn}
-\Hypertarget{_actions_8h_a640d1481b7cc78b87646f058b159ac49}\label{_actions_8h_a640d1481b7cc78b87646f058b159ac49} 
+\Hypertarget{_actions_8h_a71958dc1dd4a1d37f077088b3a72f0b1}\label{_actions_8h_a71958dc1dd4a1d37f077088b3a72f0b1} 
 \index{Actions.h@{Actions.h}!nearestNeighborTSP@{nearestNeighborTSP}}
 \index{nearestNeighborTSP@{nearestNeighborTSP}!Actions.h@{Actions.h}}
 \doxysubsubsection{\texorpdfstring{nearestNeighborTSP()}{nearestNeighborTSP()}}
-{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} $>$ nearest\+Neighbor\+TSP (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}}]{graph,  }\item[{const std\+::string \&}]{start,  }\item[{double \&}]{total\+Cost }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} $>$ nearest\+Neighbor\+TSP (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}}]{graph,  }\item[{const std\+::string \&}]{start,  }\item[{double \&}]{total\+Cost,  }\item[{int}]{size,  }\item[{bool}]{is\+FC }\end{DoxyParamCaption})}
 
 
 
@@ -360,6 +340,36 @@ Solves the TSP using the Nearest Neighbor heuristic. The time complexity of this
 {\em start} & Label of the starting vertex. \\
 \hline
 {\em total\+Cost} & Reference to store the total cost of the tour. \\
+\hline
+{\em size} & Number of vertices in the graph. \\
+\hline
+{\em is\+FC} & Flag to indicate if the graph is fully connected. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vector of vertices representing the tour. 
+\end{DoxyReturn}
+\Hypertarget{_actions_8h_a2245b7b1bc97ce746403db4b5c22afba}\label{_actions_8h_a2245b7b1bc97ce746403db4b5c22afba} 
+\index{Actions.h@{Actions.h}!NNTSP@{NNTSP}}
+\index{NNTSP@{NNTSP}!Actions.h@{Actions.h}}
+\doxysubsubsection{\texorpdfstring{NNTSP()}{NNTSP()}}
+{\footnotesize\ttfamily double NNTSP (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}}]{graph,  }\item[{const string \&}]{start,  }\item[{double \&}]{total\+Cost,  }\item[{vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} $>$ \&}]{solution,  }\item[{int}]{size,  }\item[{bool}]{is\+FC }\end{DoxyParamCaption})}
+
+
+
+Solves the TSP using the Nearest Neighbor heuristic with a time limit. The time complexity of this algorithm is O(\+V\texorpdfstring{$^\wedge$}{\string^}2). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & Pointer to the graph. \\
+\hline
+{\em start} & Label of the starting vertex. \\
+\hline
+{\em total\+Cost} & Reference to store the total cost of the tour. \\
+\hline
+{\em size} & Number of vertices in the graph. \\
+\hline
+{\em is\+FC} & Flag to indicate if the graph is fully connected. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -421,6 +431,36 @@ Creates a Hamiltonian circuit by shortcutting the Eulerian circuit. The time com
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 Vector of vertices representing the Hamiltonian circuit. 
+\end{DoxyReturn}
+\Hypertarget{_actions_8h_a48fb6db37840224b552684fc086f3bb3}\label{_actions_8h_a48fb6db37840224b552684fc086f3bb3} 
+\index{Actions.h@{Actions.h}!SimulatedAnnealing@{SimulatedAnnealing}}
+\index{SimulatedAnnealing@{SimulatedAnnealing}!Actions.h@{Actions.h}}
+\doxysubsubsection{\texorpdfstring{SimulatedAnnealing()}{SimulatedAnnealing()}}
+{\footnotesize\ttfamily double Simulated\+Annealing (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph}{Graph}} \texorpdfstring{$\ast$}{*}}]{graph,  }\item[{vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} $>$}]{solution,  }\item[{double \&}]{total\+Cost,  }\item[{double}]{initial\+Temp,  }\item[{double}]{final\+Temp,  }\item[{double}]{alpha,  }\item[{int}]{max\+Iter }\end{DoxyParamCaption})}
+
+
+
+Solves the TSP using Simulated Annealing. The time complexity of this algorithm is O(k \texorpdfstring{$\ast$}{*} V\texorpdfstring{$^\wedge$}{\string^}2), where k is the number of iterations. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & Pointer to the graph. \\
+\hline
+{\em solution} & Initial solution as a vector of vertices. \\
+\hline
+{\em total\+Cost} & Reference to store the total cost of the tour. \\
+\hline
+{\em initial\+Temp} & Initial temperature for the annealing process. \\
+\hline
+{\em final\+Temp} & Final temperature for the annealing process. \\
+\hline
+{\em alpha} & Cooling rate. \\
+\hline
+{\em max\+Iter} & Maximum number of iterations. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The minimum path cost found by the Simulated Annealing algorithm. 
 \end{DoxyReturn}
 \Hypertarget{_actions_8h_ad4567ea5fadfe7d570fb28e1a51ccadd}\label{_actions_8h_ad4567ea5fadfe7d570fb28e1a51ccadd} 
 \index{Actions.h@{Actions.h}!substituteShortestPath@{substituteShortestPath}}

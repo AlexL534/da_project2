@@ -146,12 +146,15 @@ Functions</h2></td></tr>
 <tr class="memitem:a1d68d0148d233c525b2d19a4c855c2f9" id="r_a1d68d0148d233c525b2d19a4c855c2f9"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d68d0148d233c525b2d19a4c855c2f9">TSPChristofides</a> (<a class="el" href="class_graph.html">Graph</a> *graph)</td></tr>
 <tr class="memdesc:a1d68d0148d233c525b2d19a4c855c2f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves the TSP using Christofides' algorithm. The time complexity of this algorithm is O(V^3).  <br /></td></tr>
 <tr class="separator:a1d68d0148d233c525b2d19a4c855c2f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a640d1481b7cc78b87646f058b159ac49" id="r_a640d1481b7cc78b87646f058b159ac49"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a640d1481b7cc78b87646f058b159ac49">nearestNeighborTSP</a> (<a class="el" href="class_graph.html">Graph</a> *graph, const std::string &amp;start, double &amp;totalCost)</td></tr>
-<tr class="memdesc:a640d1481b7cc78b87646f058b159ac49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves the TSP using the Nearest Neighbor heuristic. The time complexity of this algorithm is O(V^2).  <br /></td></tr>
-<tr class="separator:a640d1481b7cc78b87646f058b159ac49"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1431edaed5abc3cec9d28668079d0fe2" id="r_a1431edaed5abc3cec9d28668079d0fe2"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1431edaed5abc3cec9d28668079d0fe2">hybridMSTAndNNTSP</a> (<a class="el" href="class_graph.html">Graph</a> *graph, const std::string &amp;start, double &amp;totalCost)</td></tr>
-<tr class="memdesc:a1431edaed5abc3cec9d28668079d0fe2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves the TSP using a hybrid of MST and Nearest Neighbor heuristics. The time complexity of this algorithm is O(V^2 log V).  <br /></td></tr>
-<tr class="separator:a1431edaed5abc3cec9d28668079d0fe2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71958dc1dd4a1d37f077088b3a72f0b1" id="r_a71958dc1dd4a1d37f077088b3a72f0b1"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a71958dc1dd4a1d37f077088b3a72f0b1">nearestNeighborTSP</a> (<a class="el" href="class_graph.html">Graph</a> *graph, const std::string &amp;start, double &amp;totalCost, int size, bool isFC)</td></tr>
+<tr class="memdesc:a71958dc1dd4a1d37f077088b3a72f0b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves the TSP using the Nearest Neighbor heuristic. The time complexity of this algorithm is O(V^2).  <br /></td></tr>
+<tr class="separator:a71958dc1dd4a1d37f077088b3a72f0b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2245b7b1bc97ce746403db4b5c22afba" id="r_a2245b7b1bc97ce746403db4b5c22afba"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2245b7b1bc97ce746403db4b5c22afba">NNTSP</a> (<a class="el" href="class_graph.html">Graph</a> *graph, const string &amp;start, double &amp;totalCost, vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt; &amp;solution, int size, bool isFC)</td></tr>
+<tr class="memdesc:a2245b7b1bc97ce746403db4b5c22afba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves the TSP using the Nearest Neighbor heuristic with a time limit. The time complexity of this algorithm is O(V^2).  <br /></td></tr>
+<tr class="separator:a2245b7b1bc97ce746403db4b5c22afba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48fb6db37840224b552684fc086f3bb3" id="r_a48fb6db37840224b552684fc086f3bb3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a48fb6db37840224b552684fc086f3bb3">SimulatedAnnealing</a> (<a class="el" href="class_graph.html">Graph</a> *graph, vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt; solution, double &amp;totalCost, double initialTemp, double finalTemp, double alpha, int maxIter)</td></tr>
+<tr class="memdesc:a48fb6db37840224b552684fc086f3bb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves the TSP using Simulated Annealing. The time complexity of this algorithm is O(k * V^2), where k is the number of iterations.  <br /></td></tr>
+<tr class="separator:a48fb6db37840224b552684fc086f3bb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a189ca605a8fb05330b41332e72f9250f" id="r_a189ca605a8fb05330b41332e72f9250f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a189ca605a8fb05330b41332e72f9250f">floydWarshall</a> (<a class="el" href="class_graph.html">Graph</a> *graph, std::unordered_map&lt; <a class="el" href="class_vertex.html">Vertex</a> *, std::unordered_map&lt; <a class="el" href="class_vertex.html">Vertex</a> *, double &gt; &gt; &amp;shortestPaths)</td></tr>
 <tr class="memdesc:a189ca605a8fb05330b41332e72f9250f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the Floyd-Warshall algorithm to find shortest paths between all pairs of vertices. The time complexity of this algorithm is O(V^3).  <br /></td></tr>
 <tr class="separator:a189ca605a8fb05330b41332e72f9250f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -518,43 +521,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a1431edaed5abc3cec9d28668079d0fe2" name="a1431edaed5abc3cec9d28668079d0fe2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1431edaed5abc3cec9d28668079d0fe2">&#9670;&#160;</a></span>hybridMSTAndNNTSP()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double hybridMSTAndNNTSP </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_graph.html">Graph</a> *</td>          <td class="paramname"><span class="paramname"><em>graph</em>, </span></td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>start</em>, </span></td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double &amp;</td>          <td class="paramname"><span class="paramname"><em>totalCost</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Solves the TSP using a hybrid of MST and Nearest Neighbor heuristics. The time complexity of this algorithm is O(V^2 log V). </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">graph</td><td>Pointer to the graph. </td></tr>
-    <tr><td class="paramname">start</td><td>Label of the starting vertex. </td></tr>
-    <tr><td class="paramname">totalCost</td><td>Reference to store the total cost of the tour. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The approximate minimum path cost. </dd></dl>
-
-</div>
-</div>
 <a id="a0d6df4e9dca4e00364e9192e5cadbd81" name="a0d6df4e9dca4e00364e9192e5cadbd81"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0d6df4e9dca4e00364e9192e5cadbd81">&#9670;&#160;</a></span>minimumCostPerfectMatching()</h2>
 
@@ -581,8 +547,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a640d1481b7cc78b87646f058b159ac49" name="a640d1481b7cc78b87646f058b159ac49"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a640d1481b7cc78b87646f058b159ac49">&#9670;&#160;</a></span>nearestNeighborTSP()</h2>
+<a id="a71958dc1dd4a1d37f077088b3a72f0b1" name="a71958dc1dd4a1d37f077088b3a72f0b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71958dc1dd4a1d37f077088b3a72f0b1">&#9670;&#160;</a></span>nearestNeighborTSP()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -600,7 +566,17 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double &amp;</td>          <td class="paramname"><span class="paramname"><em>totalCost</em></span>&#160;)</td>
+          <td class="paramtype">double &amp;</td>          <td class="paramname"><span class="paramname"><em>totalCost</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>size</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>isFC</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -611,6 +587,62 @@ Functions</h2></td></tr>
     <tr><td class="paramname">graph</td><td>Pointer to the graph. </td></tr>
     <tr><td class="paramname">start</td><td>Label of the starting vertex. </td></tr>
     <tr><td class="paramname">totalCost</td><td>Reference to store the total cost of the tour. </td></tr>
+    <tr><td class="paramname">size</td><td>Number of vertices in the graph. </td></tr>
+    <tr><td class="paramname">isFC</td><td>Flag to indicate if the graph is fully connected. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Vector of vertices representing the tour. </dd></dl>
+
+</div>
+</div>
+<a id="a2245b7b1bc97ce746403db4b5c22afba" name="a2245b7b1bc97ce746403db4b5c22afba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2245b7b1bc97ce746403db4b5c22afba">&#9670;&#160;</a></span>NNTSP()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double NNTSP </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_graph.html">Graph</a> *</td>          <td class="paramname"><span class="paramname"><em>graph</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const string &amp;</td>          <td class="paramname"><span class="paramname"><em>start</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double &amp;</td>          <td class="paramname"><span class="paramname"><em>totalCost</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>solution</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>size</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>isFC</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Solves the TSP using the Nearest Neighbor heuristic with a time limit. The time complexity of this algorithm is O(V^2). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>Pointer to the graph. </td></tr>
+    <tr><td class="paramname">start</td><td>Label of the starting vertex. </td></tr>
+    <tr><td class="paramname">totalCost</td><td>Reference to store the total cost of the tour. </td></tr>
+    <tr><td class="paramname">size</td><td>Number of vertices in the graph. </td></tr>
+    <tr><td class="paramname">isFC</td><td>Flag to indicate if the graph is fully connected. </td></tr>
   </table>
   </dd>
 </dl>
@@ -708,6 +740,67 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Vector of vertices representing the Hamiltonian circuit. </dd></dl>
+
+</div>
+</div>
+<a id="a48fb6db37840224b552684fc086f3bb3" name="a48fb6db37840224b552684fc086f3bb3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48fb6db37840224b552684fc086f3bb3">&#9670;&#160;</a></span>SimulatedAnnealing()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double SimulatedAnnealing </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_graph.html">Graph</a> *</td>          <td class="paramname"><span class="paramname"><em>graph</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt;</td>          <td class="paramname"><span class="paramname"><em>solution</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double &amp;</td>          <td class="paramname"><span class="paramname"><em>totalCost</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>initialTemp</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>finalTemp</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>alpha</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>maxIter</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Solves the TSP using Simulated Annealing. The time complexity of this algorithm is O(k * V^2), where k is the number of iterations. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>Pointer to the graph. </td></tr>
+    <tr><td class="paramname">solution</td><td>Initial solution as a vector of vertices. </td></tr>
+    <tr><td class="paramname">totalCost</td><td>Reference to store the total cost of the tour. </td></tr>
+    <tr><td class="paramname">initialTemp</td><td>Initial temperature for the annealing process. </td></tr>
+    <tr><td class="paramname">finalTemp</td><td>Final temperature for the annealing process. </td></tr>
+    <tr><td class="paramname">alpha</td><td>Cooling rate. </td></tr>
+    <tr><td class="paramname">maxIter</td><td>Maximum number of iterations. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The minimum path cost found by the Simulated Annealing algorithm. </dd></dl>
 
 </div>
 </div>

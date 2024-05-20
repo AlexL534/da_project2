@@ -174,9 +174,23 @@ double TSPChristofides(Graph* graph);
  * @param graph Pointer to the graph.
  * @param start Label of the starting vertex.
  * @param totalCost Reference to store the total cost of the tour.
+ * @param size Number of vertices in the graph.
+ * @param isFC Flag to indicate if the graph is fully connected.
  * @return Vector of vertices representing the tour.
  */
 std::vector<Vertex*> nearestNeighborTSP(Graph* graph, const std::string& start, double& totalCost, int size, bool isFC);
+
+/**
+ * @brief Solves the TSP using the Nearest Neighbor heuristic with a time limit.
+ * The time complexity of this algorithm is O(V^2).
+ *
+ * @param graph Pointer to the graph.
+ * @param start Label of the starting vertex.
+ * @param totalCost Reference to store the total cost of the tour.
+ * @param size Number of vertices in the graph.
+ * @param isFC Flag to indicate if the graph is fully connected.
+ * @return Vector of vertices representing the tour.
+ */
 double NNTSP(Graph* graph, const string& start, double& totalCost, vector<Vertex*>& solution, int size, bool isFC);
 
 /**

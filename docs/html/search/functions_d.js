@@ -11,5 +11,6 @@ var searchData=
   ['setprocessing_8',['setProcessing',['../class_vertex.html#ab8e07026d427d6fde1422236004fb548',1,'Vertex']]],
   ['setvisited_9',['setVisited',['../class_vertex.html#a15eeabbbb6d517af746ae137c6d5b595',1,'Vertex']]],
   ['shortcuteuleriancircuit_10',['shortcutEulerianCircuit',['../_actions_8h.html#a77597de03361f7c513e96b2aa9e4ead6',1,'Actions.cpp']]],
-  ['substituteshortestpath_11',['substituteShortestPath',['../_actions_8h.html#ad4567ea5fadfe7d570fb28e1a51ccadd',1,'Actions.h']]]
+  ['simulatedannealing_11',['SimulatedAnnealing',['../_actions_8h.html#a48fb6db37840224b552684fc086f3bb3',1,'Actions.cpp']]],
+  ['substituteshortestpath_12',['substituteShortestPath',['../_actions_8h.html#ad4567ea5fadfe7d570fb28e1a51ccadd',1,'Actions.h']]]
 ];
