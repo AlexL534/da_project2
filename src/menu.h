@@ -104,14 +104,13 @@ void menu() {
                             std::cout << "Minimum cost: " << std::fixed << std::setprecision(1) << minCost << std::endl;
                             break;
                         }
-                        case 4:
-                        {
+                        case 4: {
                             a:
                             std::string strt;
                             std::string c;
                             std::string c1;
                             std::string iterations;
-                            vector<Vertex*> solution;
+                            vector<Vertex *> solution;
                             double initialTemp = 10.0;
                             double finalTemp = 0.001;
                             double alpha = 0.95;

@@ -177,20 +177,21 @@ double TSPChristofides(Graph* graph);
  * @return Vector of vertices representing the tour.
  */
 std::vector<Vertex*> nearestNeighborTSP(Graph* graph, const std::string& start, double& totalCost, int size, bool isFC);
-
-/**
- * @brief Solves the TSP using a hybrid of MST and Nearest Neighbor heuristics.
- * The time complexity of this algorithm is O(V^2 log V).
- *
- * @param graph Pointer to the graph.
- * @param start Label of the starting vertex.
- * @param totalCost Reference to store the total cost of the tour.
- * @return The approximate minimum path cost.
- */
-double hybridMSTAndNNTSP(Graph* graph, const std::string& start, double& totalCost);
-
 double NNTSP(Graph* graph, const string& start, double& totalCost, vector<Vertex*>& solution, int size, bool isFC);
 
+/**
+ * @brief Solves the TSP using Simulated Annealing.
+ * The time complexity of this algorithm is O(k * V^2), where k is the number of iterations.
+ *
+ * @param graph Pointer to the graph.
+ * @param solution Initial solution as a vector of vertices.
+ * @param totalCost Reference to store the total cost of the tour.
+ * @param initialTemp Initial temperature for the annealing process.
+ * @param finalTemp Final temperature for the annealing process.
+ * @param alpha Cooling rate.
+ * @param maxIter Maximum number of iterations.
+ * @return The minimum path cost found by the Simulated Annealing algorithm.
+ */
 double SimulatedAnnealing(Graph* graph, vector<Vertex*> solution, double& totalCost, double initialTemp, double finalTemp, double alpha, int maxIter);
 
 /* ===========================================Extended-Christofides===============================================*/
