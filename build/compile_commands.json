@@ -1,0 +1,38 @@
+[
+{
+  "directory": "C:/Users/Guilherme/Ambiente de Trabalho/da_project2/build",
+  "command": "C:/msys64/mingw64/bin/c++.exe  @CMakeFiles/Projeto_2.dir/includes_CXX.rsp -g -o CMakeFiles/Projeto_2.dir/src/Graph.cpp.obj -c \"C:/Users/Guilherme/Ambiente de Trabalho/da_project2/src/Graph.cpp\"",
+  "file": "C:/Users/Guilherme/Ambiente de Trabalho/da_project2/src/Graph.cpp",
+  "output": "CMakeFiles/Projeto_2.dir/src/Graph.cpp.obj"
+},
+{
+  "directory": "C:/Users/Guilherme/Ambiente de Trabalho/da_project2/build",
+  "command": "C:/msys64/mingw64/bin/c++.exe  @CMakeFiles/Projeto_2.dir/includes_CXX.rsp -g -o CMakeFiles/Projeto_2.dir/src/parse.cpp.obj -c \"C:/Users/Guilherme/Ambiente de Trabalho/da_project2/src/parse.cpp\"",
+  "file": "C:/Users/Guilherme/Ambiente de Trabalho/da_project2/src/parse.cpp",
+  "output": "CMakeFiles/Projeto_2.dir/src/parse.cpp.obj"
+},
+{
+  "directory": "C:/Users/Guilherme/Ambiente de Trabalho/da_project2/build",
+  "command": "C:/msys64/mingw64/bin/c++.exe  @CMakeFiles/Projeto_2.dir/includes_CXX.rsp -g -o CMakeFiles/Projeto_2.dir/src/main.cpp.obj -c \"C:/Users/Guilherme/Ambiente de Trabalho/da_project2/src/main.cpp\"",
+  "file": "C:/Users/Guilherme/Ambiente de Trabalho/da_project2/src/main.cpp",
+  "output": "CMakeFiles/Projeto_2.dir/src/main.cpp.obj"
+},
+{
+  "directory": "C:/Users/Guilherme/Ambiente de Trabalho/da_project2/build",
+  "command": "C:/msys64/mingw64/bin/c++.exe  @CMakeFiles/Projeto_2.dir/includes_CXX.rsp -g -o CMakeFiles/Projeto_2.dir/src/Actions.cpp.obj -c \"C:/Users/Guilherme/Ambiente de Trabalho/da_project2/src/Actions.cpp\"",
+  "file": "C:/Users/Guilherme/Ambiente de Trabalho/da_project2/src/Actions.cpp",
+  "output": "CMakeFiles/Projeto_2.dir/src/Actions.cpp.obj"
+},
+{
+  "directory": "C:/Users/Guilherme/Ambiente de Trabalho/da_project2/build",
+  "command": "C:/msys64/mingw64/bin/c++.exe  @CMakeFiles/Projeto_2.dir/includes_CXX.rsp -g -o CMakeFiles/Projeto_2.dir/tests/testTSPBacktracking.cpp.obj -c \"C:/Users/Guilherme/Ambiente de Trabalho/da_project2/tests/testTSPBacktracking.cpp\"",
+  "file": "C:/Users/Guilherme/Ambiente de Trabalho/da_project2/tests/testTSPBacktracking.cpp",
+  "output": "CMakeFiles/Projeto_2.dir/tests/testTSPBacktracking.cpp.obj"
+},
+{
+  "directory": "C:/Users/Guilherme/Ambiente de Trabalho/da_project2/build",
+  "command": "C:/msys64/mingw64/bin/c++.exe  @CMakeFiles/Projeto_2.dir/includes_CXX.rsp -g -o CMakeFiles/Projeto_2.dir/src/Utils.cpp.obj -c \"C:/Users/Guilherme/Ambiente de Trabalho/da_project2/src/Utils.cpp\"",
+  "file": "C:/Users/Guilherme/Ambiente de Trabalho/da_project2/src/Utils.cpp",
+  "output": "CMakeFiles/Projeto_2.dir/src/Utils.cpp.obj"
+}
+]
